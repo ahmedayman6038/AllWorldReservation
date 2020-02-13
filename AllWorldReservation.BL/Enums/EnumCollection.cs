@@ -30,21 +30,24 @@ namespace AllWorldReservation.BL.Enums
             return value.ToString();
         }
 
-        public enum ClientType
+        public enum PhotoType
         {
-            [Description("شركة")]
-            Company = 1,
+            [Description("Hotel")]
+            Hotel = 1,
 
-            [Description("فرد")]
-            Personal = 2
+            [Description("Place")]
+            Place = 2,
+
+            [Description("Post")]
+            Post = 3
         }
 
         public enum MailType
         {
-            [Description("مرسل")]
+            [Description("Sender")]
             Sender = 1,
 
-            [Description("متلقى")]
+            [Description("Reciver")]
             Receiver = 2
         }
     }

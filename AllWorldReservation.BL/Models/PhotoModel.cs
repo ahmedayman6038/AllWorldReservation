@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.BL.Models
 {
@@ -24,6 +25,10 @@ namespace AllWorldReservation.BL.Models
         [Display(Name = "Upload Date")]
         public DateTime UploadDate { get; set; }
 
-        public ICollection<PostModel> Posts { get; set; }
+        [Display(Name = "Item Id")]
+        public int ItemId { get; set; }
+
+        [Display(Name = "Type")]
+        public PhotoType Type { get; set; }
     }
 }

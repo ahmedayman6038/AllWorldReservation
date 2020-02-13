@@ -38,6 +38,9 @@
                                     @*<td>@Html.DisplayFor(modelItem => item.User.Name)</td>*@
                                     <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
                                     <td>
+                                        <button type="button" class="btn btn-secondary waves-effect" onclick="window.open('/Posts/Photos/@item.Id','_self')">
+                                            <i class="material-icons">photo</i>
+                                        </button>
                                         <button type="button" class="btn btn-success waves-effect" onclick="window.open('/Posts/Edit/@item.Id','_self')">
                                             <i class="material-icons">edit</i>
                                         </button>

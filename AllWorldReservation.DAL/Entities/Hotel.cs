@@ -21,7 +21,7 @@ namespace AllWorldReservation.DAL.Entities
         [Required]
         public float Price { get; set; }
 
-        public float Rating { get; set; }
+        public int Stars { get; set; }
 
         [Required]
         public string Location { get; set; }

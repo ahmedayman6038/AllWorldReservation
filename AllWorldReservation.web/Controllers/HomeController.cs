@@ -146,8 +146,8 @@ namespace AllWorldReservation.web.Controllers
                 //The data that will be send with the request  
                 var data = "<SearchRequest>" +
                                     "<LocationID>899</LocationID>" +
-                                    "<CheckIn>2016-­03-­09</CheckIn>" +
-                                    "<CheckOut>2016­-03-­21</CheckOut>" +
+                                    "<CheckIn>2020-­03-­09</CheckIn>" +
+                                    "<CheckOut>2020­-03-­15</CheckOut>" +
                                     "<RoomAllocations>" +
                                         "<RoomAllocation>" +
                                             "<Adults>2</Adults>" +

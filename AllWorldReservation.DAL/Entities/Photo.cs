@@ -18,6 +18,8 @@ namespace AllWorldReservation.DAL.Entities
 
         public DateTime UploadDate { get; set; }
 
-        public virtual ICollection<Post> Posts { get; set; }
+        public int ItemId { get; set; }
+
+        public int Type { get; set; }
     }
 }

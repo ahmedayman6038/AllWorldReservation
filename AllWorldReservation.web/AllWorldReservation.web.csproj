@@ -4280,6 +4280,10 @@
     <Content Include="Scripts\lib\jquery\dist\jquery.min.map" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Payment\PayPlace.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Hotels\Photos.cshtml" />
+    <Content Include="Views\Places\Photos.cshtml" />
+    <Content Include="Views\Posts\Photos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

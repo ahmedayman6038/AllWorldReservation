@@ -1,0 +1,73 @@
+﻿@model IEnumerable<AllWorldReservation.BL.Models.PhotoModel>
+
+@{
+    ViewBag.Title = "Photos";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+    var hotel = (AllWorldReservation.DAL.Entities.Hotel)ViewBag.Hotel;
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @hotel.Name
+                </h2>
+                <form method="post" id="fileSubmit" action="/Hotels/Photos/@hotel.Id" enctype="multipart/form-data">
+                    <input type="file" accept=".png, .jpg, .jpeg" onchange="uploadFile()" name="files" id="files" multiple="multiple" style="display:none;" />
+                </form>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="selectFile()">
+                    <span>Add</span>
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+            <div class="body">
+                <div id="aniimated-thumbnials" class="list-unstyled row clearfix">
+                    @foreach (var photo in Model)
+                    {
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                            <a href="~/Uploads/@photo.Name" id="@photo.Id" data-sub-html="@photo.UploadDate">
+                                <img class="img-responsive thumbnail" style="height: 180px" src="~/Uploads/@photo.Name">
+                            </a>
+                        </div>
+                    }
+                </div>
+                <nav class="text-center">
+                    <ul class="pagination">
+                        <li class="@(ViewBag.currentPage == 1 ? "disabled" : "")">
+                            <a href="/Hotels/Photos/@hotel.Id?page=1">
+                                <i class="material-icons">chevron_left</i>
+                            </a>
+                        </li>
+                        @for (int i = 1; i <= ViewBag.totalPage; i++)
+                        {
+                            <li class="@(ViewBag.currentPage == i ? "active" : "")"><a href="/Hotels/Photos/@hotel.Id?page=@i">@i</a></li>
+                        }
+                        <li class="@(ViewBag.currentPage == ViewBag.totalPage ? "disabled" : "")">
+                            <a href="/Hotels/Photos/@hotel.Id?page=@ViewBag.totalPage" class="waves-effect">
+                                <i class="material-icons">chevron_right</i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+            $('#aniimated-thumbnials').lightGallery({
+                thumbnail: true,
+                selector: 'a'
+            });
+        });
+        function selectFile(){
+            document.getElementById('files').click();
+        }
+        function uploadFile(){
+            document.getElementById("fileSubmit").submit();
+        }
+    </script>
+}

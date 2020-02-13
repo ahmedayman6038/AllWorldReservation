@@ -21,10 +21,10 @@ E:\AllWorldReservation\AllWorldReservation.DAL\bin\Release\EntityFramework.SqlSe
 E:\AllWorldReservation\AllWorldReservation.DAL\bin\Release\EntityFramework.xml
 E:\AllWorldReservation\AllWorldReservation.DAL\bin\Release\EntityFramework.SqlServer.xml
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.csprojAssemblyReference.cache
-E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.InitialCreate.resources
-E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.UpdateModel.resources
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.csproj.GenerateResource.cache
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.csproj.CoreCompileInputs.cache
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.csproj.CopyComplete
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.dll
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.pdb
+E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.IntialCreate.resources
+E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.Stars.resources

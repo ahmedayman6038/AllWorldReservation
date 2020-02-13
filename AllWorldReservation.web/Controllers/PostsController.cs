@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.web.Controllers
 {
@@ -45,22 +46,78 @@ namespace AllWorldReservation.web.Controllers
             return View(postModel);
         }
 
-        public ActionResult GetPhotos(int? id, int? current)
+        public ActionResult GetPhotos(int? id, int? page, int? current)
         {
-            var page = 1;
-            if (id != null && id > 0)
+            if (page == null || page < 0)
             {
-                page = (int)id;
+                page = 1;
             }
-            var photos = unitOfWork.PhotoRepository.Get().OrderByDescending(p => p.UploadDate);
+            var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Post && p.ItemId == id).OrderByDescending(p => p.UploadDate);
             var pageSize = 16;
             var totalRecord = photos.Count();
             var totalPages = (totalRecord / pageSize) + ((totalRecord % pageSize) > 0 ? 1 : 0);
             ViewBag.totalPage = totalPages;
             ViewBag.currentPage = page;
-            ViewBag.ImageList = photos.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            ViewBag.ImageList = photos.Skip(((int)page - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.currentPhoto = current ?? 0;
             return PartialView("_Photos");
+        }
+
+        public ActionResult Photos(int? id, int? page)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var post = unitOfWork.PostRepository.GetByID(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            if (page == null || page < 0)
+            {
+                page = 1;
+            }
+            var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Post && p.ItemId == id).OrderByDescending(p => p.UploadDate);
+            var pageSize = 16;
+            var totalRecord = photos.Count();
+            var totalPages = (totalRecord / pageSize) + ((totalRecord % pageSize) > 0 ? 1 : 0);
+            if (page > totalPages)
+            {
+                page = totalPages;
+            }
+            ViewBag.totalPage = totalPages;
+            ViewBag.currentPage = page;
+            ViewBag.Post = post;
+            var pagePhotos = photos.Skip(((int)page - 1) * pageSize).Take(pageSize);
+            return View(Mapper.Map<IEnumerable<PhotoModel>>(pagePhotos));
+        }
+
+        [HttpPost]
+        public ActionResult Photos(int? id, List<HttpPostedFileBase> files)
+        {
+            foreach (var file in files)
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    var extension = Path.GetExtension(file.FileName);
+                    var fileExtension = extension.ToLower();
+                    if (allowedExtensions.Contains(fileExtension))
+                    {
+                        var uniqe = Guid.NewGuid();
+                        string path = Path.Combine(Server.MapPath("~/Uploads"), uniqe + extension);
+                        file.SaveAs(path);
+                        var photoModel = new PhotoModel();
+                        photoModel.Name = uniqe + extension;
+                        photoModel.Type = PhotoType.Post;
+                        photoModel.ItemId = (int)id;
+                        var photo = Mapper.Map<Photo>(photoModel);
+                        unitOfWork.PhotoRepository.Insert(photo);
+                        unitOfWork.Save();
+                    }
+                }
+            }
+            return RedirectToAction("Photos", new { id = id });
         }
 
         public ActionResult Create()
@@ -73,33 +130,47 @@ namespace AllWorldReservation.web.Controllers
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Content,CategoryId,PhotoId")] PostModel postModel, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "Id,Title,Content,CategoryId,PhotoId")] PostModel postModel, List<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
                 var post = Mapper.Map<Post>(postModel);
-                if (file != null && file.ContentLength > 0)
+                unitOfWork.PostRepository.Insert(post);
+                unitOfWork.Save();
+                var first = true;
+                foreach (var file in files)
                 {
-                    var extension = Path.GetExtension(file.FileName);
-                    var fileExtension = extension.ToLower();
-                    if (allowedExtensions.Contains(fileExtension))
+                    if (file != null && file.ContentLength > 0)
                     {
-                        var uniqe = Guid.NewGuid();
-                        string path = Path.Combine(Server.MapPath("~/Uploads"), uniqe + extension);
-                        file.SaveAs(path);
-                        var photoModel = new PhotoModel();
-                        photoModel.Name = uniqe + extension;
-                        var photo = Mapper.Map<Photo>(photoModel);
-                        unitOfWork.PhotoRepository.Insert(photo);
-                        post.Photo = photo;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Photo", "please select photo in these formats .jpg, .jpeg, .png");
-                        return View(postModel);
+                        var extension = Path.GetExtension(file.FileName);
+                        var fileExtension = extension.ToLower();
+                        if (allowedExtensions.Contains(fileExtension))
+                        {
+                            var uniqe = Guid.NewGuid();
+                            string path = Path.Combine(Server.MapPath("~/Uploads"), uniqe + extension);
+                            file.SaveAs(path);
+                            var photoModel = new PhotoModel();
+                            photoModel.Name = uniqe + extension;
+                            photoModel.Type = PhotoType.Post;
+                            photoModel.ItemId = post.Id;
+                            var photo = Mapper.Map<Photo>(photoModel);
+                            unitOfWork.PhotoRepository.Insert(photo);
+                            if (first)
+                            {
+                                post.Photo = photo;
+                                unitOfWork.PostRepository.Update(post);
+                                first = false;
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("Photo", "please select photos in these formats .jpg, .jpeg, .png");
+                            var categoriess = unitOfWork.CategoryRepository.Get();
+                            ViewBag.CategoryId = new SelectList(categoriess, "Id", "Name");
+                            return View(postModel);
+                        }
                     }
                 }
-                unitOfWork.PostRepository.Insert(post);
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }
@@ -127,42 +198,11 @@ namespace AllWorldReservation.web.Controllers
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Content,UserId,CategoryId,PhotoId")] PostModel postModel, HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "Id,Title,Content,UserId,CategoryId,PhotoId")] PostModel postModel)
         {
             if (ModelState.IsValid)
             {
                 var post = Mapper.Map<Post>(postModel);
-                if (file != null && file.ContentLength > 0)
-                {
-                    var extension = Path.GetExtension(file.FileName);
-                    var fileExtension = extension.ToLower();
-                    if (allowedExtensions.Contains(fileExtension))
-                    {
-                        var oldPhoto = unitOfWork.PhotoRepository.GetByID(postModel.PhotoId);
-                        var uniqe = Guid.NewGuid();
-                        string path = Path.Combine(Server.MapPath("~/Uploads"), uniqe + extension);
-                        file.SaveAs(path);
-                        var photoModel = new PhotoModel();
-                        photoModel.Name = uniqe + extension;
-                        var photo = Mapper.Map<Photo>(photoModel);
-                        unitOfWork.PhotoRepository.Insert(photo);
-                        post.Photo = photo;
-                        if (oldPhoto != null)
-                        {
-                            string PhotoPath = Server.MapPath("~/Uploads/" + oldPhoto.Name);
-                            if (System.IO.File.Exists(PhotoPath))
-                            {
-                                System.IO.File.Delete(PhotoPath);
-                            }
-                            unitOfWork.PhotoRepository.Delete(oldPhoto);
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Photo", "please select photo in these formats .jpg, .jpeg, .png");
-                        return View(postModel);
-                    }
-                }
                 unitOfWork.PostRepository.Update(post);
                 unitOfWork.Save();
                 return RedirectToAction("Index");
@@ -184,8 +224,8 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
-            var photo = unitOfWork.PhotoRepository.GetByID(post.PhotoId);
-            if (photo != null)
+            var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Post && p.ItemId == post.Id);
+            foreach (var photo in photos)
             {
                 string PhotoPath = Server.MapPath("~/Uploads/" + photo.Name);
                 if (System.IO.File.Exists(PhotoPath))

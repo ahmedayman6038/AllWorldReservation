@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.web.Controllers
 {
@@ -45,37 +46,58 @@ namespace AllWorldReservation.web.Controllers
             return View(placeModel);
         }
 
-        public ActionResult GetPhotos(int? id, int? current)
+        public ActionResult GetPhotos(int? id,int? page,int? current)
         {
-            var page = 1;
-            if (id != null && id > 0)
+            if (page == null || page < 0)
             {
-                page = (int)id;
+                page = 1;
             }
-            var photos = unitOfWork.PhotoRepository.Get().OrderByDescending(p => p.UploadDate);
+            var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Place && p.ItemId == id).OrderByDescending(p => p.UploadDate);
             var pageSize = 16;
             var totalRecord = photos.Count();
             var totalPages = (totalRecord / pageSize) + ((totalRecord % pageSize) > 0 ? 1 : 0);
             ViewBag.totalPage = totalPages;
             ViewBag.currentPage = page;
-            ViewBag.ImageList = photos.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            ViewBag.ImageList = photos.Skip(((int)page - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.currentPhoto = current ?? 0;
             return PartialView("_Photos");
         }
 
-        public ActionResult Create()
+        public ActionResult Photos(int? id, int? page)
         {
-            var place = new PlaceModel();
-            return View(place);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var place = unitOfWork.PlaceRepository.GetByID(id);
+            if (place == null)
+            {
+                return HttpNotFound();
+            }
+            if (page == null || page < 0)
+            {
+                page = 1;
+            }
+            var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Place && p.ItemId == id).OrderByDescending(p => p.UploadDate);
+            var pageSize = 16;
+            var totalRecord = photos.Count();
+            var totalPages = (totalRecord / pageSize) + ((totalRecord % pageSize) > 0 ? 1 : 0);
+            if (page > totalPages)
+            {
+                page = totalPages;
+            }
+            ViewBag.totalPage = totalPages;
+            ViewBag.currentPage = page;
+            ViewBag.Place = place;
+            var pagePhotos = photos.Skip(((int)page - 1) * pageSize).Take(pageSize);
+            return View(Mapper.Map<IEnumerable<PhotoModel>>(pagePhotos));
         }
 
-        [HttpPost, ValidateInput(false)]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Rating,Location,Duration,PhotoId")] PlaceModel placeModel, HttpPostedFileBase file)
+        [HttpPost]
+        public ActionResult Photos(int? id, List<HttpPostedFileBase> files)
         {
-            if (ModelState.IsValid)
+            foreach (var file in files)
             {
-                var place = Mapper.Map<Place>(placeModel);
                 if (file != null && file.ContentLength > 0)
                 {
                     var extension = Path.GetExtension(file.FileName);
@@ -87,17 +109,64 @@ namespace AllWorldReservation.web.Controllers
                         file.SaveAs(path);
                         var photoModel = new PhotoModel();
                         photoModel.Name = uniqe + extension;
+                        photoModel.Type = PhotoType.Place;
+                        photoModel.ItemId = (int)id;
                         var photo = Mapper.Map<Photo>(photoModel);
                         unitOfWork.PhotoRepository.Insert(photo);
-                        place.Photo = photo;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Photo", "please select photo in these formats .jpg, .jpeg, .png");
-                        return View(placeModel);
+                        unitOfWork.Save();
                     }
                 }
+            }
+            return RedirectToAction("Photos", new { id = id });
+        }
+
+        public ActionResult Create()
+        {
+            var place = new PlaceModel();
+            return View(place);
+        }
+
+        [HttpPost, ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Location,Duration,PhotoId")] PlaceModel placeModel, List<HttpPostedFileBase> files)
+        {
+            if (ModelState.IsValid)
+            {
+                var place = Mapper.Map<Place>(placeModel);
                 unitOfWork.PlaceRepository.Insert(place);
+                unitOfWork.Save();
+                var first = true;
+                foreach (var file in files)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var extension = Path.GetExtension(file.FileName);
+                        var fileExtension = extension.ToLower();
+                        if (allowedExtensions.Contains(fileExtension))
+                        {
+                            var uniqe = Guid.NewGuid();
+                            string path = Path.Combine(Server.MapPath("~/Uploads"), uniqe + extension);
+                            file.SaveAs(path);
+                            var photoModel = new PhotoModel();
+                            photoModel.Name = uniqe + extension;
+                            photoModel.Type = PhotoType.Place;
+                            photoModel.ItemId = place.Id;
+                            var photo = Mapper.Map<Photo>(photoModel);
+                            unitOfWork.PhotoRepository.Insert(photo);
+                            if (first)
+                            {
+                                place.Photo = photo;
+                                unitOfWork.PlaceRepository.Update(place);
+                                first = false;
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("Photo", "please select photos in these formats .jpg, .jpeg, .png");
+                            return View(placeModel);
+                        }
+                    }
+                }
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }
@@ -121,42 +190,11 @@ namespace AllWorldReservation.web.Controllers
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Rating,Location,Duration,PhotoId")] PlaceModel placeModel, HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Location,Duration,PhotoId")] PlaceModel placeModel)
         {
             if (ModelState.IsValid)
             {
                 var place = Mapper.Map<Place>(placeModel);
-                if (file != null && file.ContentLength > 0)
-                {
-                    var extension = Path.GetExtension(file.FileName);
-                    var fileExtension = extension.ToLower();
-                    if (allowedExtensions.Contains(fileExtension))
-                    {
-                        var oldPhoto = unitOfWork.PhotoRepository.GetByID(placeModel.PhotoId);
-                        var uniqe = Guid.NewGuid();
-                        string path = Path.Combine(Server.MapPath("~/Uploads"), uniqe + extension);
-                        file.SaveAs(path);
-                        var photoModel = new PhotoModel();
-                        photoModel.Name = uniqe + extension;
-                        var photo = Mapper.Map<Photo>(photoModel);
-                        unitOfWork.PhotoRepository.Insert(photo);
-                        place.Photo = photo;
-                        if (oldPhoto != null)
-                        {
-                            string PhotoPath = Server.MapPath("~/Uploads/" + oldPhoto.Name);
-                            if (System.IO.File.Exists(PhotoPath))
-                            {
-                                System.IO.File.Delete(PhotoPath);
-                            }
-                            unitOfWork.PhotoRepository.Delete(oldPhoto);
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Photo", "please select photo in these formats .jpg, .jpeg, .png");
-                        return View(placeModel);
-                    }
-                }
                 unitOfWork.PlaceRepository.Update(place);
                 unitOfWork.Save();
                 return RedirectToAction("Index");
@@ -176,8 +214,8 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
-            var photo = unitOfWork.PhotoRepository.GetByID(place.PhotoId);
-            if (photo != null)
+            var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Place && p.ItemId == place.Id);
+            foreach (var photo in photos)
             {
                 string PhotoPath = Server.MapPath("~/Uploads/" + photo.Name);
                 if (System.IO.File.Exists(PhotoPath))

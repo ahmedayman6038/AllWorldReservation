@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.web.Controllers
 {
@@ -45,37 +46,58 @@ namespace AllWorldReservation.web.Controllers
             return View(hotelModel);
         }
 
-        public ActionResult GetPhotos(int? id, int? current)
+        public ActionResult GetPhotos(int? id,int? page, int? current)
         {
-            var page = 1;
-            if (id != null && id > 0)
+            if (page == null || page < 0)
             {
-                page = (int)id;
+                page = 1;
             }
-            var photos = unitOfWork.PhotoRepository.Get().OrderByDescending(p => p.UploadDate);
+            var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Hotel && p.ItemId == id).OrderByDescending(p => p.UploadDate);
             var pageSize = 16;
             var totalRecord = photos.Count();
             var totalPages = (totalRecord / pageSize) + ((totalRecord % pageSize) > 0 ? 1 : 0);
             ViewBag.totalPage = totalPages;
             ViewBag.currentPage = page;
-            ViewBag.ImageList = photos.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            ViewBag.ImageList = photos.Skip(((int)page - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.currentPhoto = current ?? 0;
             return PartialView("_Photos");
         }
 
-        public ActionResult Create()
+        public ActionResult Photos(int? id, int? page)
         {
-            var hotel = new HotelModel();
-            return View(hotel);
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var hotel = unitOfWork.HotelRepository.GetByID(id);
+            if(hotel == null)
+            {
+                return HttpNotFound();
+            }
+            if (page == null || page < 0)
+            {
+                page = 1;
+            }
+            var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Hotel && p.ItemId == id).OrderByDescending(p => p.UploadDate);
+            var pageSize = 16;
+            var totalRecord = photos.Count();
+            var totalPages = (totalRecord / pageSize) + ((totalRecord % pageSize) > 0 ? 1 : 0);
+            if (page > totalPages)
+            {
+                page = totalPages;
+            }
+            ViewBag.totalPage = totalPages;
+            ViewBag.currentPage = page;
+            ViewBag.Hotel = hotel;
+            var pagePhotos = photos.Skip(((int)page - 1) * pageSize).Take(pageSize);
+            return View(Mapper.Map<IEnumerable<PhotoModel>>(pagePhotos));
         }
 
-        [HttpPost, ValidateInput(false)]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Rating,Location,PhotoId")] HotelModel hotelModel, HttpPostedFileBase file)
+        [HttpPost]
+        public ActionResult Photos(int? id, List<HttpPostedFileBase> files)
         {
-            if (ModelState.IsValid)
+            foreach (var file in files)
             {
-                var hotel = Mapper.Map<Hotel>(hotelModel);
                 if (file != null && file.ContentLength > 0)
                 {
                     var extension = Path.GetExtension(file.FileName);
@@ -87,17 +109,64 @@ namespace AllWorldReservation.web.Controllers
                         file.SaveAs(path);
                         var photoModel = new PhotoModel();
                         photoModel.Name = uniqe + extension;
+                        photoModel.Type = PhotoType.Hotel;
+                        photoModel.ItemId = (int)id;
                         var photo = Mapper.Map<Photo>(photoModel);
                         unitOfWork.PhotoRepository.Insert(photo);
-                        hotel.Photo = photo;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Photo", "please select photo in these formats .jpg, .jpeg, .png");
-                        return View(hotelModel);
+                        unitOfWork.Save();
                     }
                 }
+            }
+            return RedirectToAction("Photos", new { id = id });
+        }
+
+        public ActionResult Create()
+        {
+            var hotel = new HotelModel();
+            return View(hotel);
+        }
+
+        [HttpPost, ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Stars,Location,PhotoId")] HotelModel hotelModel, List<HttpPostedFileBase> files)
+        {
+            if (ModelState.IsValid)
+            {
+                var hotel = Mapper.Map<Hotel>(hotelModel);
                 unitOfWork.HotelRepository.Insert(hotel);
+                unitOfWork.Save();
+                var first = true;
+                foreach (var file in files)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var extension = Path.GetExtension(file.FileName);
+                        var fileExtension = extension.ToLower();
+                        if (allowedExtensions.Contains(fileExtension))
+                        {
+                            var uniqe = Guid.NewGuid();
+                            string path = Path.Combine(Server.MapPath("~/Uploads"), uniqe + extension);
+                            file.SaveAs(path);
+                            var photoModel = new PhotoModel();
+                            photoModel.Name = uniqe + extension;
+                            photoModel.Type = PhotoType.Hotel;
+                            photoModel.ItemId = hotel.Id;
+                            var photo = Mapper.Map<Photo>(photoModel);
+                            unitOfWork.PhotoRepository.Insert(photo);
+                            if (first)
+                            {
+                                hotel.Photo = photo;
+                                unitOfWork.HotelRepository.Update(hotel);
+                                first = false;
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("Photo", "please select photos in these formats .jpg, .jpeg, .png");
+                            return View(hotelModel);
+                        }
+                    }
+                }
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }
@@ -121,42 +190,11 @@ namespace AllWorldReservation.web.Controllers
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Rating,Location,PhotoId")] HotelModel hotelModel, HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Stars,Location,PhotoId")] HotelModel hotelModel)
         {
             if (ModelState.IsValid)
             {
                 var hotel = Mapper.Map<Hotel>(hotelModel);
-                if (file != null && file.ContentLength > 0)
-                {
-                    var extension = Path.GetExtension(file.FileName);
-                    var fileExtension = extension.ToLower();
-                    if (allowedExtensions.Contains(fileExtension))
-                    {
-                        var oldPhoto = unitOfWork.PhotoRepository.GetByID(hotelModel.PhotoId);
-                        var uniqe = Guid.NewGuid();
-                        string path = Path.Combine(Server.MapPath("~/Uploads"), uniqe + extension);
-                        file.SaveAs(path);
-                        var photoModel = new PhotoModel();
-                        photoModel.Name = uniqe + extension;
-                        var photo = Mapper.Map<Photo>(photoModel);
-                        unitOfWork.PhotoRepository.Insert(photo);
-                        hotel.Photo = photo;
-                        if (oldPhoto != null)
-                        {
-                            string PhotoPath = Server.MapPath("~/Uploads/" + oldPhoto.Name);
-                            if (System.IO.File.Exists(PhotoPath))
-                            {
-                                System.IO.File.Delete(PhotoPath);
-                            }
-                            unitOfWork.PhotoRepository.Delete(oldPhoto);
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Photo", "please select photo in these formats .jpg, .jpeg, .png");
-                        return View(hotelModel);
-                    }
-                }
                 unitOfWork.HotelRepository.Update(hotel);
                 unitOfWork.Save();
                 return RedirectToAction("Index");
@@ -176,8 +214,8 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
-            var photo = unitOfWork.PhotoRepository.GetByID(hotel.PhotoId);
-            if (photo != null)
+            var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Hotel && p.ItemId == hotel.Id);
+            foreach (var photo in photos)
             {
                 string PhotoPath = Server.MapPath("~/Uploads/" + photo.Name);
                 if (System.IO.File.Exists(PhotoPath))

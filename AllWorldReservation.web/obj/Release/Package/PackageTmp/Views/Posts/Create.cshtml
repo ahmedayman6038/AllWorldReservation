@@ -46,7 +46,7 @@
                     @Html.LabelFor(model => model.Photo)
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="file" accept=".png, .jpg, .jpeg" name="file" id="file" />
+                            <input type="file" accept=".png, .jpg, .jpeg" multiple="multiple" name="files" id="files" />
                         </div>
                         @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
                     </div>

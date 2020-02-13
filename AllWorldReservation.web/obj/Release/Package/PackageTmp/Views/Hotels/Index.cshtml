@@ -25,7 +25,7 @@
                                 <th>@Html.DisplayNameFor(model => model.Name)</th>
                                 <th>@Html.DisplayNameFor(model => model.Location)</th>
                                 <th>@Html.DisplayNameFor(model => model.Price)</th>
-                                <th>@Html.DisplayNameFor(model => model.Rating)</th>
+                                <th>@Html.DisplayNameFor(model => model.Stars)</th>
                                 <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
                                 <th>Options</th>
                             </tr>
@@ -37,9 +37,12 @@
                                     <td>@Html.DisplayFor(modelItem => item.Name)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Location)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Rating)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Stars)</td>
                                     <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
                                     <td>
+                                        <button type="button" class="btn btn-secondary waves-effect" onclick="window.open('/Hotels/Photos/@item.Id','_self')">
+                                            <i class="material-icons">photo</i>
+                                        </button>
                                         <button type="button" class="btn btn-success waves-effect" onclick="window.open('/Hotels/Edit/@item.Id','_self')">
                                             <i class="material-icons">edit</i>
                                         </button>

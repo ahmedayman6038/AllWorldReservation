@@ -59,13 +59,9 @@
     <Compile Include="Entities\Place.cs" />
     <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\Setting.cs" />
-    <Compile Include="Migrations\202001041228269_InitialCreate.cs" />
-    <Compile Include="Migrations\202001041228269_InitialCreate.designer.cs">
-      <DependentUpon>202001041228269_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001041602595_UpdateModel.cs" />
-    <Compile Include="Migrations\202001041602595_UpdateModel.designer.cs">
-      <DependentUpon>202001041602595_UpdateModel.cs</DependentUpon>
+    <Compile Include="Migrations\202002131949293_UpdateServer.cs" />
+    <Compile Include="Migrations\202002131949293_UpdateServer.designer.cs">
+      <DependentUpon>202002131949293_UpdateServer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,11 +73,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001041228269_InitialCreate.resx">
-      <DependentUpon>202001041228269_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001041602595_UpdateModel.resx">
-      <DependentUpon>202001041602595_UpdateModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002131949293_UpdateServer.resx">
+      <DependentUpon>202002131949293_UpdateServer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

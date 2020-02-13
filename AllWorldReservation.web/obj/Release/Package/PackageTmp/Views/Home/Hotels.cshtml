@@ -118,12 +118,20 @@
                                             <div class="one">
                                                 <h3><a href="#">@item.Name</a></h3>
                                                 <p class="rate">
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star-o"></i>
-                                                    <span>8 Rating</span>
+                                                    @{
+                                                        int i = 0;
+                                                        while (i < item.Stars)
+                                                        {
+                                                            @:<i class="icon-star"></i>
+                                                            i++;
+                                                        }
+                                                        while (i < 5)
+                                                        {
+                                                            @:<i class="icon-star-o"></i>
+                                                            i++;
+                                                        }
+                                                    }
+                                                    <span>Star</span>
                                                 </p>
                                             </div>
                                             <div class="two">

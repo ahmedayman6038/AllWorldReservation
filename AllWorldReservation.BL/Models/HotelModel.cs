@@ -29,8 +29,8 @@ namespace AllWorldReservation.BL.Models
         [DataType(DataType.Currency)]
         public float Price { get; set; }
 
-        [Display(Name = "Rating")]
-        public float Rating { get; set; }
+        [Display(Name = "Stars")]
+        public int Stars { get; set; }
 
         [Display(Name = "Location")]
         [Required(ErrorMessage = "Location Required")]
