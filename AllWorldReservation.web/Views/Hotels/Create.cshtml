@@ -1,0 +1,147 @@
+﻿@model AllWorldReservation.BL.Models.HotelModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Add Hotel
+                </h2>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Hotels','_self')">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    <span>Back To List</span>
+                </button>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm("Create", "Hotels", FormMethod.Post, new { encType = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(model => model.Name)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Name) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Location)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Location) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Price)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Price) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Description)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Photo)
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="file" accept=".png, .jpg, .jpeg" name="file" id="file" />
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                    </div>
+                    @*<div class="form-group">
+                <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#largeModal">
+                    <i class="material-icons">add_photo_alternate</i>
+                    <span>Select Photo</span>
+                </button>
+                @Html.HiddenFor(model => model.PhotoId)
+            </div>*@
+                    <button type="submit" class="btn btn-primary waves-effect">
+                        <span>Save</span>
+                        <i class="material-icons">save</i>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Large Size -->
+@*<div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="largeModalLabel">@Html.DisplayNameFor(model => model.PhotoId)</h4>
+            </div>
+            <div class="modal-body" id="photos">
+                @{Html.RenderAction("GetPhotos", new { id = 1, current = Model.PhotoId });}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-link waves-effect" onclick="removePhoto()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+<!-- Loading -->
+@*<div class="loading" id="loading" style="display: none;">
+    <div class="preloader loading-circle">
+        <div class="spinner-layer pl-light-blue">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+</div>*@
+<!-- #END# Vertical Layout -->
+@section scripts {
+    <script>
+        var currentId = null;
+        $(function () {
+            CKEDITOR.replace('Description');
+        });
+        function selectPhoto(id) {
+            $("#PhotoId").val(id);
+            if (currentId != null) {
+                $("#" + currentId).removeClass("select-photo");
+            }
+            $("#" + id).addClass("select-photo");
+            currentId = id;
+        }
+        function removePhoto() {
+            if (currentId != null) {
+                $("#PhotoId").val("");
+                $("#" + currentId).removeClass("select-photo");
+                currentId = null;
+            }
+        }
+        function getPhotos(page) {
+            $("#loading").show();
+            $.ajax({
+                type: "GET",
+                url: "/Posts/GetPhotos/" + page + "?current=" + currentId,
+                dataType: "html",
+                success: function (data) {
+                    $("#photos").html(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                },
+                complete: function () {
+                    $("#loading").hide();
+                }
+                
+            })
+        }
+    </script>
+}

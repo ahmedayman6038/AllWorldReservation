@@ -1,0 +1,25 @@
+@using AllWorldReservation.web.Gateway
+@model AllWorldReservation.web.Gateway.GatewayApiRequest
+
+<div class="col-9">
+    <div class="row">
+        <form class="col-12 form-horizontal" asp-controller="PaymentApi" asp-action="process" method="post">
+            <h3>Retrieve Order</h3>
+            <div class="alert alert-warning" role="alert">
+                <p>A valid order ID are needed to retrieve a order.</p>
+                <p>To get these values, run the Pay process, then enter the values from the response.</p>
+            </div>
+            <fieldset>
+                <input asp-for="ApiOperation" type="hidden" />
+                <input asp-for="ApiMethod" type="hidden" />
+                <div class="form-group">
+                    <label for="order-id">Order ID</label>
+                    <input asp-for="OrderId" id="order-id" type="text" placeholder="[Order ID from existing transaction]" class="form-control input-md" required=""/>
+                </div>
+                <div class="form-group">
+                    <button id="process" name="process" class="btn btn-primary">Retrieve Transaction</button>
+                </div>
+            </fieldset>
+        </form>
+    </div> 
+</div>

@@ -1,0 +1,101 @@
+﻿@model AllWorldReservation.BL.Models.SettingModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Settings
+                </h2>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(model => model.CompanyName)
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.CompanyName) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.CompanyEmail)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.CompanyEmail, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.CompanyEmail) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CompanyEmail, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.CompanyPhone)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.CompanyPhone, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.CompanyPhone) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CompanyPhone, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.CompanyTelephone)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.CompanyTelephone, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.CompanyTelephone) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CompanyTelephone, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.CompanyFax)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.CompanyFax, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.CompanyFax) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CompanyFax, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.CompanyAddress)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.CompanyAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.CompanyAddress) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.AboutCompany)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.AboutCompany, new { htmlAttributes = new { @class = "form-control no-resize", rows = 4, placeholder = "Enter " + Html.DisplayNameFor(model => model.AboutCompany) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AboutCompany, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.FacebookUrl)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.FacebookUrl, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.FacebookUrl) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.FacebookUrl, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.TwitterUrl)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.TwitterUrl, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.TwitterUrl) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.TwitterUrl, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.InstagramUrl)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.InstagramUrl, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.InstagramUrl) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.InstagramUrl, "", new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-primary waves-effect">
+                        <i class="material-icons">save</i>
+                        <span>Save</span>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Vertical Layout -->

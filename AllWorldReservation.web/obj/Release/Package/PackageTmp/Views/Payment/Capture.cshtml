@@ -1,0 +1,33 @@
+@using AllWorldReservation.web.Gateway
+@model AllWorldReservation.web.Gateway.GatewayApiRequest
+
+<div class="col-9">
+    <div class="row">
+        <form class="col-12 form-horizontal" asp-controller="PaymentApi" asp-action="process" method="post">
+            <h3>Capture</h3>
+            <div class="alert alert-warning" role="alert">
+                This API operation is typically not a browser initiated action. However, we are calling this action from browser only as a reference to get an idea of how it can be done through your application.
+            </div>
+            <div class="mb-4">
+                <input asp-for="TransactionId" id="transactionId" type="hidden" />
+                <input asp-for="ApiOperation" id="apiOperation" type="hidden" />
+                <input asp-for="ApiMethod" id="apiMethod" type="hidden" />
+                <div class="form-group">
+                    <label for="order-id">Order ID</label>
+                     <input asp-for="OrderId" id="order-id" type="text" placeholder="[Order ID from existing authorization]" class="form-control input-md" required=""/>
+                </div>
+                <div class="form-group">
+                    <label for="transaction-amount">Amount</label>
+                    <input asp-for="TransactionAmount" id="transaction-amount" type="text" placeholder="[Amount less than or equal to the authorized amount]" class="form-control input-md" required=""/>                      
+                </div>
+                <div class="form-group">
+                    <label for="transaction-currency">Currency</label>
+                    <input asp-for="TransactionCurrency" id="transaction-currency" type="text" placeholder="[Currency from existing authorization]" class="form-control input-md" required=""/>
+                </div>
+                <div class="form-group">
+                    <button id="process" name="process" class="btn btn-primary">Process Capture</button>
+                </div>
+            </div>
+        </form>
+    </div> <!-- row -->
+</div>

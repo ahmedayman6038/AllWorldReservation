@@ -1,0 +1,48 @@
+﻿@model AllWorldReservation.BL.Models.CategoryModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Edit Category
+                </h2>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Categories','_self')">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    <span>Back To List</span>
+                </button>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(model => model.Name)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Name) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Description)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control no-resize", rows = 5, placeholder = "Enter " + Html.DisplayNameFor(model => model.Description) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-primary waves-effect">
+                        <span>Save</span>
+                        <i class="material-icons">save</i>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Vertical Layout -->

@@ -1,0 +1,71 @@
+@using AllWorldReservation.web.Gateway
+@model AllWorldReservation.web.Gateway.GatewayApiRequest
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+<script type="text/javascript">
+    var DotNetSample = {
+        operation: function() {
+            return "MASTERPASS";
+        },
+        endpoint: function() {
+            return "/processMasterpass";
+        },
+        secureIdResponseUrl: function() {
+            return null;
+        }
+    };
+</script>
+<!-- APPLY CLICK-JACKING STYLING AND HIDE CONTENTS OF THE PAGE -->
+<style id="antiClickjack">body{display:none !important;}</style>
+<!-- INCLUDE SESSION.JS JAVASCRIPT LIBRARY -->
+<script src="@ViewBag.JavascriptSessionUrl"></script>
+
+@using(Html.BeginForm("processMasterpass", "PaymentApi", FormMethod.Post, new {@class="col-9 form-horizontal"})){
+        <div class="row">
+            <div class="contents col-12">
+                <div class="col-md-12">
+                    <h3>Pay with Masterpass</h3>
+                    <div class="alert alert-warning" role="alert">
+                        <p><strong>NOTE:</strong> You can also do an authorization via Masterpass, depending on your merchant settings.</p>
+                        <p>This page is for demonstration purposes only, to collect information like order amount and currency in order to generate the Masterpass button. In practical use this would be collected behind the scenes.</p>
+                        <p>Here are the steps to complete this transaction:</p>
+                        <ol>
+                            <li>Use the <a href="@ViewBag.MasterpassCreateSession" target="_blank">CREATE_SESSION</a> operation to create a session.</li>
+                            <li>Use the <a href="@ViewBag.MasterpassOpenWallet" target="_blank">UPDATE_SESSION</a> operation to update the session with information about the order (like amount, description, currency, etc).</li>
+                            <li>Use the <a href="@ViewBag.MasterpassJSLibrary" target="_blank">OPEN_WALLET</a> operation to initiate the Masterpass interaction.</li>
+                            <li>Use the <a href="@ViewBag.MasterpassUpdateSessionFromWallet" target="_blank">Masterpass JavaScript library</a> to launch the Masterpass interaction.</li>
+                            <li>Use the URL parameters included in the Masterpass callback with the <a href="@ViewBag.MasterpassPay" target="_blank">UPDATE_SESSION_FROM_WALLET</a> operation to retrieve the payment details from Masterpass. </li>
+                            <li>Use the payment details to complete the transaction using <a href="@ViewBag.MasterpassAuthorize" target="_blank">AUTHORIZE</a>.</li>
+                        </ol>
+                        <p>View the full Masterpass documentation <a href="@ViewBag.MasterpassFullDocumentation" target="_blank">here</a>.</p>
+                    </div>              
+                    <div>
+                    <div class="form-group">
+                            <label for="wallet-provider">Wallet Provider</label>
+                            <input id="wallet-provider" asp-for="MasterpassOnline" type="text" placeholder="" class="form-control input-md" readonly >
+                        </div>
+                    <div class="form-group">
+                            <label for="origin-url">Origin URL (where Masterpass will redirect after transaction is complete)</label>
+                            <input id="origin-url" asp-for="MasterpassOriginUrl" type="text" placeholder="" class="form-control input-md" readonly >
+                        </div>                    
+                    <div class="form-group">
+                            <label for='order-id'>Order ID:</label>
+                            <input asp-for="OrderId" type="text" id="order-id" class="form-control input-md">
+                        </div>
+                    <div class="form-group">
+                            <label for='order-amount'>Order amount:</label>
+                            <input asp-for="OrderAmount" type="text" id="order-amount" class="form-control input-md" maxlength="14">
+                        </div>
+                    <div class="form-group">
+                            <label for='order-currency'>Order currency:</label>
+                            <input asp-for="OrderCurrency" type="text" id="order-currency" class="form-control input-md" maxlength="3">
+                        </div>
+                    </div>
+                    <button type="submit" class="mt-4 btn btn-primary" id="payButton">Generate Masterpass button</button>
+                </div>
+            </div>
+        </div>
+}
+<script src="/js/hostedSession.js"></script>

@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+@if (ViewBag.ImageList.Count > 0)
+{
+    <div class="row">
+        @foreach (var item in ViewBag.ImageList)
+        {
+            <div class="col-xs-6 col-md-3">
+                <a href="javascript:void(0);" onclick="selectPhoto(@item.Id)" class="thumbnail @(ViewBag.currentPhoto == item.Id ? "select-photo" : "")" id="@item.Id">
+                    <img src="@Url.Content("~/Uploads/"+item.Name)" style="height: 150px; height: 175px;" class="img-responsive">
+                </a>
+            </div>
+
+        }
+    </div>
+    <nav class="text-center">
+        <ul class="pagination">
+            <li class="@(ViewBag.currentPage == 1 ? "disabled" : "")">
+                <a href="javascript:getPhotos(1);">
+                    <i class="material-icons">chevron_left</i>
+                </a>
+            </li>
+            @for (int i = 1; i <= ViewBag.totalPage; i++)
+            {
+                <li class="@(ViewBag.currentPage == i ? "active" : "")"><a href="javascript:getPhotos(@i);">@i</a></li>
+            }
+            <li class="@(ViewBag.currentPage == ViewBag.totalPage ? "disabled" : "")">
+                <a href="javascript:getPhotos(@ViewBag.totalPage);" class="waves-effect">
+                    <i class="material-icons">chevron_right</i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+}
+else
+{
+    <p class="text-center">No thing to select</p>
+}

@@ -1,0 +1,85 @@
+﻿@model AllWorldReservation.BL.Models.MailModel
+@using AllWorldReservation.BL.Enums
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+    var mailType = Model.MailType;
+    var backPage = "";
+    if (mailType == EnumCollection.MailType.Sender)
+    {
+        backPage = "Sender";
+    }
+    else
+    {
+        backPage = "Receiver";
+    }
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Mail Details
+                </h2>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Mails/@backPage','_self')">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    <span>Back To List</span>
+                </button>
+            </div>
+            <div class="body">
+                @Html.AntiForgeryToken()
+                @if (mailType == EnumCollection.MailType.Sender)
+                {
+                    @*@Html.DisplayNameFor(model => model.User)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.DisplayFor(model => model.User.Name)
+                        </div>
+                    </div>*@
+                }
+                else
+                {
+                    @Html.DisplayNameFor(model => model.Name)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.DisplayFor(model => model.Name)
+                        </div>
+                    </div>
+                }
+                @Html.DisplayNameFor(model => model.Subject)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Subject)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Email)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Email)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Date)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Date)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Message)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.Raw(Model.Message)
+                    </div>
+                </div>
+                <form method="post" action="/Mails/Delete/@Model.Id" style="display:inline-block">
+                    <button type="submit" class="btn btn-danger waves-effect">
+                        <span>Delete</span>
+                        <i class="material-icons">delete</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Vertical Layout -->

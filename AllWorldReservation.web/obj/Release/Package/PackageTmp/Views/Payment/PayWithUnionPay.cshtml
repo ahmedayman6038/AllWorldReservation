@@ -1,0 +1,64 @@
+@using AllWorldReservation.web.Gateway
+@model AllWorldReservation.web.Gateway.GatewayApiRequest
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+
+<script type="text/javascript">
+    var DotNetSample = {
+        operation: function() {
+            return "INITIATE_BROWSER_PAYMENT";
+        },
+        endpoint: function() {
+            return "processPaymentWithUnionPay";
+        },
+        secureIdResponseUrl: function() {
+            return null;
+        }
+    };
+</script>
+<!-- APPLY CLICK-JACKING STYLING AND HIDE CONTENTS OF THE PAGE -->
+<style id="antiClickjack">body{display:none !important;}</style>
+<!-- INCLUDE SESSION.JS JAVASCRIPT LIBRARY -->
+<script src="@ViewBag.JavascriptSessionUrl"></script>
+
+@using(Html.BeginForm("processPaymentWithUnionPay", "PaymentApi", FormMethod.Post, new {@class="col-9 form-horizontal"})){
+        <div class="row">
+            <div class="contents col-12">
+                <div class="col-md-12">
+                    <h3>Pay with UnionPay SecurePay</h3>
+                    <div class="alert alert-warning" role="alert">
+                        <p><strong>NOTE:</strong> You can also do an authorization via SecurePay, 
+                        <br>depending on your merchant settings.</p>
+                        <p>You can access test card numbers <a href="@ViewBag.DocumentationUnionPay" target="_blank">here</a>.<p/>
+                    </div>                
+                    <div class="mb-4" >
+                        <h6>Order details</h6>
+                    <div class="form-group">
+                            <label for='order-id'>Order ID:</label>
+                            <input asp-for="OrderId" type="text" id="order-id" class="form-control input-md">
+                        </div>
+                    <div class="form-group">
+                            <label for='order-amount'>Order amount:</label>
+                            <input asp-for="OrderAmount" type="text" id="order-amount" class="form-control input-md" maxlength="14">
+                        </div>
+                    <div class="form-group">
+                            <label for='order-currency'>Order currency:</label>
+                            <input asp-for="OrderCurrency" type="text" id="order-currency" class="form-control input-md" maxlength="3">
+                        </div>
+                    <div class="form-group">
+                            <label for='order-description'>Description:</label>
+                            <input asp-for="OrderDescription" type="text" id="order-description" class="form-control input-md" maxlength="127">
+                        </div>
+                    <div class="form-group">
+                            <label for='transaction-id'>Transaction ID:</label>
+                            <input asp-for="TransactionId" type="text" id="transaction-id" class="form-control input-md">
+                        </div>
+                    </div>
+                    <button type="submit" class="mt-4 btn btn-primary" id="payButton">Pay with SecurePay</button>
+                </div>
+            </div>
+        </div>
+}
+<script src="/js/hostedSession.js"></script>

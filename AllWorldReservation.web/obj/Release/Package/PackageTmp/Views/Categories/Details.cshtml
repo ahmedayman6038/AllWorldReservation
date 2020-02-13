@@ -1,0 +1,42 @@
+﻿@model AllWorldReservation.BL.Models.CategoryModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Category Details
+                </h2>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Categories','_self')">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    <span>Back To List</span>
+                </button>
+            </div>
+            <div class="body">
+                @Html.DisplayNameFor(model => model.Name)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Name)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Description)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Description)
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary waves-effect" onclick="window.open('/Categories/Edit/@Model.Id','_self')">
+                    <i class="material-icons">edit</i>
+                    <span>Edit</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Vertical Layout -->

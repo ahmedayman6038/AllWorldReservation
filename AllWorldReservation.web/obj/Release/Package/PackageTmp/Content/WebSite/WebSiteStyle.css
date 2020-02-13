@@ -1,0 +1,85 @@
+﻿
+#v-pills-tabContent {
+    margin-right: 12% !important;
+}
+
+.tab-content.p-4.px-5#v-pills-tabContent {
+    display: block;
+    margin-bottom: 30px;
+    border: 1px solid #cccccc5c;
+    padding: .5rem;
+    border-radius: .5rem;
+    box-shadow: 0 5px 20px #0000001f;
+    /*background-color: rgba(234, 227, 227, 0.75);*/
+}
+
+
+
+.destination {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 30px !important;
+    border: 1px solid #cccccc5c !important;
+    padding: .5rem !important;
+    border-radius: .5rem !important;
+    box-shadow: 0 5px 20px #0000001f !important;
+}
+
+    .destination .text .bottom-area span:last-child a {
+        padding: .5rem 1rem !important;     
+    }
+
+    .destination .text h3 {
+        font-size: .8rem !important;
+    }
+
+    .destination .img-2 {
+        height: 250px !important;
+    }
+    p {
+    font-size: .8rem !important;
+   
+     }
+
+.destination .text .bottom-area span:last-child a:hover {
+    background-color: #539083;
+}
+
+.nav-link.btn.btn-warning.mr-2 {
+    font-weight: bold;
+    padding: .5rem 1rem;
+}
+
+#NLink {
+    font-weight: bold;
+}
+
+
+.tab-content.p-4.px-5#v-pills-tabContent {
+    background-color: #1f1f1fa3 !important;
+}
+.search-destination .form-group label,
+.search-destination .form-group input {
+    color: white !important;
+}
+
+.search-destination .form-group .form-control {
+    color: white !important;
+}
+
+    .search-destination .form-group .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.3) !important;
+    }
+.form-control option{
+    color:black ;
+}
+
+.ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+     padding-top: .5rem; 
+     padding-bottom: .5rem; 
+}
+
+.nav-item.active .nav-link {
+    color: #f9be37 !important;
+}
+
