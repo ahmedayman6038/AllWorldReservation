@@ -200,6 +200,7 @@
     <Content Include="Content\Dashboard\DashboardStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="Images\allw.jpg" />
+    <Content Include="Images\blank.png" />
     <Content Include="Images\user.PNG" />
     <Content Include="Pages\changelogs.html" />
     <Content Include="Pages\charts\chartjs.html" />
@@ -4320,7 +4321,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63142</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63142/</IISUrl>
+          <IISUrl>http://localhost:63140/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

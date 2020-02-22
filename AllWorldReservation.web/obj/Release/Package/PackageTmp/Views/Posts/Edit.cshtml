@@ -75,7 +75,7 @@
                 <h4 class="modal-title" id="largeModalLabel">@Html.DisplayNameFor(model => model.PhotoId)</h4>
             </div>
             <div class="modal-body" id="photos">
-                @{Html.RenderAction("GetPhotos", new { id = 1, current = Model.PhotoId });}
+                @{Html.RenderAction("GetPhotos", new { id = Model.Id, page = 1, current = Model.PhotoId });}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-link waves-effect" onclick="removePhoto()">Unselect</button>

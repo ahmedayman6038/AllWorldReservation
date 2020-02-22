@@ -33,5 +33,7 @@ namespace AllWorldReservation.DAL.Entities
 
         public virtual Photo Photo { get; set; }
 
+        public virtual ICollection<Hotel> Hotels { get; set; }
+
     }
 }

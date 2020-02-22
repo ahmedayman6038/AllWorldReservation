@@ -46,5 +46,8 @@ namespace AllWorldReservation.BL.Models
 
         [Display(Name = "Photo")]
         public PhotoModel Photo { get; set; }
+
+        [Display(Name = "Hotels Numbers")]
+        public ICollection<HotelModel> Hotels { get; set; }
     }
 }

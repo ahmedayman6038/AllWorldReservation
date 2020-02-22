@@ -26,5 +26,4 @@ E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.D
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.csproj.CopyComplete
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.dll
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.pdb
-E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.IntialCreate.resources
-E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.Stars.resources
+E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.IntialServer.resources

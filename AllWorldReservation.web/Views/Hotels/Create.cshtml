@@ -29,6 +29,13 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
+                    @Html.LabelFor(model => model.PlaceId)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.DropDownListFor(model => model.PlaceId, null, new { @class = "form-control show-tick" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PlaceId, "", new { @class = "text-danger" })
+                    </div>
                     @Html.LabelFor(model => model.Location)
                     <div class="form-group">
                         <div class="form-line">
@@ -60,7 +67,7 @@
                     @Html.LabelFor(model => model.Photo)
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="file" accept=".png, .jpg, .jpeg"  multiple="multiple" name="files" id="files" />
+                            <input type="file" accept=".png, .jpg, .jpeg" multiple="multiple" name="files" id="files" />
                         </div>
                         @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
                     </div>

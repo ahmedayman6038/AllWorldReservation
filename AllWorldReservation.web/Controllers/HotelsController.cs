@@ -123,12 +123,14 @@ namespace AllWorldReservation.web.Controllers
         public ActionResult Create()
         {
             var hotel = new HotelModel();
+            var places = unitOfWork.PlaceRepository.Get();
+            ViewBag.PlaceId = new SelectList(places, "Id", "Name");
             return View(hotel);
         }
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Stars,Location,PhotoId")] HotelModel hotelModel, List<HttpPostedFileBase> files)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Stars,Location,PhotoId,PlaceId")] HotelModel hotelModel, List<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
@@ -163,6 +165,8 @@ namespace AllWorldReservation.web.Controllers
                         else
                         {
                             ModelState.AddModelError("Photo", "please select photos in these formats .jpg, .jpeg, .png");
+                            var placess = unitOfWork.PlaceRepository.Get();
+                            ViewBag.PlaceId = new SelectList(placess, "Id", "Name");
                             return View(hotelModel);
                         }
                     }
@@ -170,6 +174,8 @@ namespace AllWorldReservation.web.Controllers
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }
+            var places = unitOfWork.PlaceRepository.Get();
+            ViewBag.PlaceId = new SelectList(places, "Id", "Name");
             return View(hotelModel);
         }
 
@@ -184,13 +190,15 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
+            var places = unitOfWork.PlaceRepository.Get();
+            ViewBag.PlaceId = new SelectList(places, "Id", "Name");
             var hotelModel = Mapper.Map<HotelModel>(hotel);
             return View(hotelModel);
         }
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Stars,Location,PhotoId")] HotelModel hotelModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Stars,Location,PhotoId,PlaceId")] HotelModel hotelModel)
         {
             if (ModelState.IsValid)
             {
@@ -199,6 +207,8 @@ namespace AllWorldReservation.web.Controllers
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }
+            var places = unitOfWork.PlaceRepository.Get();
+            ViewBag.PlaceId = new SelectList(places, "Id", "Name");
             return View(hotelModel);
         }
 

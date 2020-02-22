@@ -9,9 +9,11 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 namespace AllWorldReservation.web.Controllers
 {
@@ -83,14 +85,27 @@ namespace AllWorldReservation.web.Controllers
         }
 
         [Route("Hotel")]
-        public ActionResult Hotels(int? page)
+        public ActionResult Hotels(int? page, string hotel,int? place, int? fromPrice, int? toPrice, int? star)
         {
             if (page == null || page <= 0)
             {
                 page = 1;
             }
-            var hotels = unitOfWork.HotelRepository.Get().OrderByDescending(p => p.Id).ToList();
+            var hotels = unitOfWork.HotelRepository.Get(orderBy: e => e.OrderByDescending(z => z.Id));
             var pageSize = 9;
+            if (hotel != null)
+            {
+                if (!string.IsNullOrEmpty(hotel))
+                    hotels = hotels.Where(e => e.Name.ToLower().Contains(hotel.ToLower()));
+                if (place != null)
+                    hotels = hotels.Where(e => e.PlaceId == place);
+                if (fromPrice != null && fromPrice != 0)
+                    hotels = hotels.Where(e => e.Price >= fromPrice);
+                if (toPrice != null && toPrice != 0)
+                    hotels = hotels.Where(e => e.Price <= toPrice);
+                if (star != null)
+                    hotels = hotels.Where(e => e.Stars == star);
+            }
             var totalRecord = hotels.Count();
             var totalPages = (totalRecord / pageSize) + ((totalRecord % pageSize) > 0 ? 1 : 0);
             if (page > totalPages)
@@ -99,19 +114,35 @@ namespace AllWorldReservation.web.Controllers
             }
             ViewBag.totalPage = totalPages;
             ViewBag.currentPage = page;
-            var data = hotels.Skip(((int)page - 1) * pageSize).Take(pageSize);
-            return View(data);
+            ViewBag.Hotel = hotel;
+            ViewBag.SelectedPlace = place;
+            ViewBag.FromPrice = fromPrice ?? 0;
+            ViewBag.ToPrice = toPrice ?? 0;
+            ViewBag.Stars = star;
+            var places = unitOfWork.PlaceRepository.Get();
+            ViewBag.Place = new SelectList(places, "Id", "Name", place);
+            hotels = hotels.Skip(((int)page - 1) * pageSize).Take(pageSize);
+            return View(hotels);
         }
 
         [Route("Place")]
-        public ActionResult Places(int? page)
+        public ActionResult Places(int? page, string place, int? fromPrice, int? toPrice)
         {
             if (page == null || page <= 0)
             {
                 page = 1;
             }
-            var places = unitOfWork.PlaceRepository.Get().OrderByDescending(p => p.Id).ToList();
+            var places = unitOfWork.PlaceRepository.Get(orderBy: e => e.OrderByDescending(z => z.Id));
             var pageSize = 9;
+            if (place != null)
+            {
+                if (!string.IsNullOrEmpty(place))
+                    places = places.Where(e => e.Name.ToLower().Contains(place.ToLower()));
+                if (fromPrice != null && fromPrice != 0)
+                    places = places.Where(e => e.Price >= fromPrice);
+                if (toPrice != null && toPrice != 0)
+                    places = places.Where(e => e.Price <= toPrice);
+            }
             var totalRecord = places.Count();
             var totalPages = (totalRecord / pageSize) + ((totalRecord % pageSize) > 0 ? 1 : 0);
             if (page > totalPages)
@@ -120,12 +151,21 @@ namespace AllWorldReservation.web.Controllers
             }
             ViewBag.totalPage = totalPages;
             ViewBag.currentPage = page;
-            var data = places.Skip(((int)page - 1) * pageSize).Take(pageSize);
-            return View(data);
+            ViewBag.Place = place;
+            ViewBag.FromPrice = fromPrice ?? 0;
+            ViewBag.ToPrice = toPrice ?? 0;
+            places = places.Skip(((int)page - 1) * pageSize).Take(pageSize);
+            return View(places);
         }
 
         [Route("Book")]
         public ActionResult Booking()
+        {
+            return View();
+        }
+
+        [Route("SearchPlace")]
+        public ActionResult SearchPlace(int? page, string place, int? fromPrice, int? toPrice)
         {
             return View();
         }
@@ -135,43 +175,49 @@ namespace AllWorldReservation.web.Controllers
         {
             using (var client = new HttpClient())
             {
-                //Passing service base url  
                 client.BaseAddress = new Uri("http://sunxml.digital-trip.co.uk/accommodation.api");                
-                //Passing Header of the request
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add("AuthCode", "test|test12345");
                 client.DefaultRequestHeaders.Add("Action", "Search");
-                //Define request data format  
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
-                //The data that will be send with the request  
-                var data = "<SearchRequest>" +
+                DateTime checkIn = new DateTime(2020,3,9);
+                DateTime checkOut = new DateTime(2020,3,15);
+                string data = "<SearchRequest>" +
                                     "<LocationID>899</LocationID>" +
-                                    "<CheckIn>2020-­03-­09</CheckIn>" +
-                                    "<CheckOut>2020­-03-­15</CheckOut>" +
+                                    "<CheckIn>"+checkIn.ToString("yyyy-MM-dd")+"</CheckIn>" +
+                                    "<CheckOut>"+checkOut.ToString("yyyy-MM-dd")+"</CheckOut>" +
                                     "<RoomAllocations>" +
                                         "<RoomAllocation>" +
                                             "<Adults>2</Adults>" +
-                                            "<Children>1</Children>" +
+                                            "<Children>0</Children>" +
                                             "<Infants>0</Infants>" +
-                                            "<ChildAges>" +
-                                                "<int>5</int>" +
-                                            "</ChildAges>" +
                                         "</RoomAllocation>" +
                                     "</RoomAllocations>" +
                                 "</SearchRequest>";
-                var content = new StringContent(data, Encoding.UTF8, "text/xml");
-                //Send a post request with the content data to the service
-                HttpResponseMessage Res = await client.PostAsync("", content);
-                //Checking the response is successful or not which is sent using HttpClient  
-                if (Res.IsSuccessStatusCode)
+                var content = new StringContent(data, Encoding.UTF8, "application/xml");
+                while (true)
                 {
-                    //Storing the response details recieved from web api   
-                    var result = Res.Content.ReadAsStringAsync().Result;
-                    //Return the result that's received from web api 
-                    return Content(result, "application/xml");
+                    HttpResponseMessage Res = await client.PostAsync("", content);
+                    if (Res.IsSuccessStatusCode)
+                    {
+                        var result = Res.Content.ReadAsStringAsync().Result;
+                        var xmlResult = XDocument.Parse(result);
+                        var isSuccess = xmlResult.Root.Element("IsSuccess");
+                        if(isSuccess.Value == "false")
+                        {
+                            return Content(result, "application/xml");
+                        }
+                        var guid = xmlResult.Root.Element("GUID");
+                        var xmlRequest = XDocument.Parse(data);
+                        xmlRequest.Root.Add(guid);
+                        content = new StringContent(xmlRequest.ToString(), Encoding.UTF8, "application/xml");
+                        Thread.Sleep(2000);
+                    }
+                    else
+                    {
+                        return Content("Error");
+                    }
                 }
-                //Return error message if the response not success
-                return Content("error");
             }
         }
     }

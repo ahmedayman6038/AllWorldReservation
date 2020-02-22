@@ -39,10 +39,17 @@ namespace AllWorldReservation.BL.Models
         [Display(Name = "Photo")]
         public int? PhotoId { get; set; }
 
+        [Display(Name = "Place")]
+        [Required(ErrorMessage = "Place Required")]
+        public int? PlaceId { get; set; }
+
         [Display(Name = "Created Date")]
         public DateTime CreatedDate { get; set; }
 
         [Display(Name = "Photo")]
         public PhotoModel Photo { get; set; }
+
+        [Display(Name = "Place")]
+        public PlaceModel Place { get; set; }
     }
 }

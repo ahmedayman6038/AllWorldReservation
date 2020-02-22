@@ -30,6 +30,11 @@ namespace AllWorldReservation.DAL.Entities
 
         public int? PhotoId { get; set; }
 
+        public int? PlaceId { get; set; }
+
         public virtual Photo Photo { get; set; }
+
+        public virtual Place Place { get; set; }
+
     }
 }

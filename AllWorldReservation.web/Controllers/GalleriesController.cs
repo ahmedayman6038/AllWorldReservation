@@ -44,6 +44,12 @@ namespace AllWorldReservation.web.Controllers
             return View(Mapper.Map<IEnumerable<PhotoModel>>(pagePhotos));
         }
 
+        public ActionResult Get(int? id, int type)
+        {
+            var data = unitOfWork.PhotoRepository.Get(p => p.Type == type && p.ItemId == id).Select(p => "/Uploads/" + p.Name).ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult Index(List<HttpPostedFileBase> files)
         {

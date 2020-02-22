@@ -83,3 +83,6 @@
     color: #f9be37 !important;
 }
 
+.dynamic:hover{
+    cursor:pointer;
+}

@@ -31,6 +31,12 @@
                         @Html.DisplayFor(model => model.Name)
                     </div>
                 </div>
+                @Html.DisplayNameFor(model => model.PlaceId)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Place.Name)
+                    </div>
+                </div>
                 @Html.DisplayNameFor(model => model.Location)
                 <div class="form-group">
                     <div class="form-line">

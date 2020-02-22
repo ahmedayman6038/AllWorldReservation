@@ -10,28 +10,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AllWorldReservation.BL.dll">
-      <publishTime>02/13/2020 21:37:52</publishTime>
+      <publishTime>02/20/2020 20:18:13</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.BL.dll.config">
       <publishTime>01/04/2020 14:17:46</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.BL.pdb">
-      <publishTime>02/13/2020 21:37:52</publishTime>
+      <publishTime>02/20/2020 20:18:13</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.DAL.dll">
-      <publishTime>02/13/2020 21:37:51</publishTime>
+      <publishTime>02/20/2020 20:18:12</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.DAL.dll.config">
       <publishTime>01/04/2020 14:01:22</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.DAL.pdb">
-      <publishTime>02/13/2020 21:37:51</publishTime>
+      <publishTime>02/20/2020 20:18:12</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.web.dll">
-      <publishTime>02/13/2020 21:37:54</publishTime>
+      <publishTime>02/20/2020 20:39:00</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.web.pdb">
-      <publishTime>02/13/2020 21:37:54</publishTime>
+      <publishTime>02/20/2020 20:39:00</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>11/17/2018 10:14:56</publishTime>
@@ -811,7 +811,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/2020 10:37:08</publishTime>
     </File>
     <File Include="Content/WebSite/WebSiteStyle.css">
-      <publishTime>01/25/2020 19:40:08</publishTime>
+      <publishTime>02/15/2020 18:59:32</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>01/01/2020 13:45:04</publishTime>
@@ -830,6 +830,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Images/bg_1.jpg">
       <publishTime>01/01/2020 09:54:56</publishTime>
+    </File>
+    <File Include="Images/blank.png">
+      <publishTime>12/06/2019 19:49:36</publishTime>
     </File>
     <File Include="Images/destination-1.jpg">
       <publishTime>01/01/2020 09:54:56</publishTime>
@@ -12631,13 +12634,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2020 17:10:32</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>01/01/2020 12:47:22</publishTime>
+      <publishTime>02/15/2020 17:59:01</publishTime>
     </File>
     <File Include="Views/Home/Blog.cshtml">
-      <publishTime>01/27/2020 21:42:02</publishTime>
+      <publishTime>02/15/2020 17:59:01</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
-      <publishTime>01/01/2020 15:55:00</publishTime>
+      <publishTime>02/15/2020 17:59:01</publishTime>
     </File>
     <File Include="Views/Home/Details.cshtml">
       <publishTime>01/28/2020 20:24:41</publishTime>
@@ -12646,22 +12649,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2020 21:01:44</publishTime>
     </File>
     <File Include="Views/Home/Hotels.cshtml">
-      <publishTime>02/13/2020 21:27:58</publishTime>
+      <publishTime>02/20/2020 20:10:29</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>01/01/2020 15:01:42</publishTime>
+      <publishTime>02/15/2020 17:59:01</publishTime>
     </File>
     <File Include="Views/Home/Places.cshtml">
-      <publishTime>02/13/2020 21:33:56</publishTime>
+      <publishTime>02/20/2020 19:55:28</publishTime>
     </File>
     <File Include="Views/Hotels/Create.cshtml">
-      <publishTime>02/13/2020 20:02:40</publishTime>
+      <publishTime>02/18/2020 20:34:25</publishTime>
     </File>
     <File Include="Views/Hotels/Details.cshtml">
-      <publishTime>02/13/2020 21:16:46</publishTime>
+      <publishTime>02/18/2020 20:34:25</publishTime>
     </File>
     <File Include="Views/Hotels/Edit.cshtml">
-      <publishTime>02/13/2020 20:03:24</publishTime>
+      <publishTime>02/18/2020 20:34:25</publishTime>
     </File>
     <File Include="Views/Hotels/Index.cshtml">
       <publishTime>02/13/2020 20:05:19</publishTime>
@@ -12676,7 +12679,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/11/2020 19:11:29</publishTime>
     </File>
     <File Include="Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml">
-      <publishTime>01/28/2020 23:01:53</publishTime>
+      <publishTime>02/15/2020 18:07:06</publishTime>
     </File>
     <File Include="Views/Mails/Create.cshtml">
       <publishTime>01/04/2020 17:31:26</publishTime>
@@ -12754,7 +12757,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/13/2020 21:16:46</publishTime>
     </File>
     <File Include="Views/Places/Edit.cshtml">
-      <publishTime>02/13/2020 21:32:29</publishTime>
+      <publishTime>02/15/2020 20:13:57</publishTime>
     </File>
     <File Include="Views/Places/Index.cshtml">
       <publishTime>02/13/2020 21:07:54</publishTime>
@@ -12772,7 +12775,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2020 17:26:18</publishTime>
     </File>
     <File Include="Views/Posts/Edit.cshtml">
-      <publishTime>02/13/2020 21:32:47</publishTime>
+      <publishTime>02/15/2020 20:11:03</publishTime>
     </File>
     <File Include="Views/Posts/Index.cshtml">
       <publishTime>02/13/2020 21:08:21</publishTime>
@@ -12802,7 +12805,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/13/2020 19:03:17</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/28/2020 22:25:47</publishTime>
+      <publishTime>02/20/2020 20:18:17</publishTime>
     </File>
   </ItemGroup>
 </Project>
