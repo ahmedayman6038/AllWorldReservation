@@ -16,6 +16,10 @@ namespace AllWorldReservation.BL.Models
 
         public int Id { get; set; }
 
+        public string ResultId { get; set; }
+
+        public string GUID { get; set; }
+
         [Display(Name = "Name")]
         [Required(ErrorMessage = "Name Required")]
         [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
@@ -51,5 +55,7 @@ namespace AllWorldReservation.BL.Models
 
         [Display(Name = "Place")]
         public PlaceModel Place { get; set; }
+
+        public ICollection<RoomModel> Rooms { get; set; }
     }
 }

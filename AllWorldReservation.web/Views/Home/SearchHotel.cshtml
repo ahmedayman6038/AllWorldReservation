@@ -1,5 +1,5 @@
 ﻿@using System.Text.RegularExpressions
-@model IEnumerable<AllWorldReservation.DAL.Entities.Hotel>
+@model IEnumerable<AllWorldReservation.BL.Models.HotelModel>
 @{
     Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
     ViewBag.Title = "Hotel";
@@ -11,7 +11,7 @@
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Hotel</span></p>
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Hotels</h1>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">@ViewBag.Location</h1>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 sidebar order-md-last ftco-animate">
+            @*<div class="col-lg-3 sidebar order-md-last ftco-animate">
                 <div class="sidebar-wrap ftco-animate">
                     <h3 class="heading mb-4">Find Hotel</h3>
                     <form action="/Hotel" method="get">
@@ -33,13 +33,7 @@
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                     @Html.DropDownList("Place", null, "Select Place", new { @class = "form-control" })
 
-                                    @*<select name="place" id="place" class="form-control" placeholder="Keyword search">
-                    <option value="">Select Location</option>
-                    <option value="">San Francisco USA</option>
-                    <option value="">Berlin Germany</option>
-                    <option value="">Lodon United Kingdom</option>
-                    <option value="">Paris Italy</option>
-                </select>*@
+   
                                 </div>
                             </div>
                             <div class="form-group">
@@ -69,8 +63,7 @@
                                         To
                                         <input type="number" name="toPrice" id="toPrice" value="@ViewBag.ToPrice" min="0" max="120000" />
                                     </span>
-                                    @*<input value="1000" min="0" max="120000" step="500" type="range" />
-                <input value="50000" min="0" max="120000" step="500" type="range" />*@
+   
                                 </div>
                             </div>
                             <div class="form-group">
@@ -79,44 +72,13 @@
                         </div>
                     </form>
                 </div>
-                @*<div class="sidebar-wrap ftco-animate">
-                    <h3 class="heading mb-4">Star Rating</h3>
-                    <form method="post" class="star-rating">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                    </form>
-                </div>*@
-            </div><!-- END-->
-            <div class="col-lg-9">
+            </div>*@<!-- END-->
+            <div class="col-lg-12">
                 <div class="row">
+                    @if(Model.Count() == 0)
+                    {
+                        <h2 class="text-center">No Result to show</h2>
+                    }
                     @foreach (var item in Model)
                     {
 
@@ -149,21 +111,21 @@
                                             </p>
                                         </div>
                                         <div class="two">
-                                            <span class="price per-price">@item.Price $<br><small>/night</small></span>
+                                            <span class="price per-price"><small>Price From </small><br>@item.Price $</span>
                                         </div>
                                     </div>
                                     <p>@Regex.Replace(item.Description ?? "", "<(.|\\n)*?>", string.Empty)</p>
                                     <hr>
                                     <p class="bottom-area d-flex">
                                         <span><i class="icon-map-o"></i> @item.Location</span>
-                                        <span class="ml-auto"><a href="/bookhotel/@item.Id">More</a></span>
+                                        <span class="ml-auto"><a href="/Check/Hotel?destination=@ViewBag.Destination&checkIn=@ViewBag.CheckIn&checkOut=@ViewBag.CheckOut&guest=@ViewBag.Adults&itemId=@item.ResultId">More</a></span>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     }
                 </div>
-                <div class="row mt-5">
+                @*<div class="row mt-5">
                     <div class="col text-center">
                         <div class="block-27">
                             <ul>
@@ -177,42 +139,8 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div>*@
             </div> <!-- .col-md-8 -->
         </div>
     </div>
 </section> <!-- .section -->
-@section scripts{
-    <script>
-        $('.dynamic').on('click', function () {
-            debugger;
-            var itemId = $(this).attr("id");
-            var itemName = $(this).attr("name");
-            $.ajax({
-                method: "GET",
-                url: "/Galleries/Get/" + itemId + "?type=" + @((int)AllWorldReservation.BL.Enums.EnumCollection.PhotoType.Hotel),
-                dataType: "json",
-                success: function (data, status, xhr) {
-                    debugger;
-                    var elements = [];
-                    for (var i = 0; i < data.length; i++) {
-                        var element = {
-                            "src": data[i],
-                            "thumb": data[i],
-                            "subHtml": '<p>' + itemName + '</p>'
-                        }
-                        elements.push(element);
-                    }                  
-                    $(this).lightGallery({
-                        dynamic: true,
-                        dynamicEl: elements
-                    })
-                },
-                error: function (jqXhr, textStatus, errorMessage) {
-                    debugger;
-                    console.log(errorMessage);
-                }
-            });
-        });
-    </script>
-}

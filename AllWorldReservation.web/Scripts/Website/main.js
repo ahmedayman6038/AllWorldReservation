@@ -317,7 +317,7 @@
   });
 
 
-  $('.checkin_date, .checkout_date').datepicker({
+  $('.checkin_date, .checkout_date, .DOB').datepicker({
 	  'format': 'm/d/yyyy',
 	  'autoclose': true
 	});

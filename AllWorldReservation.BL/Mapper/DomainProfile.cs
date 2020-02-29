@@ -29,7 +29,9 @@ namespace AllWorldReservation.BL.Mapper
             CreateMap<Setting, SettingModel>();
             CreateMap<SettingModel, Setting>();
 
-            CreateMap<Hotel, HotelModel>();
+            CreateMap<Hotel, HotelModel>().ForMember(x => x.GUID, opt => opt.Ignore())
+                                        .ForMember(x => x.ResultId, opt => opt.Ignore())
+                                        .ForMember(x => x.Rooms, opt => opt.Ignore());
             CreateMap<HotelModel, Hotel>();
 
             CreateMap<Place, PlaceModel>();

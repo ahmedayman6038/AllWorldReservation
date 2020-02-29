@@ -32,8 +32,8 @@
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Blog</span></p>
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Tips &amp; Articles</h1>
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Hotel</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Hotel</h1>
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
         <div class="row">
             @{ Hotel hotel = (Hotel)ViewBag.Hotel; }
             <div class="col-md-8 ftco-animate">
-                <h2 class="mb-1">@hotel.Name <span style="float:right"><small>@hotel.Price L.E / night</small></span></h2>
+                <h2 class="mb-1">@hotel.Name <span style="float:right"><small>@hotel.Price $ / night</small></span></h2>
                 <span class="mb-3"><i class="icon-map-o"></i> @hotel.Location</span>
                 @Html.Raw(hotel.Description)
             </div> <!-- .col-md-8 -->
@@ -85,7 +85,7 @@
                     <input type="text" id="security-code" class="form-control input-md" readonly="" required>
                 </div>
             </div>
-            <button type="submit" class="mt-4 btn btn-primary" id="payButton" onclick="pay();">Pay</button>
+            <button type="submit" class="mt-4 btn btn-primary" id="payButton" onclick="pay();">Book</button>
         </div>
         <div id="error-alert" class="alert alert-danger" role="alert" style="display:none;padding-top:20px">
             <p>The following error(s) occurred:</p>
@@ -96,7 +96,7 @@
 @section scripts{
     <script type="text/javascript">
         $("form").submit(function () {
-            $("#payButton").html("Paying...");
+            $("#payButton").html("Booking...");
         });
     </script>
 
