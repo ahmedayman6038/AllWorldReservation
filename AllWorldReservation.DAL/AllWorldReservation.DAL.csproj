@@ -59,9 +59,9 @@
     <Compile Include="Entities\Place.cs" />
     <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\Setting.cs" />
-    <Compile Include="Migrations\202002201815411_IntialServer.cs" />
-    <Compile Include="Migrations\202002201815411_IntialServer.designer.cs">
-      <DependentUpon>202002201815411_IntialServer.cs</DependentUpon>
+    <Compile Include="Migrations\202003010943435_Initial.cs" />
+    <Compile Include="Migrations\202003010943435_Initial.designer.cs">
+      <DependentUpon>202003010943435_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,8 +73,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002201815411_IntialServer.resx">
-      <DependentUpon>202002201815411_IntialServer.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003010943435_Initial.resx">
+      <DependentUpon>202003010943435_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

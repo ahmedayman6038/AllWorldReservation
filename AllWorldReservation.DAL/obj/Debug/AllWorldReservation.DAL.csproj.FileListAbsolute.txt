@@ -54,3 +54,17 @@ F:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL
 F:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.pdb
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.Migrations.IntialServer.resources
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.GenerateResource.cache
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\AllWorldReservation.DAL.dll.config
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\AllWorldReservation.DAL.dll
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\AllWorldReservation.DAL.pdb
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\EntityFramework.dll
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\EntityFramework.SqlServer.dll
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\EntityFramework.xml
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\EntityFramework.SqlServer.xml
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csprojAssemblyReference.cache
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.CoreCompileInputs.cache
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.CopyComplete
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.dll
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.pdb
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.Migrations.Initial.resources
+D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.GenerateResource.cache

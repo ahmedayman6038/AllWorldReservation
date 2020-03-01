@@ -7,13 +7,13 @@ namespace AllWorldReservation.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.3.0")]
-    public sealed partial class IntialServer : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(IntialServer));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202002201815411_IntialServer"; }
+            get { return "202003010943435_Initial"; }
         }
         
         string IMigrationMetadata.Source
