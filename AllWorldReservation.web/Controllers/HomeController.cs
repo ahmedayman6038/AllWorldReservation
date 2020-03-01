@@ -412,6 +412,77 @@ namespace AllWorldReservation.web.Controllers
             ViewBag.Guest = Guest;
             return View();
         }
+
+        [Route("Book/Hotel")]
+        [HttpPost]
+        public async Task<ActionResult> BookHotel(BookModel bookModel)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(Baseurl);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Add("AuthCode", AuthCode);
+                    client.DefaultRequestHeaders.Add("Action", "Search");
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+                    string data = "<BookRequest>" +
+                                        "<GUID>" + bookModel.GUID + "</GUID>" +
+                                        "<ResultID>" + bookModel.ResultId + "</ResultID>" +
+                                        "<Passengers>";
+                    foreach (var guest in bookModel.Guests)
+                    {
+                        data += "<Passenger>" +
+                                    "<Title>" + guest.Title + "</Title>" +
+                                    "<Firstname>" + guest.FirstName + "</Firstname>" +
+                                    "<Surname>" + guest.Surname + "</Surname>" +
+                                    "<Type>Adult</Type>" +
+                                    "<DOB>" + guest.DateOfBirth.ToString("yyyy-MM-dd") + " </DOB>" +
+                               "</Passenger>";
+                    }
+                    data += "</Passengers>" +
+                            "<Reference>MYREFERENCE</Reference>"+
+                            "<CustomerTitle>" +bookModel.Guests.First().Title+"</CustomerTitle>"+
+                            "<CustomerFName>" + bookModel.Guests.First().FirstName + "</CustomerFName>" +
+                            "<CustomerSName>" + bookModel.Guests.First().Surname + "</CustomerSName>" +
+                            "<CustomerAddress1>" + bookModel.Address1 + "</CustomerAdress1>" +
+                            "<CustomerAddress2>" + bookModel.Address2 + "</CustomerAdress2>" +
+                            "<CustomerCity>" + bookModel.City + "</CustomerCity>" +
+                            "<CustomerPostCode>" + bookModel.PostCode + "</CustomerPostCode>" +
+                            "<CustomerCountryCode>" + bookModel.Country + "</CustomerCountryCode>" +
+                            "<CustomerTelDay>" + bookModel.TelNo1 + "</CustomerTelDay>" +
+                            "<CustomerTelEve>" + bookModel.TelNo2 + "</CustomerTelEve>" +
+                            "<CustomerEmail>" + bookModel.Email + "</CustomerEmail>" +
+                            "</BookRequest>";
+                    var content = new StringContent(data, Encoding.UTF8, "application/xml");
+                    //HttpResponseMessage Res = await client.PostAsync("", content);
+                    //if (Res.IsSuccessStatusCode)
+                    //{
+                    //    var result = Res.Content.ReadAsStringAsync().Result;
+                    //    var xmlResult = XDocument.Parse(result);
+                    //    var isSuccess = xmlResult.Root.Element("IsSuccess");
+                    //    var isComplete = xmlResult.Root.Element("IsComplete");
+                    //    if (isSuccess.Value == "false" || (isComplete.Value == "true" && isSuccess.Value == "true"))
+                    //    {
+                    //        return Content(result, "application/xml");
+                    //    }
+                    //    var guid = xmlResult.Root.Element("GUID");
+                    //    var xmlRequest = XDocument.Parse(data);
+                    //    xmlRequest.Root.Add(guid);
+                    //    content = new StringContent(xmlRequest.ToString(), Encoding.UTF8, "application/xml");
+                    //    Thread.Sleep(1000);
+                    //}
+                    //else
+                    //{
+                    //    return Content("Error");
+                    //}
+                }
+            }
+            ViewBag.GUID = bookModel.GUID;
+            ViewBag.ResultId = bookModel.ResultId;
+            ViewBag.Guest = bookModel.Guests.Count();
+            return View();
+        }
         //[Route("Check/Hotel")]
         //public async Task<ActionResult> CheckHotel(string Guid, string ResultId, int Adults, int RoomId, int RateId)
         //{

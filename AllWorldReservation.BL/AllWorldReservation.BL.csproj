@@ -67,7 +67,9 @@
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Mapper\DomainProfile.cs" />
+    <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\GuestModel.cs" />
     <Compile Include="Models\HotelModel.cs" />
     <Compile Include="Models\MailModel.cs" />
     <Compile Include="Models\PhotoModel.cs" />
