@@ -4288,6 +4288,7 @@
     <Content Include="Views\Home\SearchHotel.cshtml" />
     <Content Include="Views\Home\CheckHotel.cshtml" />
     <Content Include="Views\Home\BookHotel.cshtml" />
+    <Content Include="Views\Home\BookResult.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
