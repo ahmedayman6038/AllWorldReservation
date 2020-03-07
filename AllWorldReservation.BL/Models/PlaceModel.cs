@@ -24,14 +24,18 @@ namespace AllWorldReservation.BL.Models
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Display(Name = "Code")]
+        public int Code { get; set; }
+
         [Display(Name = "Price")]
         [Required(ErrorMessage = "Price Required")]
         [DataType(DataType.Currency)]
         public float Price { get; set; }
 
-        [Display(Name = "Location")]
-        [Required(ErrorMessage = "Location Required")]
-        public string Location { get; set; }
+        [Display(Name = "Country")]
+        [Required(ErrorMessage = "Country Required")]
+        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
+        public string Country { get; set; }
 
         [Display(Name = "Days")]
         [Required(ErrorMessage = "Days Required")]

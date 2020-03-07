@@ -130,7 +130,7 @@ namespace AllWorldReservation.web.Controllers
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Stars,Location,PhotoId,PlaceId")] HotelModel hotelModel, List<HttpPostedFileBase> files)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Stars,Address,PhotoId,PlaceId")] HotelModel hotelModel, List<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
@@ -198,7 +198,7 @@ namespace AllWorldReservation.web.Controllers
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Stars,Location,PhotoId,PlaceId")] HotelModel hotelModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Stars,Address,PhotoId,PlaceId")] HotelModel hotelModel)
         {
             if (ModelState.IsValid)
             {

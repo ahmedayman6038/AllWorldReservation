@@ -155,7 +155,7 @@
                                     <p>@Regex.Replace(item.Description ?? "", "<(.|\\n)*?>", string.Empty)</p>
                                     <hr>
                                     <p class="bottom-area d-flex">
-                                        <span><i class="icon-map-o"></i> @item.Location</span>
+                                        <span><i class="icon-map-o"></i> @item.Place.Name</span>
                                         <span class="ml-auto"><a href="/bookhotel/@item.Id">More</a></span>
                                     </p>
                                 </div>

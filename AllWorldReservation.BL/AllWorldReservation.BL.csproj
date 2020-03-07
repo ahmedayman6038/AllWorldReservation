@@ -67,7 +67,6 @@
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Mapper\DomainProfile.cs" />
-    <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\GuestModel.cs" />
     <Compile Include="Models\HotelModel.cs" />
@@ -75,6 +74,7 @@
     <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Models\PlaceModel.cs" />
     <Compile Include="Models\PostModel.cs" />
+    <Compile Include="Models\ReservationModel.cs" />
     <Compile Include="Models\RoomModel.cs" />
     <Compile Include="Models\SettingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

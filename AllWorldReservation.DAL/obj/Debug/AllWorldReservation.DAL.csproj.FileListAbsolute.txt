@@ -52,8 +52,6 @@ F:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL
 F:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.CopyComplete
 F:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.dll
 F:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.pdb
-E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.Migrations.IntialServer.resources
-E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.GenerateResource.cache
 D:\Codes\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\AllWorldReservation.DAL.dll.config
 D:\Codes\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\AllWorldReservation.DAL.dll
 D:\Codes\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\AllWorldReservation.DAL.pdb
@@ -68,3 +66,5 @@ D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservati
 D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.pdb
 D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.Migrations.Initial.resources
 D:\Codes\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.GenerateResource.cache
+E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.Migrations.Mig105.resources
+E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.GenerateResource.cache

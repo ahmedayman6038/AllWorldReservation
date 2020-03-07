@@ -24,7 +24,12 @@ namespace AllWorldReservation.DAL.Entities
         public int Stars { get; set; }
 
         [Required]
-        public string Location { get; set; }
+        [MaxLength(150)]
+        public string Address { get; set; }
+
+        public DateTime? AvalibleFrom { get; set; }
+
+        public DateTime? AvalibleTo { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
@@ -35,6 +40,8 @@ namespace AllWorldReservation.DAL.Entities
         public virtual Photo Photo { get; set; }
 
         public virtual Place Place { get; set; }
+
+        public virtual ICollection<Room> Rooms { get; set; }
 
     }
 }

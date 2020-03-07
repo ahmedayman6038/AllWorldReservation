@@ -18,11 +18,14 @@ namespace AllWorldReservation.DAL.Entities
 
         public string Description { get; set; }
 
+        public int Code { get; set; }
+
         [Required]
         public float Price { get; set; }
 
         [Required]
-        public string Location { get; set; }
+        [MaxLength(50)]
+        public string Country { get; set; }
 
         [Required]
         public int Duration { get; set; }

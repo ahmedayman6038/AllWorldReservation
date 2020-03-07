@@ -2,6 +2,7 @@
 using AllWorldReservation.BL.Repositories;
 using AllWorldReservation.DAL.Context;
 using AllWorldReservation.DAL.Entities;
+using AllWorldReservation.web.Gateway;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -24,15 +25,19 @@ namespace AllWorldReservation.web.Controllers
         private UnitOfWork unitOfWork;
         string Baseurl = "http://sunxml.digital-trip.co.uk/accommodation.api";
         string AuthCode = "test|test12345";
+        private SunApiRequest sunApiRequest;
+
         public HomeController()
         {
             unitOfWork = new UnitOfWork(context);
+            sunApiRequest = new SunApiRequest();
         }
 
         [Route("")]
         [Route("Home")]
         public ActionResult Index()
         {
+            ViewBag.Destinations = new SelectList(unitOfWork.PlaceRepository.Get(), "Id", "Name");
             return View();
         }
 
@@ -223,87 +228,106 @@ namespace AllWorldReservation.web.Controllers
 
 
         [Route("Search/Hotel")]
-        public async Task<ActionResult> SearchHotel(int destination, DateTime checkIn, DateTime checkOut, int guest)
+        public async Task<ActionResult> SearchHotel(int? destination, DateTime checkIn, DateTime checkOut, int guest)
         {
-            using (var client = new HttpClient())
+            //using (var client = new HttpClient())
+            //{
+            //    client.BaseAddress = new Uri(Baseurl);
+            //    client.DefaultRequestHeaders.Clear();
+            //    client.DefaultRequestHeaders.Add("AuthCode", AuthCode);
+            //    client.DefaultRequestHeaders.Add("Action", "Search");
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+            //    string data = "<SearchRequest>" +
+            //                        "<LocationID>"+destination+"</LocationID>" +
+            //                        "<CheckIn>" + checkIn.ToString("yyyy-MM-dd") + "</CheckIn>" +
+            //                        "<CheckOut>" + checkOut.ToString("yyyy-MM-dd") + "</CheckOut>" +
+            //                        "<RoomAllocations>" +
+            //                            "<RoomAllocation>" +
+            //                                "<Adults>"+guest+"</Adults>" +
+            //                            "</RoomAllocation>" +
+            //                        "</RoomAllocations>" +
+            //                    "</SearchRequest>";
+            //    var content = new StringContent(data, Encoding.UTF8, "application/xml");
+            //    var hotels = new List<HotelModel>();
+            //    var location = "Hotel";
+            //    while (true)
+            //    {
+            //        HttpResponseMessage Res = await client.PostAsync("", content);
+            //        if (Res.IsSuccessStatusCode)
+            //        {
+            //            var result = Res.Content.ReadAsStringAsync().Result;
+            //            var xmlResult = XDocument.Parse(result);
+            //            var isSuccess = xmlResult.Root.Element("IsSuccess");
+            //            var isComplete = xmlResult.Root.Element("IsComplete");
+            //            if (isSuccess.Value == "false")
+            //            {
+            //                ViewBag.Location = location;
+            //                return View(hotels);
+            //            }
+            //            else if(isComplete.Value == "true" && isSuccess.Value == "true")
+            //            {
+            //                var results = xmlResult.Root.Element("Results");
+            //                var GUID = xmlResult.Root.Element("GUID").Value;
+            //                foreach (var item in results.Elements())
+            //                {
+            //                    var hotel = new HotelModel();
+            //                    var resultId = item.Element("ID").Value;
+            //                    hotel.Id = int.Parse(resultId.Replace(".",string.Empty));
+            //                    hotel.ResultId = resultId;
+            //                    hotel.GUID = GUID;
+            //                    hotel.Name = item.Element("Name").Value;
+            //                    hotel.Location = item.Element("Address").Value;
+            //                    location = item.Element("Location").Value;
+            //                    hotel.Description = item.Element("Description").Value.Substring(0,150) + "...";
+            //                    var rooms = item.Element("RoomAllocations").Element("RoomAllocation").Element("Rooms").Elements();
+            //                    var prices = new List<float>();
+            //                    foreach (var room in rooms)
+            //                    {
+            //                        prices.Add(float.Parse(room.Element("TotalAmount").Value));
+            //                    }
+            //                    hotel.Price = prices.Min();
+            //                    hotel.Stars = int.Parse(item.Element("ClassCode").Value.Replace("*",string.Empty));
+            //                    hotels.Add(hotel);
+            //                }
+            //                ViewBag.Adults = guest;
+            //                ViewBag.CheckIn = checkIn;
+            //                ViewBag.CheckOut = checkOut;
+            //                ViewBag.Destination = destination;
+            //                ViewBag.Location = location;
+            //                return View(hotels);
+            //            }
+            //            var guid = xmlResult.Root.Element("GUID");
+            //            var xmlRequest = XDocument.Parse(data);
+            //            xmlRequest.Root.Add(guid);
+            //            content = new StringContent(xmlRequest.ToString(), Encoding.UTF8, "application/xml");
+            //            Thread.Sleep(1000);
+            //        }
+            //        else
+            //        {
+            //            ViewBag.Location = location;
+            //            return View(hotels);
+            //        }
+            //    }
+            //}
+            if(destination == null)
             {
-                client.BaseAddress = new Uri(Baseurl);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add("AuthCode", AuthCode);
-                client.DefaultRequestHeaders.Add("Action", "Search");
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
-                string data = "<SearchRequest>" +
-                                    "<LocationID>"+destination+"</LocationID>" +
-                                    "<CheckIn>" + checkIn.ToString("yyyy-MM-dd") + "</CheckIn>" +
-                                    "<CheckOut>" + checkOut.ToString("yyyy-MM-dd") + "</CheckOut>" +
-                                    "<RoomAllocations>" +
-                                        "<RoomAllocation>" +
-                                            "<Adults>"+guest+"</Adults>" +
-                                        "</RoomAllocation>" +
-                                    "</RoomAllocations>" +
-                                "</SearchRequest>";
-                var content = new StringContent(data, Encoding.UTF8, "application/xml");
-                var hotels = new List<HotelModel>();
-                var location = "Hotel";
-                while (true)
-                {
-                    HttpResponseMessage Res = await client.PostAsync("", content);
-                    if (Res.IsSuccessStatusCode)
-                    {
-                        var result = Res.Content.ReadAsStringAsync().Result;
-                        var xmlResult = XDocument.Parse(result);
-                        var isSuccess = xmlResult.Root.Element("IsSuccess");
-                        var isComplete = xmlResult.Root.Element("IsComplete");
-                        if (isSuccess.Value == "false")
-                        {
-                            ViewBag.Location = location;
-                            return View(hotels);
-                        }
-                        else if(isComplete.Value == "true" && isSuccess.Value == "true")
-                        {
-                            var results = xmlResult.Root.Element("Results");
-                            var GUID = xmlResult.Root.Element("GUID").Value;
-                            foreach (var item in results.Elements())
-                            {
-                                var hotel = new HotelModel();
-                                var resultId = item.Element("ID").Value;
-                                hotel.Id = int.Parse(resultId.Replace(".",string.Empty));
-                                hotel.ResultId = resultId;
-                                hotel.GUID = GUID;
-                                hotel.Name = item.Element("Name").Value;
-                                hotel.Location = item.Element("Address").Value;
-                                location = item.Element("Location").Value;
-                                hotel.Description = item.Element("Description").Value.Substring(0,150) + "...";
-                                var rooms = item.Element("RoomAllocations").Element("RoomAllocation").Element("Rooms").Elements();
-                                var prices = new List<float>();
-                                foreach (var room in rooms)
-                                {
-                                    prices.Add(float.Parse(room.Element("TotalAmount").Value));
-                                }
-                                hotel.Price = prices.Min();
-                                hotel.Stars = int.Parse(item.Element("ClassCode").Value.Replace("*",string.Empty));
-                                hotels.Add(hotel);
-                            }
-                            ViewBag.Adults = guest;
-                            ViewBag.CheckIn = checkIn;
-                            ViewBag.CheckOut = checkOut;
-                            ViewBag.Destination = destination;
-                            ViewBag.Location = location;
-                            return View(hotels);
-                        }
-                        var guid = xmlResult.Root.Element("GUID");
-                        var xmlRequest = XDocument.Parse(data);
-                        xmlRequest.Root.Add(guid);
-                        content = new StringContent(xmlRequest.ToString(), Encoding.UTF8, "application/xml");
-                        Thread.Sleep(1000);
-                    }
-                    else
-                    {
-                        ViewBag.Location = location;
-                        return View(hotels);
-                    }
-                }
+                return RedirectToAction("Index");
             }
+            var place = unitOfWork.PlaceRepository.GetByID(destination);
+            if(place == null)
+            {
+                return HttpNotFound();
+            }
+            var sunHotels = await sunApiRequest.SearchHotelAsync(place.Code, checkIn, checkOut, guest);
+            var allHotels = unitOfWork.HotelRepository.Get(h => h.PlaceId == place.Id && h.AvalibleFrom >= checkIn && h.AvalibleTo <= checkOut && h.Rooms.Any(s => s.Guests == guest));
+            var hotels = Mapper.Map<IEnumerable<HotelModel>>(allHotels).ToList();
+            hotels.AddRange(sunHotels);
+            ViewBag.Location = place.Name;
+            ViewBag.Adults = guest;
+            ViewBag.CheckIn = checkIn;
+            ViewBag.CheckOut = checkOut;
+            ViewBag.Destination = destination;
+            return View(hotels);
         }
 
         [Route("Check/Hotel")]
@@ -356,7 +380,7 @@ namespace AllWorldReservation.web.Controllers
                                     hotel.ResultId = resultId;
                                     hotel.GUID = GUID;
                                     hotel.Name = item.Element("Name").Value;
-                                    hotel.Location = item.Element("Address").Value;
+                                    hotel.Address = item.Element("Address").Value;
                                     location = item.Element("Location").Value;
                                     hotel.Description = item.Element("Description").Value;
                                     var roomsElments = item.Element("RoomAllocations").Element("RoomAllocation").Element("Rooms").Elements();
@@ -366,10 +390,10 @@ namespace AllWorldReservation.web.Controllers
                                     {
                                         var room = new RoomModel();
                                         room.Id = int.Parse(element.Element("RoomID").Value);
-                                        room.RateId = int.Parse(element.Element("RoomRateID").Value);
+                                        //room.RateId = int.Parse(element.Element("RoomRateID").Value);
                                         room.Name = element.Element("Name").Value;
                                         room.Description = element.Element("Description").Value;
-                                        room.BoardBasis = element.Element("BoardBasis").Value;
+                                        //room.BoardBasis = element.Element("BoardBasis").Value;
                                         room.TotalAmount = float.Parse(element.Element("TotalAmount").Value);
                                         if (room.TotalAmount < minPrice)
                                         {
@@ -413,9 +437,9 @@ namespace AllWorldReservation.web.Controllers
             return View();
         }
 
-        [Route("Book/Hotel")]
+        [Route("Book/Hotel/{GUID}/{ResultId}")]
         [HttpPost]
-        public async Task<ActionResult> BookHotel(BookModel bookModel)
+        public async Task<ActionResult> BookHotel(string GUID, string ResultId, ReservationModel reservationModel)
         {
             if (ModelState.IsValid)
             {
@@ -427,10 +451,10 @@ namespace AllWorldReservation.web.Controllers
                     client.DefaultRequestHeaders.Add("Action", "Book");
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
                     string data = "<BookRequest>" +
-                                        "<GUID>" + bookModel.GUID + "</GUID>" +
-                                        "<ResultID>" + bookModel.ResultId + "</ResultID>" +
+                                        "<GUID>" + GUID + "</GUID>" +
+                                        "<ResultID>" + ResultId + "</ResultID>" +
                                         "<Passengers>";
-                    foreach (var guest in bookModel.Guests)
+                    foreach (var guest in reservationModel.Guests)
                     {
                         data += "<Passenger>" +
                                     "<Title>" + guest.Title + "</Title>" +
@@ -441,18 +465,18 @@ namespace AllWorldReservation.web.Controllers
                                "</Passenger>";
                     }
                     data += "</Passengers>" +
-                            "<Reference>MYREFERENCE</Reference>"+
-                            "<CustomerTitle>" +bookModel.Guests.First().Title+"</CustomerTitle>"+
-                            "<CustomerFName>" + bookModel.Guests.First().FirstName + "</CustomerFName>" +
-                            "<CustomerSName>" + bookModel.Guests.First().Surname + "</CustomerSName>" +
-                            "<CustomerAddress1>" + bookModel.Address1 + "</CustomerAddress1>" +
-                            "<CustomerAddress2>" + bookModel.Address2 + "</CustomerAddress2>" +
-                            "<CustomerCity>" + bookModel.City + "</CustomerCity>" +
-                            "<CustomerPostCode>" + bookModel.PostCode + "</CustomerPostCode>" +
-                            "<CustomerCountryCode>" + bookModel.Country + "</CustomerCountryCode>" +
-                            "<CustomerTelDay>" + bookModel.TelNo1 + "</CustomerTelDay>" +
-                            "<CustomerTelEve>" + bookModel.TelNo2 + "</CustomerTelEve>" +
-                            "<CustomerEmail>" + bookModel.Email + "</CustomerEmail>" +
+                            "<Reference>"+ reservationModel.OrderId+ "</Reference>"+
+                            "<CustomerTitle>Mr</CustomerTitle>"+
+                            "<CustomerFName>Ahmed</CustomerFName>" +
+                            "<CustomerSName>Ayman</CustomerSName>" +
+                            "<CustomerAddress1>" + reservationModel.Address1 + "</CustomerAddress1>" +
+                            "<CustomerAddress2>" + reservationModel.Address2 + "</CustomerAddress2>" +
+                            "<CustomerCity>" + reservationModel.City + "</CustomerCity>" +
+                            "<CustomerPostCode>" + reservationModel.PostCode + "</CustomerPostCode>" +
+                            "<CustomerCountryCode>" + reservationModel.Country + "</CustomerCountryCode>" +
+                            "<CustomerTelDay>" + reservationModel.TelNo1 + "</CustomerTelDay>" +
+                            "<CustomerTelEve>" + reservationModel.TelNo2 + "</CustomerTelEve>" +
+                            "<CustomerEmail>" + reservationModel.Email + "</CustomerEmail>" +
                             "</BookRequest>";
                     var content = new StringContent(data, Encoding.UTF8, "application/xml");
                     HttpResponseMessage Res = await client.PostAsync("", content);
@@ -482,9 +506,9 @@ namespace AllWorldReservation.web.Controllers
                     }
                 }
             }
-            ViewBag.GUID = bookModel.GUID;
-            ViewBag.ResultId = bookModel.ResultId;
-            ViewBag.Guest = bookModel.Guests.Count();
+            ViewBag.GUID = GUID;
+            ViewBag.ResultId = ResultId;
+            ViewBag.Guest = reservationModel.Guests.Count();
             return View();
         }
 
@@ -521,7 +545,7 @@ namespace AllWorldReservation.web.Controllers
                         "<CustomerAddress2>" + "Test Address 2" + "</CustomerAddress2>" +
                         "<CustomerCity>" + "Cairo" + "</CustomerCity>" +
                         "<CustomerPostCode>" + "55" + "</CustomerPostCode>" +
-                        "<CustomerCountryCode>" + "Eg" + "</CustomerCountryCode>" +
+                        "<CustomerCountryCode>" + "EG" + "</CustomerCountryCode>" +
                         "<CustomerTelDay>" + "0122455" + "</CustomerTelDay>" +
                         "<CustomerTelEve>" + "1545454" + "</CustomerTelEve>" +
                         "<CustomerEmail>" + "ahmed@gmail.com" + "</CustomerEmail>" +

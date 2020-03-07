@@ -11,19 +11,29 @@ namespace AllWorldReservation.BL.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "RoomRateID")]
-        public int RateId { get; set; }
-
+        [Required]
         [Display(Name = "Name")]
+        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Display(Name = "BoardBasis")]
-        public string BoardBasis { get; set; }
-
         [Display(Name = "TotalAmount")]
         public float TotalAmount { get; set; }
+
+        [Display(Name = "Hotel")]
+        [Required(ErrorMessage = "Hotel Required")]
+        public int? HotelId { get; set; }
+
+        [Display(Name = "No Of Guests")]
+        [Required(ErrorMessage = "No Of Guests Required")]
+        public int Guests { get; set; }
+
+        [Display(Name = "Hotel")]
+        public HotelModel Hotel { get; set; }
+
+        [Display(Name = "Reservations")]
+        public ICollection<ReservationModel> Reservations { get; set; }
     }
 }

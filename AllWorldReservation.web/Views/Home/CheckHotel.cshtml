@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-md-8 ftco-animate">
                 <h4 class="mb-1">@Model.Name </h4>
-                <span class="mb-3"><i class="icon-map-o"></i> @Model.Location</span>
+                <span class="mb-3"><i class="icon-map-o"></i> @Model.Address</span>
                 <br />
                 @Html.Raw(Model.Description)
             </div> <!-- .col-md-8 -->
@@ -46,7 +46,7 @@
                         <tr>
                             <td><input type="radio" name="room" value="@item.Id" @(first ? "checked" : "") /></td>
                             <td>@item.Name</td>
-                            <td>@item.BoardBasis</td>
+                            <td>@item.Description</td>
                             <td>@item.TotalAmount $</td>
                         </tr>
                         first = false;

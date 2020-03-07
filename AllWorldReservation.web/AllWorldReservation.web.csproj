@@ -4017,6 +4017,7 @@
     <Compile Include="Gateway\GatewayApiRequest.cs" />
     <Compile Include="Gateway\JsonHelper.cs" />
     <Compile Include="Gateway\NVPApiClient.cs" />
+    <Compile Include="Gateway\SunApiRequest.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

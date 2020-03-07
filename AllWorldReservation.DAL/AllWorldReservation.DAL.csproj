@@ -53,15 +53,18 @@
   <ItemGroup>
     <Compile Include="Context\DbContainer.cs" />
     <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Guest.cs" />
     <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\Mail.cs" />
     <Compile Include="Entities\Photo.cs" />
     <Compile Include="Entities\Place.cs" />
     <Compile Include="Entities\Post.cs" />
+    <Compile Include="Entities\Reservation.cs" />
+    <Compile Include="Entities\Room.cs" />
     <Compile Include="Entities\Setting.cs" />
-    <Compile Include="Migrations\202003010943435_Initial.cs" />
-    <Compile Include="Migrations\202003010943435_Initial.designer.cs">
-      <DependentUpon>202003010943435_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202003071946325_Mig105.cs" />
+    <Compile Include="Migrations\202003071946325_Mig105.designer.cs">
+      <DependentUpon>202003071946325_Mig105.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,8 +76,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003010943435_Initial.resx">
-      <DependentUpon>202003010943435_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003071946325_Mig105.resx">
+      <DependentUpon>202003071946325_Mig105.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

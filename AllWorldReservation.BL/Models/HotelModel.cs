@@ -36,9 +36,16 @@ namespace AllWorldReservation.BL.Models
         [Display(Name = "Stars")]
         public int Stars { get; set; }
 
-        [Display(Name = "Location")]
-        [Required(ErrorMessage = "Location Required")]
-        public string Location { get; set; }
+        [Display(Name = "Address")]
+        [Required(ErrorMessage = "Address Required")]
+        [MaxLength(150, ErrorMessage = "Max Lenght 150 Character")]
+        public string Address { get; set; }
+
+        [Display(Name = "Avalible From")]
+        public DateTime? AvalibleFrom { get; set; }
+
+        [Display(Name = "Avalible To")]
+        public DateTime? AvalibleTo { get; set; }
 
         [Display(Name = "Photo")]
         public int? PhotoId { get; set; }

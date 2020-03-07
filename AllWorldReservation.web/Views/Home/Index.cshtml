@@ -49,24 +49,25 @@
                                         <label for="#">Destination</label>
                                         <div class="form-field">
                                             <div class="icon"><span class="icon-map-marker"></span></div>
-                                            <select name="destination" class="form-control">
-                                                <option value="0">Select resort</option>
-                                                <option value="74725">Ain Sukhna</option>
-                                                <option value="17281">Alexandria Area</option>
-                                                <option value="5898">Aswan</option>
-                                                <option value="245">Cairo</option>
-                                                <option value="17320">Dahab</option>
-                                                <option value="141815">El Alamein</option>
-                                                <option value="1384">El Gouna</option>
-                                                <option value="5905">Hurghada</option>
-                                                <option value="729">Luxor</option>
-                                                <option value="17299">Makadi Bay</option>
-                                                <option value="5912">Marsa Alam</option>
-                                                <option value="17323">Nuweiba</option>
-                                                <option value="141814">Ras Sudr</option>
-                                                <option value="5918">Sharm El Sheikh</option>
-                                                <option value="51445">Taba</option>
-                                            </select>
+                                            @Html.DropDownList("destination", (IEnumerable<SelectListItem>)ViewBag.Destinations, "Select place", new { @class = "form-control", required = "required" })
+                                            @*<select name="destination" class="form-control">
+            <option value="0">Select resort</option>
+            <option value="74725">Ain Sukhna</option>
+            <option value="17281">Alexandria Area</option>
+            <option value="5898">Aswan</option>
+            <option value="245">Cairo</option>
+            <option value="17320">Dahab</option>
+            <option value="141815">El Alamein</option>
+            <option value="1384">El Gouna</option>
+            <option value="5905">Hurghada</option>
+            <option value="729">Luxor</option>
+            <option value="17299">Makadi Bay</option>
+            <option value="5912">Marsa Alam</option>
+            <option value="17323">Nuweiba</option>
+            <option value="141814">Ras Sudr</option>
+            <option value="5918">Sharm El Sheikh</option>
+            <option value="51445">Taba</option>
+        </select>*@
                                         </div>
                                     </div>
                                 </div>

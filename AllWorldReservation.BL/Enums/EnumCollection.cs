@@ -50,5 +50,41 @@ namespace AllWorldReservation.BL.Enums
             [Description("Reciver")]
             Receiver = 2
         }
+
+        public enum PayType
+        {
+            [Description("Online")]
+            Online = 1,
+
+            [Description("Offline")]
+            Offline = 2
+        }
+
+        public enum ReservationType
+        {
+            [Description("Hotel")]
+            Hotel = 1,
+
+            [Description("Sun Hotel")]
+            SunHotel = 2,
+
+           [Description("Place")]
+            Place = 3
+        }
+
+        public enum GuestType
+        {
+            [Description("Adult")]
+            Adult = 1,
+
+            [Description("Teenager")]
+            Teenager = 2,
+
+            [Description("Children")]
+            Children = 3,
+
+            [Description("Infant")]
+            Infant = 4
+        }
     }
 }

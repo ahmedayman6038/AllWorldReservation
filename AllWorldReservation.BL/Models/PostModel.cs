@@ -31,6 +31,9 @@ namespace AllWorldReservation.BL.Models
         [Display(Name = "Photo")]
         public int? PhotoId { get; set; }
 
+        //[Display(Name = "Post By")]
+        //public int? UserId { get; set; }
+
         [Display(Name = "Created Date")]
         public DateTime CreatedDate { get; set; }
 
@@ -40,5 +43,7 @@ namespace AllWorldReservation.BL.Models
         [Display(Name = "Photo")]
         public PhotoModel Photo { get; set; }
 
+        //[Display(Name = "Post By")]
+        //public UserModel User { get; set; }
     }
 }
