@@ -1,4 +1,4 @@
-@{
+﻿@{
     Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
     ViewBag.Title = "Pay Result";
 }
@@ -20,12 +20,10 @@
     <div class="container">
         <div class="col-9 pl-4">
             <h3>@ViewBag.Result</h3>
-            @if (ViewBag.Result == "SUCCESS")
+            @if (ViewBag.Result == "Success")
             {
-                <h5>Order ID</h5>
-                <pre>@ViewBag.OrderId</pre>
-                <h5>Transaction ID</h5>
-                <pre>@ViewBag.TransId</pre>
+                <h5>Your Booking Reference</h5>
+                <pre>@ViewBag.BookRef</pre>
             }
 
         </div>

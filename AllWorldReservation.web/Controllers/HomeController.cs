@@ -176,17 +176,17 @@ namespace AllWorldReservation.web.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Baseurl);                
+                client.BaseAddress = new Uri(Baseurl);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add("AuthCode", AuthCode);
                 client.DefaultRequestHeaders.Add("Action", "Search");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
-                DateTime checkIn = new DateTime(2020,3,5);
-                DateTime checkOut = new DateTime(2020,3,15);
+                DateTime checkIn = new DateTime(2020, 3, 5);
+                DateTime checkOut = new DateTime(2020, 3, 15);
                 string data = "<SearchRequest>" +
                                     "<LocationID>17320</LocationID>" +
-                                    "<CheckIn>"+checkIn.ToString("yyyy-MM-dd")+"</CheckIn>" +
-                                    "<CheckOut>"+checkOut.ToString("yyyy-MM-dd")+"</CheckOut>" +
+                                    "<CheckIn>" + checkIn.ToString("yyyy-MM-dd") + "</CheckIn>" +
+                                    "<CheckOut>" + checkOut.ToString("yyyy-MM-dd") + "</CheckOut>" +
                                     "<RoomAllocations>" +
                                         "<RoomAllocation>" +
                                             "<Adults>1</Adults>" +
@@ -424,7 +424,7 @@ namespace AllWorldReservation.web.Controllers
                     client.BaseAddress = new Uri(Baseurl);
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Add("AuthCode", AuthCode);
-                    client.DefaultRequestHeaders.Add("Action", "Search");
+                    client.DefaultRequestHeaders.Add("Action", "Book");
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
                     string data = "<BookRequest>" +
                                         "<GUID>" + bookModel.GUID + "</GUID>" +
@@ -437,7 +437,7 @@ namespace AllWorldReservation.web.Controllers
                                     "<Firstname>" + guest.FirstName + "</Firstname>" +
                                     "<Surname>" + guest.Surname + "</Surname>" +
                                     "<Type>Adult</Type>" +
-                                    "<DOB>" + guest.DateOfBirth.ToString("yyyy-MM-dd") + " </DOB>" +
+                                    "<DOB>" + guest.DateOfBirth.ToString("yyyy-MM-dd") + "</DOB>" +
                                "</Passenger>";
                     }
                     data += "</Passengers>" +
@@ -445,8 +445,8 @@ namespace AllWorldReservation.web.Controllers
                             "<CustomerTitle>" +bookModel.Guests.First().Title+"</CustomerTitle>"+
                             "<CustomerFName>" + bookModel.Guests.First().FirstName + "</CustomerFName>" +
                             "<CustomerSName>" + bookModel.Guests.First().Surname + "</CustomerSName>" +
-                            "<CustomerAddress1>" + bookModel.Address1 + "</CustomerAdress1>" +
-                            "<CustomerAddress2>" + bookModel.Address2 + "</CustomerAdress2>" +
+                            "<CustomerAddress1>" + bookModel.Address1 + "</CustomerAddress1>" +
+                            "<CustomerAddress2>" + bookModel.Address2 + "</CustomerAddress2>" +
                             "<CustomerCity>" + bookModel.City + "</CustomerCity>" +
                             "<CustomerPostCode>" + bookModel.PostCode + "</CustomerPostCode>" +
                             "<CustomerCountryCode>" + bookModel.Country + "</CustomerCountryCode>" +
@@ -455,33 +455,103 @@ namespace AllWorldReservation.web.Controllers
                             "<CustomerEmail>" + bookModel.Email + "</CustomerEmail>" +
                             "</BookRequest>";
                     var content = new StringContent(data, Encoding.UTF8, "application/xml");
-                    //HttpResponseMessage Res = await client.PostAsync("", content);
-                    //if (Res.IsSuccessStatusCode)
-                    //{
-                    //    var result = Res.Content.ReadAsStringAsync().Result;
-                    //    var xmlResult = XDocument.Parse(result);
-                    //    var isSuccess = xmlResult.Root.Element("IsSuccess");
-                    //    var isComplete = xmlResult.Root.Element("IsComplete");
-                    //    if (isSuccess.Value == "false" || (isComplete.Value == "true" && isSuccess.Value == "true"))
-                    //    {
-                    //        return Content(result, "application/xml");
-                    //    }
-                    //    var guid = xmlResult.Root.Element("GUID");
-                    //    var xmlRequest = XDocument.Parse(data);
-                    //    xmlRequest.Root.Add(guid);
-                    //    content = new StringContent(xmlRequest.ToString(), Encoding.UTF8, "application/xml");
-                    //    Thread.Sleep(1000);
-                    //}
-                    //else
-                    //{
-                    //    return Content("Error");
-                    //}
+                    HttpResponseMessage Res = await client.PostAsync("", content);
+                    if (Res.IsSuccessStatusCode)
+                    {
+                        var result = Res.Content.ReadAsStringAsync().Result;
+                        var xmlResult = XDocument.Parse(result);
+                        var isSuccess = xmlResult.Root.Element("IsSuccess");
+                        var isComplete = xmlResult.Root.Element("IsComplete");
+                        if (isComplete.Value == "true" && isSuccess.Value == "true")
+                        {
+                            var bookRef = xmlResult.Root.Element("BookingRef");
+                            ViewBag.Result = "Success";
+                            ViewBag.BookRef = bookRef.Value;
+                            return View("BookResult");
+                        }
+                        else
+                        {
+                            ViewBag.Result = "Booking Faild";
+                            return View("BookResult");
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Result = "Error";
+                        return View("BookResult");
+                    }
                 }
             }
             ViewBag.GUID = bookModel.GUID;
             ViewBag.ResultId = bookModel.ResultId;
             ViewBag.Guest = bookModel.Guests.Count();
             return View();
+        }
+
+        [Route("api2")]
+        public async Task<ActionResult> TestAsync(string GUID, string ResultId)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("AuthCode", AuthCode);
+                client.DefaultRequestHeaders.Add("Action", "Book");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+                DateTime dob = new DateTime(2020, 1, 1);
+                string data = "<BookRequest>" +
+                                    "<GUID>" + GUID + "</GUID>" +
+                                    "<ResultID>" + ResultId + "</ResultID>" +
+                                    "<Passengers>";
+              
+                    data += "<Passenger>" +
+                                "<Title>" + "Mr" + "</Title>" +
+                                "<Firstname>" + "Ahmed" + "</Firstname>" +
+                                "<Surname>" + "Ayman" + "</Surname>" +
+                                "<Type>Adult</Type>" +
+                                "<DOB>" + dob.ToString("yyyy-MM-dd") + "</DOB>" +
+                           "</Passenger>";
+                
+                data += "</Passengers>" +
+                        "<Reference>MYREFERENCE</Reference>" +
+                        "<CustomerTitle>" + "Mr" + "</CustomerTitle>" +
+                        "<CustomerFName>" + "Ahmed" + "</CustomerFName>" +
+                        "<CustomerSName>" + "Ayman" + "</CustomerSName>" +
+                        "<CustomerAddress1>" + "Test Address 1" + "</CustomerAddress1>" +
+                        "<CustomerAddress2>" + "Test Address 2" + "</CustomerAddress2>" +
+                        "<CustomerCity>" + "Cairo" + "</CustomerCity>" +
+                        "<CustomerPostCode>" + "55" + "</CustomerPostCode>" +
+                        "<CustomerCountryCode>" + "Eg" + "</CustomerCountryCode>" +
+                        "<CustomerTelDay>" + "0122455" + "</CustomerTelDay>" +
+                        "<CustomerTelEve>" + "1545454" + "</CustomerTelEve>" +
+                        "<CustomerEmail>" + "ahmed@gmail.com" + "</CustomerEmail>" +
+                        "</BookRequest>";
+                var content = new StringContent(data, Encoding.UTF8, "application/xml");
+                HttpResponseMessage Res = await client.PostAsync("", content);
+                if (Res.IsSuccessStatusCode)
+                {
+                    var result = Res.Content.ReadAsStringAsync().Result;
+                    var xmlResult = XDocument.Parse(result);
+                    var isSuccess = xmlResult.Root.Element("IsSuccess");
+                    //var isComplete = xmlResult.Root.Element("IsComplete");
+                    //if (isComplete.Value == "true" && isSuccess.Value == "true")
+                    //{
+                    //    var bookRef = xmlResult.Root.Element("BookingRef");
+                    //    ViewBag.Result = "Success";
+                    //    ViewBag.BookRef = bookRef.Value;
+                    //    return View("BookResult");
+                    //}
+                    //else
+                    //{
+                    //    return Content("Booking Faild");
+                    //}
+                    return Content(result, "application/xml");
+                }
+                else
+                {
+                    return Content("Error");
+                }
+            }
         }
         //[Route("Check/Hotel")]
         //public async Task<ActionResult> CheckHotel(string Guid, string ResultId, int Adults, int RoomId, int RateId)
