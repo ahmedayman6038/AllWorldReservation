@@ -123,6 +123,7 @@ namespace AllWorldReservation.web.Controllers
         public ActionResult Create()
         {
             var hotel = new HotelModel();
+            hotel.Rooms = new List<RoomModel>();
             var places = unitOfWork.PlaceRepository.Get();
             ViewBag.PlaceId = new SelectList(places, "Id", "Name");
             return View(hotel);
@@ -130,10 +131,17 @@ namespace AllWorldReservation.web.Controllers
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Stars,Address,PhotoId,PlaceId")] HotelModel hotelModel, List<HttpPostedFileBase> files)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Stars,Address,AvalibleFrom,AvalibleTo,Rooms,PhotoId,PlaceId")] HotelModel hotelModel, List<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
+                if (hotelModel.Rooms != null)
+                {
+                    foreach (var item in hotelModel.Rooms.ToList())
+                    {
+                        if (item.Deleted) hotelModel.Rooms.Remove(item);
+                    }
+                }
                 var hotel = Mapper.Map<Hotel>(hotelModel);
                 unitOfWork.HotelRepository.Insert(hotel);
                 unitOfWork.Save();

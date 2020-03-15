@@ -36,7 +36,7 @@ namespace AllWorldReservation.BL.Mapper
             CreateMap<Place, PlaceModel>();
             CreateMap<PlaceModel, Place>();
 
-            CreateMap<Room, RoomModel>();
+            CreateMap<Room, RoomModel>().ForMember(x => x.Deleted, opt => opt.Ignore());
             CreateMap<RoomModel, Room>();
 
             CreateMap<Guest, GuestModel>();

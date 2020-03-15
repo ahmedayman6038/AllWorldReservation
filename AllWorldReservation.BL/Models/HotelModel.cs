@@ -29,7 +29,6 @@ namespace AllWorldReservation.BL.Models
         public string Description { get; set; }
 
         [Display(Name = "Price")]
-        [Required(ErrorMessage = "Price Required")]
         [DataType(DataType.Currency)]
         public float Price { get; set; }
 
@@ -42,9 +41,13 @@ namespace AllWorldReservation.BL.Models
         public string Address { get; set; }
 
         [Display(Name = "Avalible From")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? AvalibleFrom { get; set; }
 
         [Display(Name = "Avalible To")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? AvalibleTo { get; set; }
 
         [Display(Name = "Photo")]

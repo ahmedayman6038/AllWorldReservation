@@ -263,6 +263,9 @@
     <Content Include="Pages\widgets\infobox\infobox-5.html" />
     <Content Include="plugins\animate-css\animate.css" />
     <Content Include="plugins\animate-css\animate.min.css" />
+    <Content Include="plugins\bootstrap-material-datetimepicker\css\bootstrap-material-datetimepicker.css" />
+    <Content Include="plugins\bootstrap-material-datetimepicker\font\Material-Design-Icons.svg" />
+    <Content Include="plugins\bootstrap-material-datetimepicker\js\bootstrap-material-datetimepicker.js" />
     <Content Include="plugins\bootstrap-select\css\bootstrap-select.css" />
     <Content Include="plugins\bootstrap-select\css\bootstrap-select.min.css" />
     <Content Include="plugins\bootstrap-select\js\bootstrap-select.js" />
@@ -3065,6 +3068,9 @@
     <Content Include="plugins\light-gallery\js\lightgallery-all.min.js" />
     <Content Include="plugins\light-gallery\js\lightgallery.js" />
     <Content Include="plugins\light-gallery\js\lightgallery.min.js" />
+    <Content Include="plugins\momentjs\ender.js" />
+    <Content Include="plugins\momentjs\moment.js" />
+    <Content Include="plugins\momentjs\package.js" />
     <Content Include="plugins\morrisjs\.gitignore" />
     <Content Include="plugins\morrisjs\examples\area-as-line.html" />
     <Content Include="plugins\morrisjs\examples\area.html" />
@@ -4151,6 +4157,10 @@
     <Content Include="Views\Places\Index.cshtml" />
     <Content Include="Views\Places\_Photos.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="plugins\bootstrap-material-datetimepicker\font\Material-Design-Icons.eot" />
+    <Content Include="plugins\bootstrap-material-datetimepicker\font\Material-Design-Icons.ttf" />
+    <Content Include="plugins\bootstrap-material-datetimepicker\font\Material-Design-Icons.woff" />
+    <Content Include="plugins\bootstrap-material-datetimepicker\font\Material-Design-Icons.woff2" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
