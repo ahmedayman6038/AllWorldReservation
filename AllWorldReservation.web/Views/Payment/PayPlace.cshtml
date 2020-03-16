@@ -44,7 +44,7 @@
             @{ Place place = (Place)ViewBag.Place; }
             <div class="col-md-8 ftco-animate">
                 <h2 class="mb-1">@place.Name <span style="float:right"><small>@place.Price $</small></span></h2>
-                <span class="mb-3"><i class="icon-map-o"></i> @place.Location</span>
+                <span class="mb-3"><i class="icon-map-o"></i> @place.Country</span>
                 @Html.Raw(place.Description)
             </div> <!-- .col-md-8 -->
             <div class="col-md-4">

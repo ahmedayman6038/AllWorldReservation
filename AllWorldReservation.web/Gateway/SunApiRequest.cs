@@ -81,6 +81,7 @@ namespace AllWorldReservation.web.Gateway
                                 }
                                 hotel.Price = prices.Min();
                                 hotel.Stars = int.Parse(item.Element("ClassCode").Value.Replace("*", string.Empty));
+                                hotel.Type = BL.Enums.EnumCollection.ReservationType.SunHotel;
                                 hotels.Add(hotel);
                             }
                             return hotels;

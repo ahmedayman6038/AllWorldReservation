@@ -30,7 +30,8 @@ namespace AllWorldReservation.BL.Mapper
             CreateMap<SettingModel, Setting>();
 
             CreateMap<Hotel, HotelModel>().ForMember(x => x.GUID, opt => opt.Ignore())
-                                        .ForMember(x => x.ResultId, opt => opt.Ignore());
+                                        .ForMember(x => x.ResultId, opt => opt.Ignore())
+                                        .ForMember(x => x.Type, opt => opt.Ignore());
             CreateMap<HotelModel, Hotel>();
 
             CreateMap<Place, PlaceModel>();

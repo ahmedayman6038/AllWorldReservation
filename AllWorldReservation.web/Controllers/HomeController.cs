@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.web.Controllers
 {
@@ -319,9 +320,19 @@ namespace AllWorldReservation.web.Controllers
                 return HttpNotFound();
             }
             var sunHotels = await sunApiRequest.SearchHotelAsync(place.Code, checkIn, checkOut, guest);
-            var allHotels = unitOfWork.HotelRepository.Get(h => h.PlaceId == place.Id && h.AvalibleFrom >= checkIn && h.AvalibleTo <= checkOut && h.Rooms.Any(s => s.Guests == guest));
+            var allHotels = unitOfWork.HotelRepository.Get(h => h.PlaceId == place.Id && h.AvalibleFrom <= checkIn && h.AvalibleTo >= checkOut && h.Rooms.Any(s => s.Guests == guest));
             var hotels = Mapper.Map<IEnumerable<HotelModel>>(allHotels).ToList();
-            hotels.ForEach(h => h.ResultId = h.Id.ToString());
+            foreach (var hotel in hotels)
+            {
+                var prices = new List<float>();
+                foreach (var room in hotel.Rooms.ToList())
+                {
+                    prices.Add(room.TotalAmount);
+                }
+                hotel.Price = prices.Min();
+                hotel.ResultId = hotel.Id.ToString();
+                hotel.Type = ReservationType.Hotel;
+            }
             hotels.AddRange(sunHotels);
             ViewBag.Location = place.Name;
             ViewBag.Adults = guest;
@@ -332,7 +343,7 @@ namespace AllWorldReservation.web.Controllers
         }
 
         [Route("Check/Hotel")]
-        public async Task<ActionResult> CheckHotel(int? destination, DateTime checkIn, DateTime checkOut, int guest, string itemId)
+        public async Task<ActionResult> CheckHotel(int? destination, DateTime checkIn, DateTime checkOut, int guest, string itemId, ReservationType type)
         {
             //using (var client = new HttpClient())
             //{
@@ -435,17 +446,22 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
-            var sunHotel = await sunApiRequest.GetHotelAsync(place.Code, checkIn, checkOut, guest, itemId);
-            if(sunHotel != null)
+            var hotel = new HotelModel();
+            if(type == ReservationType.SunHotel)
             {
-                ViewBag.Guest = guest;
-                ViewBag.Location = sunHotel.Place.Name;
-                return View(sunHotel);
+                hotel = await sunApiRequest.GetHotelAsync(place.Code, checkIn, checkOut, guest, itemId);
             }
-            var allHotel = unitOfWork.HotelRepository.GetByID(int.Parse(itemId));
+            else if(type == ReservationType.Hotel)
+            {
+                hotel = Mapper.Map<HotelModel>(unitOfWork.HotelRepository.GetByID(int.Parse(itemId)));
+            }
+            if (hotel == null)
+            {
+                return HttpNotFound();
+            }
             ViewBag.Guest = guest;
-            ViewBag.Location = sunHotel.Place.Name;
-            return View(allHotel);
+            ViewBag.Location = hotel.Place.Name;
+            return View(hotel);
 
         }
 

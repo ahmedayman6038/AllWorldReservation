@@ -43,10 +43,22 @@
                         @Html.DisplayFor(model => model.Address)
                     </div>
                 </div>
-                @Html.DisplayNameFor(model => model.Price)
+                @*@Html.DisplayNameFor(model => model.Price)
+        <div class="form-group">
+            <div class="form-line">
+                @Html.DisplayFor(model => model.Price)
+            </div>
+        </div>*@
+                @Html.DisplayNameFor(model => model.AvalibleFrom)
                 <div class="form-group">
                     <div class="form-line">
-                        @Html.DisplayFor(model => model.Price)
+                        @Html.DisplayFor(model => model.AvalibleFrom)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.AvalibleTo)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.AvalibleTo)
                     </div>
                 </div>
                 @Html.DisplayNameFor(model => model.Stars)
@@ -67,6 +79,47 @@
                         @Html.Raw(Model.Description)
                     </div>
                 </div>
+                @Html.DisplayNameFor(model => model.Rooms)
+                @for (int i = 0; i < Model.Rooms.Count; i++)
+                {
+                    if (!Model.Rooms.ElementAt(i).Deleted)
+                    {
+                        <div class="row clearfix">
+                            <div class="col-sm-3">
+                                Room Name
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        @Model.Rooms.ElementAt(i).Name
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                Room Description
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        @Model.Rooms.ElementAt(i).Description
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                Total Amount
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        @Model.Rooms.ElementAt(i).TotalAmount
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                No Of Guests
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        @Model.Rooms.ElementAt(i).Guests
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
                 @if (photoName != "")
                 {
                     <div class="form-group">

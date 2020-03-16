@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    var currentRoom = 0;
     Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
 }
 
@@ -126,13 +127,14 @@
                                     </div>
                                     <div class="col-sm-1">
                                         <div class="form-group">
-                                            <input type="hidden" name="Rooms[@i].Deleted" value="@Model.Rooms.ElementAt(i).Deleted">
-                                            <button type="submit" class="btn btn-danger waves-effect" onclick="RemoveRoom(this)">
+                                            <input type="hidden" name="Rooms[@i].Deleted" value="@(Model.Rooms.ElementAt(i).Deleted?"true":"false")">
+                                            <button type="button" class="btn btn-danger waves-effect" onclick="RemoveRoom(this)">
                                                 <i class="material-icons">delete</i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
+                                currentRoom++;
                             }
                         }
                     </fieldset>
@@ -191,7 +193,7 @@
 @section scripts {
     <script>
         var currentId = null;
-        var currentRoom = 0;
+        var currentRoom = @currentRoom;
         $(function () {
             CKEDITOR.replace('Description');
             $('#AvalibleFrom').bootstrapMaterialDatePicker({
@@ -271,7 +273,6 @@
             var deleted = $(ctr).parent().find('input[name$="Deleted"]');
             $(deleted).val("true");
             $(row).hide();
-
         }
     </script>
 }

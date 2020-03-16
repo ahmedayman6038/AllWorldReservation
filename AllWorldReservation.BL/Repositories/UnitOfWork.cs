@@ -108,6 +108,46 @@ namespace AllWorldReservation.BL.Repositories
                 return hotelRepository;
             }
         }
+
+        private GenericRepository<Room> roomRepository;
+        public IGenericRepository<Room> RoomRepository
+        {
+            get
+            {
+                if (this.roomRepository == null)
+                {
+                    this.roomRepository = new GenericRepository<Room>(_context);
+                }
+                return roomRepository;
+            }
+        }
+
+        private GenericRepository<Guest> guestRepository;
+        public IGenericRepository<Guest> GuestRepository
+        {
+            get
+            {
+                if (this.guestRepository == null)
+                {
+                    this.guestRepository = new GenericRepository<Guest>(_context);
+                }
+                return guestRepository;
+            }
+        }
+
+        private GenericRepository<Reservation> reservationRepository;
+        public IGenericRepository<Reservation> ReservationRepository
+        {
+            get
+            {
+                if (this.reservationRepository == null)
+                {
+                    this.reservationRepository = new GenericRepository<Reservation>(_context);
+                }
+                return reservationRepository;
+            }
+        }
+
         public bool Save()
         {
             bool result = true;

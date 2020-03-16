@@ -23,6 +23,12 @@ namespace AllWorldReservation.BL.Interfaces
 
         IGenericRepository<Hotel> HotelRepository { get; }
 
+        IGenericRepository<Room> RoomRepository { get; }
+
+        IGenericRepository<Guest> GuestRepository { get; }
+
+        IGenericRepository<Reservation> ReservationRepository { get; }
+
         bool Save();
 
     }

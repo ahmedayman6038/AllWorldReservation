@@ -206,12 +206,30 @@ namespace AllWorldReservation.web.Controllers
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Stars,Address,PhotoId,PlaceId")] HotelModel hotelModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Stars,Address,AvalibleFrom,AvalibleTo,Rooms,PhotoId,PlaceId")] HotelModel hotelModel)
         {
             if (ModelState.IsValid)
             {
+                var rooms = unitOfWork.RoomRepository.Get(r => r.HotelId == hotelModel.Id);
+                foreach (var item in rooms)
+                {
+                    unitOfWork.RoomRepository.Delete(item);
+                }
                 var hotel = Mapper.Map<Hotel>(hotelModel);
+                hotel.Rooms = null;
                 unitOfWork.HotelRepository.Update(hotel);
+                if(hotelModel.Rooms != null)
+                {
+                    foreach (var item in hotelModel.Rooms.ToList())
+                    {
+                        if (!item.Deleted)
+                        {
+                            var room = Mapper.Map<Room>(item);
+                            room.HotelId = hotel.Id;
+                            unitOfWork.RoomRepository.Insert(room);
+                        }
+                    }
+                }
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }

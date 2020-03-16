@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.BL.Models
 {
@@ -59,6 +60,9 @@ namespace AllWorldReservation.BL.Models
 
         [Display(Name = "Created Date")]
         public DateTime CreatedDate { get; set; }
+
+        [Display(Name = "Hotel Type")]
+        public ReservationType Type { get; set; }
 
         [Display(Name = "Photo")]
         public PhotoModel Photo { get; set; }
