@@ -229,7 +229,7 @@ namespace AllWorldReservation.web.Controllers
 
 
         [Route("Search/Hotel")]
-        public async Task<ActionResult> SearchHotel(int? destination, DateTime checkIn, DateTime checkOut, int guest)
+        public async Task<ActionResult> SearchHotel(int? destination, DateTime checkIn, DateTime checkOut, List<RoomSearch> rooms)
         {
             //using (var client = new HttpClient())
             //{
@@ -319,7 +319,7 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
-            var sunHotels = await sunApiRequest.SearchHotelAsync(place.Code, checkIn, checkOut, guest);
+            var sunHotels = await sunApiRequest.SearchHotelAsync(place.Code, checkIn, checkOut, rooms);
             var allHotels = unitOfWork.HotelRepository.Get(h => h.PlaceId == place.Id && h.AvalibleFrom <= checkIn && h.AvalibleTo >= checkOut && h.Rooms.Any(s => s.Guests == guest));
             var hotels = Mapper.Map<IEnumerable<HotelModel>>(allHotels).ToList();
             foreach (var hotel in hotels)
@@ -335,7 +335,7 @@ namespace AllWorldReservation.web.Controllers
             }
             hotels.AddRange(sunHotels);
             ViewBag.Location = place.Name;
-            ViewBag.Adults = guest;
+            ViewBag.Rooms = rooms;
             ViewBag.CheckIn = checkIn;
             ViewBag.CheckOut = checkOut;
             ViewBag.Destination = destination;

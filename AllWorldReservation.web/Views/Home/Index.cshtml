@@ -36,14 +36,14 @@
                         <form action="/Search/Hotel" method="get" class="search-destination">
                             <div class="row">
                                 @*<div class="col-md align-items-end">
-                                        <div class="form-group">
-                                            <label for="#">From</label>
-                                            <div class="form-field">
-                                                <div class="icon"><span class="icon-my_location"></span></div>
-                                                <input type="text" class="form-control" placeholder="From">
-                                            </div>
-                                        </div>
-                                    </div>*@
+            <div class="form-group">
+                <label for="#">From</label>
+                <div class="form-field">
+                    <div class="icon"><span class="icon-my_location"></span></div>
+                    <input type="text" class="form-control" placeholder="From">
+                </div>
+            </div>
+        </div>*@
                                 <div class="col-md align-items-end">
                                     <div class="form-group">
                                         <label for="#">Destination</label>
@@ -51,23 +51,23 @@
                                             <div class="icon"><span class="icon-map-marker"></span></div>
                                             @Html.DropDownList("destination", (IEnumerable<SelectListItem>)ViewBag.Destinations, "Select place", new { @class = "form-control", required = "required" })
                                             @*<select name="destination" class="form-control">
-            <option value="0">Select resort</option>
-            <option value="74725">Ain Sukhna</option>
-            <option value="17281">Alexandria Area</option>
-            <option value="5898">Aswan</option>
-            <option value="245">Cairo</option>
-            <option value="17320">Dahab</option>
-            <option value="141815">El Alamein</option>
-            <option value="1384">El Gouna</option>
-            <option value="5905">Hurghada</option>
-            <option value="729">Luxor</option>
-            <option value="17299">Makadi Bay</option>
-            <option value="5912">Marsa Alam</option>
-            <option value="17323">Nuweiba</option>
-            <option value="141814">Ras Sudr</option>
-            <option value="5918">Sharm El Sheikh</option>
-            <option value="51445">Taba</option>
-        </select>*@
+                        <option value="0">Select resort</option>
+                        <option value="74725">Ain Sukhna</option>
+                        <option value="17281">Alexandria Area</option>
+                        <option value="5898">Aswan</option>
+                        <option value="245">Cairo</option>
+                        <option value="17320">Dahab</option>
+                        <option value="141815">El Alamein</option>
+                        <option value="1384">El Gouna</option>
+                        <option value="5905">Hurghada</option>
+                        <option value="729">Luxor</option>
+                        <option value="17299">Makadi Bay</option>
+                        <option value="5912">Marsa Alam</option>
+                        <option value="17323">Nuweiba</option>
+                        <option value="141814">Ras Sudr</option>
+                        <option value="5918">Sharm El Sheikh</option>
+                        <option value="51445">Taba</option>
+                    </select>*@
                                         </div>
                                     </div>
                                 </div>
@@ -93,23 +93,241 @@
                                     <div class="form-group">
                                         <label for="#">Guest</label>
                                         <div class="form-field">
-                                            <div class="select-wrap">
-                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                <select name="guest" id="guest" class="form-control">
-                                                    <option value="1">1 Guest</option>
-                                                    <option value="2">2 Guest</option>
-                                                    <option value="3">3 Guest</option>
-                                                    <option value="4">4 Guest</option>
-                                                    <option value="5">5 Guest</option>
-                                                    <option value="6">6 Guest</option>
-                                                    <option value="7">7 Guest</option>
-                                                    <option value="8">8 Guest</option>
-                                                    <option value="9">9 Guest</option>
-                                                </select>
-                                           </div>                           
+                                            <input type="text" id="txt" class="form-control" readonly data-toggle="modal" data-target="#exampleModal" />
+                                            @*<div class="select-wrap">
+                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                        <select name="guest" id="guest" class="form-control">
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guest</option>
+                            <option value="3">3 Guest</option>
+                            <option value="4">4 Guest</option>
+                            <option value="5">5 Guest</option>
+                            <option value="6">6 Guest</option>
+                            <option value="7">7 Guest</option>
+                            <option value="8">8 Guest</option>
+                            <option value="9">9 Guest</option>
+                        </select>
+                    </div>*@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Rooms and Guests Selection</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="modal-body">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Rooms : </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo1">
+                                                                            <button id="dec1" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input1" name="rooms[0]" value="">
+                                                                            <button id="inc1" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <h4 class="text-center text-primary">Room 1</h4>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Adults : 16+ years </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo2">
+                                                                            <button id="dec2" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input2" name="Input2" value="">
+                                                                            <button id="inc2" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Teenagers : 12-15 years </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo3">
+                                                                            <button id="dec3" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input3" name="Input3" value="">
+                                                                            <button id="inc3" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Children : 2-11 years</div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo4">
+                                                                            <button id="dec4" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input4" name="Input4" value="">
+                                                                            <button id="inc4" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Infants : 0-23 months</div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo5">
+                                                                            <button id="dec5" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input5" name="Input5" value="">
+                                                                            <button id="inc5" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div id="ChildContainer1">
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12" id="B2">
+                                                        <div class="modal-body">
+                                                            <div class="container">
+                                                                <h4 class="text-center text-primary">Room 2</h4>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Adults : 16+ years </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo6">
+                                                                            <button id="dec6" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input6" name="Input6" value="">
+                                                                            <button id="inc6" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Teenagers : 12-15 years </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo7">
+                                                                            <button id="dec7" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input7" name="Input7" value="">
+                                                                            <button id="inc7" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Children : 2-11 years</div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo8">
+                                                                            <button id="dec8" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input8" name="Input8" value="">
+                                                                            <button id="inc8" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Infants : 0-23 months</div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo9">
+                                                                            <button id="dec9" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input9" name="Input9" value="">
+                                                                            <button id="inc9" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div id="ChildContainer2">
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12" id="B3">
+                                                        <div class="modal-body">
+                                                            <div class="container">
+                                                                <h4 class="text-center text-primary">Room 3</h4>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Adults : 16+ years </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo10">
+                                                                            <button id="dec10" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input10" name="Input10" value="">
+                                                                            <button id="inc10" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Teenagers : 12-15 years </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo11">
+                                                                            <button id="dec11" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input11" name="Input11" value="">
+                                                                            <button id="inc11" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Children : 2-11 years</div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo12">
+                                                                            <button id="dec12" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input12" name="Input12" value="">
+                                                                            <button id="inc12" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 font-weight-bold">Infants : 0-23 months</div>
+                                                                    <div class="col-lg-6">
+                                                                        <div id="sinolo13">
+                                                                            <button id="dec13" class="btn btn-info fa fa-minus pull-left"></button>
+                                                                            <input type="text" id="Input13" name="Input13" value="">
+                                                                            <button id="inc13" class="btn btn-info fa fa-plus pull-right"></button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br />
+                                                                <div id="ChildContainer3">
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" id="Save" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-md align-self-end">
                                     <div class="form-group">
                                         <div class="form-field">
@@ -117,7 +335,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                         
+
                         </form>
                     </div>
 
@@ -981,6 +1200,8 @@
         </div>
     </div>
 </section>
+
+
 @section scripts{
     <script>
         $(document).ready(function () {
