@@ -343,7 +343,7 @@ namespace AllWorldReservation.web.Controllers
         }
 
         [Route("Check/Hotel")]
-        public async Task<ActionResult> CheckHotel(int? destination, DateTime checkIn, DateTime checkOut, int guest, string itemId, ReservationType type)
+        public async Task<ActionResult> CheckHotel(int? destination, DateTime checkIn, DateTime checkOut, List<RoomSearch> rooms, string itemId, ReservationType type)
         {
             //using (var client = new HttpClient())
             //{
@@ -449,7 +449,7 @@ namespace AllWorldReservation.web.Controllers
             var hotel = new HotelModel();
             if(type == ReservationType.SunHotel)
             {
-                hotel = await sunApiRequest.GetHotelAsync(place.Code, checkIn, checkOut, guest, itemId);
+                hotel = await sunApiRequest.GetHotelAsync(place.Code, checkIn, checkOut, rooms, itemId);
             }
             else if(type == ReservationType.Hotel)
             {

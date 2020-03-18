@@ -24,7 +24,7 @@ namespace AllWorldReservation.web.Gateway
             AuthCode = ConfigurationManager.AppSettings["SUN_API_AUTHCODE"];
         }
 
-        public async Task<IEnumerable<HotelModel>> SearchHotelAsync(int destination, DateTime checkIn, DateTime checkOut, int guest)
+        public async Task<IEnumerable<HotelModel>> SearchHotelAsync(int destination, DateTime checkIn, DateTime checkOut, List<RoomSearch> roomsSearch)
         {
             using (var client = new HttpClient())
             {
@@ -37,11 +37,23 @@ namespace AllWorldReservation.web.Gateway
                                     "<LocationID>" + destination + "</LocationID>" +
                                     "<CheckIn>" + checkIn.ToString("yyyy-MM-dd") + "</CheckIn>" +
                                     "<CheckOut>" + checkOut.ToString("yyyy-MM-dd") + "</CheckOut>" +
-                                    "<RoomAllocations>" +
-                                        "<RoomAllocation>" +
-                                            "<Adults>" + guest + "</Adults>" +
-                                        "</RoomAllocation>" +
-                                    "</RoomAllocations>" +
+                                    "<RoomAllocations>";
+                                    foreach (var room in roomsSearch)
+                                    {
+                                        data += "<RoomAllocation>" +
+                                              "<Adults>" + room.Adults + "</Adults>" +
+                                              "<Children>" + room.Children + "</Children>" +
+                                              "<Infants>" + room.Infants + "</Infants>" +
+                                              "<ChildAges>";
+                                            foreach (var age in room.ChildAges)
+                                            {
+                                                data += "<int>" + age + "</int>";
+                                            }
+                                          data+= "</ChildAges>"+
+                                            "</RoomAllocation>";
+                                    }
+                                  
+                                   data += "</RoomAllocations>" +
                                 "</SearchRequest>";
                 var content = new StringContent(data, Encoding.UTF8, "application/xml");
                 var hotels = new List<HotelModel>();
@@ -100,7 +112,7 @@ namespace AllWorldReservation.web.Gateway
             }
         }
 
-        public async Task<HotelModel> GetHotelAsync(int destination, DateTime checkIn, DateTime checkOut, int guest, string itemId)
+        public async Task<HotelModel> GetHotelAsync(int destination, DateTime checkIn, DateTime checkOut, List<RoomSearch> roomsSearch, string itemId)
         {
             using (var client = new HttpClient())
             {
@@ -113,12 +125,23 @@ namespace AllWorldReservation.web.Gateway
                                     "<LocationID>" + destination + "</LocationID>" +
                                     "<CheckIn>" + checkIn.ToString("yyyy-MM-dd") + "</CheckIn>" +
                                     "<CheckOut>" + checkOut.ToString("yyyy-MM-dd") + "</CheckOut>" +
-                                    "<RoomAllocations>" +
-                                        "<RoomAllocation>" +
-                                            "<Adults>" + guest + "</Adults>" +
-                                        "</RoomAllocation>" +
-                                    "</RoomAllocations>" +
-                                "</SearchRequest>";
+                                      "<RoomAllocations>";
+                                            foreach (var room in roomsSearch)
+                                            {
+                                                data += "<RoomAllocation>" +
+                                                      "<Adults>" + room.Adults + "</Adults>" +
+                                                      "<Children>" + room.Children + "</Children>" +
+                                                      "<Infants>" + room.Infants + "</Infants>" +
+                                                      "<ChildAges>";
+                                                foreach (var age in room.ChildAges)
+                                                {
+                                                    data += "<int>" + age + "</int>";
+                                                }
+                                                data += "</ChildAges>" +
+                                                  "</RoomAllocation>";
+                                            }
+                                            data += "</RoomAllocations>" +
+                                         "</SearchRequest>";
                 var content = new StringContent(data, Encoding.UTF8, "application/xml");
                 while (true)
                 {
