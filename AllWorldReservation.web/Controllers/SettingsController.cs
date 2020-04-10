@@ -11,9 +11,10 @@ using System.Web.Mvc;
 
 namespace AllWorldReservation.web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SettingsController : Controller
     {
-        private DbContainer context = new DbContainer();
+        private ApplicationDbContext context = new ApplicationDbContext();
         private UnitOfWork unitOfWork;
 
         public SettingsController()

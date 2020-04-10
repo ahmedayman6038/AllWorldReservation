@@ -11,12 +11,16 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using static AllWorldReservation.BL.Enums.EnumCollection;
+using Microsoft.AspNet.Identity;
+using AllWorldReservation.web.Helper;
+using System.Threading.Tasks;
 
 namespace AllWorldReservation.web.Controllers
 {
+    [Authorize(Roles = "Admin, Employee")]
     public class MailsController : Controller
     {
-        private DbContainer context = new DbContainer();
+        private ApplicationDbContext context = new ApplicationDbContext();
         private UnitOfWork unitOfWork;
 
         public MailsController()
@@ -64,20 +68,11 @@ namespace AllWorldReservation.web.Controllers
             if (ModelState.IsValid)
             {
                 mailModel.Name = "Ahmed";
-             //   mailModel.UserId = int.Parse(Session["userid"].ToString());
+                mailModel.UserId = User.Identity.GetUserId();
                 mailModel.MailType = MailType.Sender;
                 var mail = Mapper.Map<Mail>(mailModel);
                 unitOfWork.MailRepository.Insert(mail);
-                var message = new MailMessage();
-                message.To.Add(new MailAddress(mail.Email));
-                message.Subject = mail.Subject;
-                message.Body = mail.Message;
-                message.IsBodyHtml = true;
-                using (var smtp = new SmtpClient())
-                {
-                    smtp.Send(message);
-                    unitOfWork.Save();
-                }
+                NotificationHelper.NotifyUserByMail(mail.Email, mail.Subject, mail.Message);
                 return RedirectToAction("Sender");
             }
             return View(mailModel);

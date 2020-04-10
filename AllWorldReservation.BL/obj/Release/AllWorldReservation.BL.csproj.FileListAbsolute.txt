@@ -236,3 +236,7 @@ E:\AllWorldReservation\AllWorldReservation.BL\obj\Release\AllWorldReservation.BL
 E:\AllWorldReservation\AllWorldReservation.BL\obj\Release\AllWorldReservation.BL.csproj.CopyComplete
 E:\AllWorldReservation\AllWorldReservation.BL\obj\Release\AllWorldReservation.BL.dll
 E:\AllWorldReservation\AllWorldReservation.BL\obj\Release\AllWorldReservation.BL.pdb
+E:\AllWorldReservation\AllWorldReservation.BL\bin\Release\Microsoft.AspNet.Identity.Core.dll
+E:\AllWorldReservation\AllWorldReservation.BL\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\AllWorldReservation\AllWorldReservation.BL\bin\Release\Microsoft.AspNet.Identity.Core.xml
+E:\AllWorldReservation\AllWorldReservation.BL\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml

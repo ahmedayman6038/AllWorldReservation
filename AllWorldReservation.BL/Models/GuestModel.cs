@@ -35,7 +35,6 @@ namespace AllWorldReservation.BL.Models
         [Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
 
-        [Required]
         [Display(Name = "Reservation")]
         public int? ReservationId { get; set; }
 

@@ -9,49 +9,27 @@ namespace AllWorldReservation.BL.Models
 {
     public class PlaceModel
     {
-        public PlaceModel()
-        {
-            this.CreatedDate = DateTime.Now;
-        }
-
         public int Id { get; set; }
+
+        [Display(Name = "Code")]
+        [Required(ErrorMessage = "Code Required")]
+        public string Code { get; set; }
 
         [Display(Name = "Name")]
         [Required(ErrorMessage = "Name Required")]
         [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string Name { get; set; }
 
-        [Display(Name = "Description")]
-        public string Description { get; set; }
-
-        [Display(Name = "Code")]
-        public int Code { get; set; }
-
-        [Display(Name = "Price")]
-        [Required(ErrorMessage = "Price Required")]
-        [DataType(DataType.Currency)]
-        public float Price { get; set; }
+        [Display(Name = "Country")]
+        public int? CountryId { get; set; }
 
         [Display(Name = "Country")]
-        [Required(ErrorMessage = "Country Required")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
-        public string Country { get; set; }
-
-        [Display(Name = "Days")]
-        [Required(ErrorMessage = "Days Required")]
-        [DataType(DataType.Duration)]
-        public int Duration { get; set; }
-
-        [Display(Name = "Photo")]
-        public int? PhotoId { get; set; }
-
-        [Display(Name = "Created Date")]
-        public DateTime CreatedDate { get; set; }
-
-        [Display(Name = "Photo")]
-        public PhotoModel Photo { get; set; }
+        public CountryModel Country { get; set; }
 
         [Display(Name = "Hotels Numbers")]
         public ICollection<HotelModel> Hotels { get; set; }
+
+        [Display(Name = "Tours Numbers")]
+        public ICollection<TourModel> Tours { get; set; }
     }
 }

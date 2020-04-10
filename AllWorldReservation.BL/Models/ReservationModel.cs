@@ -17,8 +17,6 @@ namespace AllWorldReservation.BL.Models
 
         public int Id { get; set; }
 
-        //public int? UserId { get; set; }
-
         [Display(Name = "Payment Type")]
         public PayType PayType { get; set; }
 
@@ -27,6 +25,9 @@ namespace AllWorldReservation.BL.Models
 
         [Display(Name = "Item Id")]
         public int ItemId { get; set; }
+
+        [Display(Name = "Reserved Item")]
+        public string ReservedItem { get; set; }
 
         [Required]
         [Display(Name = "Email")]
@@ -62,10 +63,12 @@ namespace AllWorldReservation.BL.Models
         [MaxLength(10, ErrorMessage = "Max Lenght 50 Character")]
         public string PostCode { get; set; }
 
+        [Display(Name = "Country Code")]
+        public string CountryCode { get; set; }
+
         [Required]
         [Display(Name = "Country")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
-        public string Country { get; set; }
+        public int? CountryId { get; set; }
 
         [Display(Name = "Paid")]
         public bool Paied { get; set; }
@@ -74,15 +77,35 @@ namespace AllWorldReservation.BL.Models
         [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string OrderId { get; set; }
 
+        [Required]
+        [DataType(DataType.Currency)]
+        [Display(Name = "Total Amount")]
+        public float TotalAmount { get; set; }
+
+        [Display(Name = "Reservation By")]
+        public string UserId { get; set; }
+
+        [Required]
+        [Display(Name = "Reservation From")]
+        public DateTime ReservationFrom { get; set; }
+
+        [Required]
+        [Display(Name = "Reservation To")]
+        public DateTime ReservationTo { get; set; }
+
         [Display(Name = "Created Date")]
         public DateTime CreatedDate { get; set; }
 
-        //public virtual User User { get; set; }
+        [Display(Name = "Reservation By")]
+        public UserModel User { get; set; }
 
         [Display(Name = "Guests")]
         public ICollection<GuestModel> Guests { get; set; }
 
         [Display(Name = "Rooms")]
         public ICollection<RoomModel> Rooms { get; set; }
+
+        [Display(Name = "Country")]
+        public CountryModel Country { get; set; }
     }
 }

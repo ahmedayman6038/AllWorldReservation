@@ -23,9 +23,8 @@
                         <thead>
                             <tr>
                                 <th>@Html.DisplayNameFor(model => model.Name)</th>
-                                <th>@Html.DisplayNameFor(model => model.Location)</th>
-                                <th>@Html.DisplayNameFor(model => model.Price)</th>
-                                <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                                <th>@Html.DisplayNameFor(model => model.Code)</th>
+                                <th>@Html.DisplayNameFor(model => model.Country)</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -34,18 +33,11 @@
                             {
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Location)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Code)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Country.Name)</td>
                                     <td>
-                                        <button type="button" class="btn btn-secondary waves-effect" onclick="window.open('/Places/Photos/@item.Id','_self')">
-                                            <i class="material-icons">photo</i>
-                                        </button>
                                         <button type="button" class="btn btn-success waves-effect" onclick="window.open('/Places/Edit/@item.Id','_self')">
                                             <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" class="btn btn-info waves-effect" onclick="window.open('/Places/Details/@item.Id','_self')">
-                                            <i class="material-icons">info</i>
                                         </button>
                                         <form method="post" action="/Places/Delete/@item.Id" style="display:inline-block">
                                             <button type="submit" class="btn btn-danger waves-effect">

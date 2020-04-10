@@ -14,9 +14,10 @@ using System.Web.Mvc;
 
 namespace AllWorldReservation.web.Controllers
 {
+    [Authorize]
     public class PaymentController : BaseController
     {
-        private DbContainer context = new DbContainer();
+        private ApplicationDbContext context = new ApplicationDbContext();
         private UnitOfWork unitOfWork;
 
         public PaymentController()
@@ -38,38 +39,38 @@ namespace AllWorldReservation.web.Controllers
         /// <summary>
         /// Display PAY operation page, view Pay.cshtml
         /// </summary>
-        [HttpGet]
-        [Route("bookhotel/{id}")]
-        public ActionResult ShowPayHotel(int id)
-        {
-            //  Logger.LogInformation("Payment controller ShowPay action");
-            var hotel = unitOfWork.HotelRepository.GetByID(id);
-            if(hotel == null)
-            {
-                return HttpNotFound();
-            }
-            GatewayApiRequest gatewayApiRequest = GatewayApiRequest.createSampleApiRequest(GatewayApiConfig);       
-            ViewBag.JavascriptSessionUrl = getSessionJsUrl(GatewayApiConfig);
-            ViewBag.TestAndGoLiveUrl = getTestAndGoLiveDocumentationURL();
-            ViewBag.Hotel = hotel;
-            return View("PayHotel", gatewayApiRequest);
-        }
+        //[HttpGet]
+        //[Route("bookhotel/{id}")]
+        //public ActionResult ShowPayHotel(int id)
+        //{
+        //    //  Logger.LogInformation("Payment controller ShowPay action");
+        //    var hotel = unitOfWork.HotelRepository.GetByID(id);
+        //    if(hotel == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    GatewayApiRequest gatewayApiRequest = GatewayApiRequest.createSampleApiRequest(GatewayApiConfig);       
+        //    ViewBag.JavascriptSessionUrl = getSessionJsUrl(GatewayApiConfig);
+        //    ViewBag.TestAndGoLiveUrl = getTestAndGoLiveDocumentationURL();
+        //    ViewBag.Hotel = hotel;
+        //    return View("PayHotel", gatewayApiRequest);
+        //}
 
         [HttpGet]
-        [Route("bookplace/{id}")]
-        public ActionResult ShowPayPlace(int id)
+        [Route("Payment/{id}")]
+        public ActionResult Pay(int id)
         {
             //  Logger.LogInformation("Payment controller ShowPay action");
-            var place = unitOfWork.PlaceRepository.GetByID(id);
-            if (place == null)
+            var reservation = unitOfWork.ReservationRepository.GetByID(id);
+            if (reservation == null)
             {
                 return HttpNotFound();
             }
             GatewayApiRequest gatewayApiRequest = GatewayApiRequest.createSampleApiRequest(GatewayApiConfig);
             ViewBag.JavascriptSessionUrl = getSessionJsUrl(GatewayApiConfig);
             ViewBag.TestAndGoLiveUrl = getTestAndGoLiveDocumentationURL();
-            ViewBag.Place = place;
-            return View("PayPlace", gatewayApiRequest);
+            ViewBag.Reservation = reservation;
+            return View("Payment", gatewayApiRequest);
         }
 
         /// <summary>

@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using AllWorldReservation.DAL.Context
+@using Microsoft.AspNet.Identity
+@{
+    ApplicationDbContext context = new ApplicationDbContext();
+    var user = context.Users.Find(User.Identity.GetUserId());
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -21,6 +27,7 @@
     <link rel="stylesheet" href="~/Content/WebSite/bootstrap-datepicker.css">
     <link rel="stylesheet" href="~/Content/WebSite/jquery.timepicker.css">
     <link href="~/plugins/light-gallery/css/lightgallery.css" rel="stylesheet" />
+    <link href="~/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/WebSite/flaticon.css">
     <link rel="stylesheet" href="~/Content/WebSite/icomoon.css">
     <link rel="stylesheet" href="~/Content/WebSite/style.css">
@@ -40,12 +47,20 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item @(action == "index" ? "active" : "")"><a href="/home" id="NLink" class="nav-link">Home</a></li>
                     <li class="nav-item @(action == "about" ? "active" : "")"><a href="/about" id="NLink" class="nav-link">About</a></li>
-                    <li class="nav-item @(action == "places" ? "active" : "")"><a href="/place" id="NLink" class="nav-link">Places</a></li>
+                    <li class="nav-item @(action == "tours" ? "active" : "")"><a href="/tour" id="NLink" class="nav-link">Tours</a></li>
                     <li class="nav-item @(action == "hotels" ? "active" : "")"><a href="/hotel" id="NLink" class="nav-link">Hotels</a></li>
                     <li class="nav-item @(action == "blog" ? "active" : "")"><a href="/blog" id="NLink" class="nav-link">Blog</a></li>
                     <li class="nav-item @(action == "contact" ? "active" : "")"><a href="/contact" id="NLink" class="nav-link">Contact</a></li>
-                    <li class="nav-item"><a href="/Account/Registration" class="nav-link btn btn-outline-warning mr-2">Sign Up</a></li>
-                    <li class="nav-item"><a href="/Account/Login" class="nav-link btn btn-warning mr-2">Login</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item"><a href="#" class="nav-link btn btn-outline-warning mr-2">Welcome @user.UserName</a></li>
+                        <li class="nav-item"><a href="/Dashboard" class="nav-link btn btn-warning">My Account</a></li>
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a href="/Account/Register" class="nav-link btn btn-outline-warning mr-2">Sign Up</a></li>
+                        <li class="nav-item"><a href="/Account/Login" class="nav-link btn btn-warning">Login</a></li>
+                    }
                 </ul>
             </div>
         </div>

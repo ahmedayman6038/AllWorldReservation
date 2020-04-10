@@ -10,6 +10,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
+using AllWorldReservation.BL.Repositories;
+using AllWorldReservation.DAL.Context;
+using AllWorldReservation.web.Helper;
 
 namespace AllWorldReservation.web.Controllers
 {
@@ -23,7 +26,8 @@ namespace AllWorldReservation.web.Controllers
         protected readonly GatewayApiClient GatewayApiClient;
         protected readonly NVPApiClient NVPApiClient;
         protected readonly Boolean isOSPlatformWindows;
-
+        private ApplicationDbContext context = new ApplicationDbContext();
+        private UnitOfWork unitOfWork;
         //workaround for session issue on MacOS and Linux
         private static Dictionary<string, string> FakeSession = new Dictionary<string, string>();
 
@@ -35,6 +39,7 @@ namespace AllWorldReservation.web.Controllers
             GatewayApiConfig = new GatewayApiConfig();
             GatewayApiClient = new GatewayApiClient(GatewayApiConfig);
             NVPApiClient = new NVPApiClient();
+            unitOfWork = new UnitOfWork(context);
             isOSPlatformWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
             initViewList();
         }
@@ -87,7 +92,7 @@ namespace AllWorldReservation.web.Controllers
         /// </summary>
         /// <param name="gatewayApiRequest">Gateway API request.</param>
         /// <param name="response">Response.</param>
-        protected void buildViewData(GatewayApiRequest gatewayApiRequest, string response)
+        protected void buildViewData(GatewayApiRequest gatewayApiRequest, string response, int ReservationId)
         {
             JObject jObject = JsonHelper.getJObject(response);
             string result = jObject["result"].ToString();
@@ -96,10 +101,18 @@ namespace AllWorldReservation.web.Controllers
             {
                 orderId = jObject["order"]["id"].ToString();
                 transId = jObject["transaction"]["id"].ToString();
+                var reservation = unitOfWork.ReservationRepository.GetByID(ReservationId);
+                if (orderId == reservation.OrderId)
+                {
+                    reservation.Paied = true;
+                    unitOfWork.ReservationRepository.Update(reservation);
+                    unitOfWork.Save();
+                    ViewBag.PaymentResult = "<h3>Success</h3><h5>Your Payment Received Successfuly</h5><h5>Your Transaction: " + transId + " </h5>";
+                    NotificationHelper.NotifySuccessPayment(reservation);
+                    return;
+                }
             }
-            ViewBag.Result = result;
-            ViewBag.OrderId = orderId;
-            ViewBag.TransId = transId;
+            ViewBag.PaymentResult = "<h3>Error</h3><h5>Your Payment Not Received Please try later</h5>";
         }
 
         //Session operations

@@ -1,0 +1,186 @@
+﻿@model AllWorldReservation.BL.Models.TourModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Edit Tour
+                </h2>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Tours','_self')">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    <span>Back To List</span>
+                </button>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm("Edit", "Tours", FormMethod.Post, new { encType = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(model => model.Name)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Name) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.PlaceId)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.DropDownListFor(model => model.PlaceId, null, new { @class = "form-control show-tick" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PlaceId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Price)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Price) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Duration)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Duration) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.AvalibleFrom)
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" name="AvalibleFrom" id="AvalibleFrom" class="datepicker form-control" placeholder="Please choose a date...">
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AvalibleFrom, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.AvalibleTo)
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" name="AvalibleTo" id="AvalibleTo" class="datepicker form-control" placeholder="Please choose a date...">
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AvalibleTo, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Description)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#largeModal">
+                            <i class="material-icons">add_photo_alternate</i>
+                            <span>Select Photo</span>
+                        </button>
+                        @Html.HiddenFor(model => model.PhotoId)
+                    </div>
+                    <button type="submit" class="btn btn-primary waves-effect">
+                        <span>Save</span>
+                        <i class="material-icons">save</i>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Large Size -->
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="largeModalLabel">@Html.DisplayNameFor(model => model.PhotoId)</h4>
+            </div>
+            <div class="modal-body" id="photos">
+                @{Html.RenderAction("GetPhotos", new { id = Model.Id, page = 1, current = Model.PhotoId });}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" onclick="removePhoto()">Unselect</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Loading -->
+<div class="loading" id="loading" style="display: none;">
+    <div class="preloader loading-circle">
+        <div class="spinner-layer pl-light-blue">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Vertical Layout -->
+@section scripts {
+    <script>
+        var currentId = @(Model.PhotoId ?? 0);
+        $(function () {
+            CKEDITOR.replace('Description');
+            if (currentId != 0) {
+                $("#" + currentId).addClass("select-photo");
+            }
+               $('#AvalibleFrom').bootstrapMaterialDatePicker({
+                format: 'YYYY-MM-DD',
+                clearButton: true,
+                weekStart: 1,
+                time: false
+            }).on('change', function (e, date) {
+                $('#AvalibleTo').bootstrapMaterialDatePicker('setMinDate', date);
+            });
+            $('#AvalibleTo').bootstrapMaterialDatePicker({
+                format: 'YYYY-MM-DD',
+                clearButton: true,
+                weekStart: 1,
+                time: false
+            });
+            @if(Model.AvalibleFrom != null)
+            {
+               @:$('#AvalibleFrom').val('@Model.AvalibleFrom.Value.ToString("yyyy-MM-dd")');
+               @:$('#AvalibleTo').bootstrapMaterialDatePicker('setMinDate', '@Model.AvalibleFrom.Value.ToString("yyyy-MM-dd")');
+            }
+            @if(Model.AvalibleTo != null)
+            {
+               @:$('#AvalibleTo').val('@Model.AvalibleTo.Value.ToString("yyyy-MM-dd")');
+            }
+        });
+        function selectPhoto(id) {
+            $("#PhotoId").val(id);
+            if (currentId != null) {
+                $("#" + currentId).removeClass("select-photo");
+            }
+            $("#" + id).addClass("select-photo");
+            currentId = id;
+        }
+        function removePhoto() {
+            if (currentId != 0) {
+                $("#PhotoId").val("");
+                $("#" + currentId).removeClass("select-photo");
+                currentId = null;
+            }
+        }
+        function getPhotos(page) {
+            $("#loading").show();
+            $.ajax({
+                type: "GET",
+                url: "/Tours/GetPhotos/" + @Model.Id + "?page=" + page + "&current=" + currentId,
+                dataType: "html",
+                success: function (data) {
+                    $("#photos").html(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                },
+                complete: function () {
+                    $("#loading").hide();
+                }
+            })
+        }
+    </script>
+}

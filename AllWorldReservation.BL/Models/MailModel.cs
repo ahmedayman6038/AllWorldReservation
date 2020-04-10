@@ -37,8 +37,8 @@ namespace AllWorldReservation.BL.Models
         [Required(ErrorMessage = "Message Required")]
         public string Message { get; set; }
 
-        //[Display(Name = "Post By")]
-        //public int? UserId { get; set; }
+        [Display(Name = "Send By")]
+        public string UserId { get; set; }
 
         [Display(Name = "Message Type")]
         public MailType MailType { get; set; }
@@ -46,7 +46,7 @@ namespace AllWorldReservation.BL.Models
         [Display(Name = "Date")]
         public DateTime Date { get; set; }
 
-        //[Display(Name = "Post By")]
-        //public UserModel User { get; set; }
+        [Display(Name = "Send By")]
+        public UserModel User { get; set; }
     }
 }

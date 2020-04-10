@@ -1,0 +1,154 @@
+﻿@model AllWorldReservation.BL.Models.TourModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Add Tour
+                </h2>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Tours','_self')">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    <span>Back To List</span>
+                </button>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm("Create", "Tours", FormMethod.Post, new { encType = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(model => model.Name)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Name) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.PlaceId)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.DropDownListFor(model => model.PlaceId, null, new { @class = "form-control show-tick" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PlaceId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Price)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Price) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Duration)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Duration) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.AvalibleFrom)
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" name="AvalibleFrom" id="AvalibleFrom" class="datepicker form-control" placeholder="Please choose a date...">
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AvalibleFrom, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.AvalibleTo)
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" name="AvalibleTo" id="AvalibleTo" class="datepicker form-control" placeholder="Please choose a date...">
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AvalibleTo, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Description)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Photo)
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="file" accept=".png, .jpg, .jpeg" multiple="multiple" name="files" id="files" />
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-primary waves-effect">
+                        <span>Save</span>
+                        <i class="material-icons">save</i>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+    var currentId = null;
+    $(function () {
+        CKEDITOR.replace('Description');
+         $('#AvalibleFrom').bootstrapMaterialDatePicker({
+                format: 'YYYY-MM-DD',
+                clearButton: true,
+                weekStart: 1,
+                time: false
+            }).on('change', function (e, date) {
+                $('#AvalibleTo').bootstrapMaterialDatePicker('setMinDate', date);
+            });
+            $('#AvalibleTo').bootstrapMaterialDatePicker({
+                format: 'YYYY-MM-DD',
+                clearButton: true,
+                weekStart: 1,
+                time: false
+            });
+            @if(Model.AvalibleFrom != null)
+            {
+               @:$('#AvalibleFrom').val('@Model.AvalibleFrom.Value.ToString("yyyy-MM-dd")');
+               @:$('#AvalibleTo').bootstrapMaterialDatePicker('setMinDate', '@Model.AvalibleFrom.Value.ToString("yyyy-MM-dd")');
+            }
+            @if(Model.AvalibleTo != null)
+            {
+               @:$('#AvalibleTo').val('@Model.AvalibleTo.Value.ToString("yyyy-MM-dd")');
+            }
+    });
+    function selectPhoto(id) {
+        $("#PhotoId").val(id);
+        if (currentId != null) {
+            $("#" + currentId).removeClass("select-photo");
+        }
+        $("#" + id).addClass("select-photo");
+        currentId = id;
+    }
+    function removePhoto() {
+        if (currentId != null) {
+            $("#PhotoId").val("");
+            $("#" + currentId).removeClass("select-photo");
+            currentId = null;
+        }
+    }
+    function getPhotos(page) {
+        $("#loading").show();
+        $.ajax({
+            type: "GET",
+            url: "/Posts/GetPhotos/" + page + "?current=" + currentId,
+            dataType: "html",
+            success: function (data) {
+                $("#photos").html(data);
+            },
+            error: function (data) {
+                console.log(data);
+            },
+            complete: function () {
+                $("#loading").hide();
+            }
+
+        })
+    }
+    </script>
+}

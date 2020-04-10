@@ -1,0 +1,80 @@
+﻿@model IEnumerable<AllWorldReservation.BL.Models.UserModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+}
+
+<!-- Basic Examples -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Users
+                </h2>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Users/Create','_self')">
+                    <span>Add</span>
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+            <div class="body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                                <th>@Html.DisplayNameFor(model => model.Role)</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                                    <td>
+                                        <button type="button" class="btn btn-secondary waves-effect" onclick="window.open('/Users/ResetPassword/@item.Id','_self')">
+                                            <i class="material-icons">lock_open</i>
+                                        </button>
+                                        <button type="button" class="btn btn-success waves-effect" onclick="window.open('/Users/Edit/@item.Id','_self')">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button type="button" class="btn btn-info waves-effect" onclick="window.open('/Users/Details/@item.Id','_self')">
+                                            <i class="material-icons">info</i>
+                                        </button>
+                                        <form method="post" action="/Users/Delete/@item.Id" style="display:inline-block">
+                                            <button type="submit" class="btn btn-danger waves-effect">
+                                                <i class="material-icons">delete</i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Basic Examples -->
+@section scripts {
+    <script>
+        $(function () {
+            $('.js-basic-example').DataTable({
+                responsive: true,
+                order: []
+            });
+            $("form").submit(function () {
+                if (confirm('Are you sure, you want to delete this item!')) {
+                    return true;
+                } else {
+                    return false;
+                };
+            });
+        });
+    </script>
+}

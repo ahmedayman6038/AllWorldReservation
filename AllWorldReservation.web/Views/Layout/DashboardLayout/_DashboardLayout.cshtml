@@ -1,5 +1,11 @@
-﻿<!DOCTYPE html>
-
+﻿@using AllWorldReservation.DAL.Context
+@using Microsoft.AspNet.Identity
+@{
+    ApplicationDbContext context = new ApplicationDbContext();
+    var user = context.Users.Find(User.Identity.GetUserId());
+    var userRole = context.Roles.Find(user.Roles.SingleOrDefault().RoleId).Name;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -66,7 +72,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <p class="navbar-brand">All World Reservation | Admin Dashboard </p>
+                <p class="navbar-brand" style="margin-bottom: 0;">All World Reservation | Dashboard </p>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -275,18 +281,19 @@
                     <img src="~/Images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome Mr : Ahmed Elgendy</div>
-                    <div class="email">Elgendya160@gmail.com</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome : @user.UserName</div>
+                    <div class="email">@user.Email</div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                            <li><a href="/Account"><i class="material-icons">person</i>Account</a></li>
+                            @*<li role="seperator" class="divider"></li>
+                                <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
+                                <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
+                                <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
+                                <li role="seperator" class="divider"></li>*@
                             <li role="seperator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
-                            <li role="seperator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li><a href="/Account/LogOff"><i class="material-icons">input</i>Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -305,62 +312,110 @@
                             <span>Home</span>
                         </a>
                     </li>
-                    <li class="@(controller == "hotels" ? "active" : "")">
-                        <a href="/Hotels">
-                            <i class="material-icons">local_hotel</i>
-                            <span>Hotels</span>
-                        </a>
-                    </li>
-                    <li class="@(controller == "places" ? "active" : "")">
-                        <a href="/Places">
-                            <i class="material-icons">airplanemode_active</i>
-                            <span>Places</span>
-                        </a>
-                    </li>
-                    <li class="@(controller == "posts" ? "active" : "")">
-                        <a href="/Posts">
-                            <i class="material-icons">post_add</i>
-                            <span>Posts</span>
-                        </a>
-                    </li>
-                    <li class="@(controller == "categories" ? "active" : "")">
-                        <a href="/Categories">
-                            <i class="material-icons">category</i>
-                            <span>Categories</span>
-                        </a>
-                    </li>
-                    <li class="@(controller == "customerrequests" ? "active" : "")">
-                        <a href="/CustomerRequests">
-                            <i class="material-icons">contacts</i>
-                            <span>Customer Reservation</span>
-                        </a>
-                    </li>
-                    <li class="@(controller == "mails" ? "active" : "")">
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">mail</i>
-                            <span>Mailbox</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li class="@(controller == "mails" && action == "sender" ? "active" : "")">
-                                <a href="/Mails/Sender">Send Mails</a>
-                            </li>
-                            <li class="@(controller == "mails" && action == "receiver" ? "active" : "")">
-                                <a href="/Mails/Receiver">Received Mails</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="@(controller == "users" ? "active" : "")">
-                        <a href="/Users">
-                            <i class="material-icons">people</i>
-                            <span>Users</span>
-                        </a>
-                    </li>
-                    <li class="@(controller == "settings" ? "active" : "")">
-                        <a href="/Settings">
-                            <i class="material-icons">settings_applications</i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
+                    @if (userRole == "Customer")
+                    {
+                        <li class="@((controller == "account" && action == "index") || (controller == "manage" && action == "changepassword") ? "active" : "")">
+                            <a href="/Account">
+                                <i class="material-icons">local_hotel</i>
+                                <span>My Account</span>
+                            </a>
+                        </li>
+                        <li class="@(controller == "account" && (action == "bookings" || action == "bookingdetails") ? "active" : "")">
+                            <a href="/Account/Bookings">
+                                <i class="material-icons">card_travel</i>
+                                <span>My Bookings</span>
+                            </a>
+                        </li>
+                    }
+                    @if (userRole == "Admin" || userRole == "Employee")
+                    {
+                        <li class="@((controller == "account" && action == "index") || (controller == "manage" && action == "changepassword") ? "active" : "")" style="display:none;">
+                            <a href="/Account">
+                                <i class="material-icons">local_hotel</i>
+                                <span>My Account</span>
+                            </a>
+                        </li>
+                        <li class="@(controller == "hotels" ? "active" : "")">
+                            <a href="/Hotels">
+                                <i class="material-icons">local_hotel</i>
+                                <span>Hotels</span>
+                            </a>
+                        </li>
+                        <li class="@(controller == "tours" ? "active" : "")">
+                            <a href="/Tours">
+                                <i class="material-icons">card_travel</i>
+                                <span>Tours</span>
+                            </a>
+                        </li>
+                    }
+                    @if (userRole == "Admin")
+                    {
+                        <li class="@(controller == "places" ? "active" : "")">
+                            <a href="/Places">
+                                <i class="material-icons">location_on</i>
+                                <span>Places</span>
+                            </a>
+                        </li>
+                    }
+                    @if (userRole == "Admin" || userRole == "Employee")
+                    {
+                        <li class="@(controller == "posts" ? "active" : "")">
+                            <a href="/Posts">
+                                <i class="material-icons">post_add</i>
+                                <span>Posts</span>
+                            </a>
+                        </li>
+                    }
+                    @if (userRole == "Admin")
+                    {
+                        <li class="@(controller == "categories" ? "active" : "")">
+                            <a href="/Categories">
+                                <i class="material-icons">category</i>
+                                <span>Categories</span>
+                            </a>
+                        </li>
+                    }
+                    @if (userRole == "Admin" || userRole == "Employee")
+                    {
+                        <li class="@(controller == "reservations" ? "active" : "")">
+                            <a href="/Reservations">
+                                <i class="material-icons">contacts</i>
+                                <span>Reservations</span>
+                            </a>
+                        </li>
+                        <li class="@(controller == "mails" ? "active" : "")">
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">mail</i>
+                                <span>Messages</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li class="@(controller == "mails" && action == "sender" ? "active" : "")">
+                                    <a href="/Mails/Sender">Send Messages</a>
+                                </li>
+                                <li class="@(controller == "mails" && action == "receiver" ? "active" : "")">
+                                    <a href="/Mails/Receiver">Received Messages</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (userRole == "Admin")
+                    {
+                        <li class="@(controller == "users" ? "active" : "")">
+                            <a href="/Users">
+                                <i class="material-icons">people</i>
+                                <span>Users</span>
+                            </a>
+                        </li>
+                    }
+                    @if (userRole == "Admin")
+                    {
+                        <li class="@(controller == "settings" ? "active" : "")">
+                            <a href="/Settings">
+                                <i class="material-icons">settings_applications</i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                    }
                 </ul>
             </div>
             <!-- #Menu -->

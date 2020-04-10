@@ -1,0 +1,143 @@
+﻿@model AllWorldReservation.BL.Models.ReservationModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Reservation Details
+                </h2>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Account/Bookings','_self')">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    <span>Back To List</span>
+                </button>
+            </div>
+            <div class="body">
+                @Html.AntiForgeryToken()
+                @Html.DisplayNameFor(model => model.OrderId)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.OrderId)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.ReservationType)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.ReservationType)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.ReservedItem)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.ReservedItem)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Email)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Email)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.TelNo1)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.TelNo1)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.TelNo2)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.TelNo2)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Address1)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Address1)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Address2)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Address2)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.City)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.City)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.PostCode)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.PostCode)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Country)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Country.Name)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.ReservationFrom)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Model.ReservationFrom.ToString("dd/MM/yyyy")
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.ReservationTo)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Model.ReservationTo.ToString("dd/MM/yyyy")
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Guests)
+                <ul>
+                    @foreach (var guest in Model.Guests)
+                    {
+                        <li>@guest.Title @guest.FirstName @guest.Surname ( @guest.Type - Bday: @guest.DateOfBirth.ToString("dd/MM/yyyy") )</li>
+                    }
+                </ul>
+                @Html.DisplayNameFor(model => model.Rooms)
+                <ul>
+                    @foreach (var room in Model.Rooms)
+                    {
+                        <li>@room.Name ( Price: @room.TotalAmount $ )</li>
+                    }
+                </ul>
+                @Html.DisplayNameFor(model => model.PayType)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.PayType)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.TotalAmount)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.TotalAmount)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Paied)
+                <div class="form-group">
+                    <div class="form-line">
+                        @(Model.Paied ? "Paied" : "Not Paied")
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.CreatedDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Vertical Layout -->

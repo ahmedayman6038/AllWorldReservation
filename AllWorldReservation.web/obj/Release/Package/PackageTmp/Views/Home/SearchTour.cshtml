@@ -1,0 +1,62 @@
+﻿@using System.Text.RegularExpressions
+@model IEnumerable<AllWorldReservation.BL.Models.TourModel>
+@{
+    Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
+    ViewBag.Title = "Hotel";
+}
+
+<div class="hero-wrap js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Tour</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">@ViewBag.Location</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    @if (Model.Count() == 0)
+                    {
+                        <h2 class="text-center">No Result to show</h2>
+                    }
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="col-sm col-md-6 col-lg-4 ftco-animate">
+                            <div class="destination">
+                                <a class="img img-2 d-flex justify-content-center align-items-center dynamic" id="@item.Id" name="@item.Name" style="background-image: url(@(item.Photo != null ? "../../Uploads/" + item.Photo.Name : "../../images/blank.png"));">
+                                    <div class="icon d-flex justify-content-center align-items-center">
+                                        <span class="icon-link"></span>
+                                    </div>
+                                </a>
+                                <div class="text p-3">
+                                    <div class="d-flex">
+                                        <div class="one">
+                                            <h3><a href="#">@item.Name</a></h3>
+                                        </div>
+                                        <div class="two">
+                                            <span class="price per-price"><small>Price From </small><br>@item.Price $</span>
+                                        </div>
+                                    </div>
+                                    <p>@Regex.Replace(item.Description ?? "", "<(.|\\n)*?>", string.Empty)</p>
+                                    <hr>
+                                    <p class="bottom-area d-flex">
+                                        <span><i class="icon-map-o"></i> @item.Place.Name</span>
+                                        <span class="ml-auto"><a href="/Check/Tour?destination=@ViewBag.Destination&dateFrom=@ViewBag.DateFrom&dateTo=@ViewBag.DateTo&itemId=@item.Id">More</a></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+</section> <!-- .section -->

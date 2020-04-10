@@ -86,3 +86,64 @@
 .dynamic:hover{
     cursor:pointer;
 }
+
+/*Rooms Popup Styles*/
+/*.form-control:disabled, .form-control[readonly] {
+    background-color: #ffffff;
+}*/
+
+
+#sinolo1, #sinolo2, #sinolo3, #sinolo4, #sinolo5,
+#sinolo6, #sinolo7, #sinolo8, #sinolo9, #sinolo10,
+#sinolo11, #sinolo12, #sinolo13, #sinolo14, #sinolo15,
+#sinolo16, #sinolo17 {
+    float: left;
+}
+
+
+    #sinolo1 #Input1, #sinolo2 #Input2, #sinolo3 #Input3, #sinolo4 #Input4, #sinolo5 #Input5,
+    #sinolo6 #Input6, #sinolo7 #Input7, #sinolo8 #Input8, #sinolo9 #Input9, #sinolo10 #Input10,
+    #sinolo11 #Input11, #sinolo12 #Input12, #sinolo13 #Input13, #sinolo14 #Input14, #sinolo15 #Input15, 
+    #sinolo16 #Input16, #sinolo17 #Input17 {
+        width: 45%; 
+        border: none;
+        text-align: center;
+    }
+
+    #sinolo1 button, #sinolo2 button, #sinolo3 button, #sinolo4 button, #sinolo5 button,
+    #sinolo6 button, #sinolo7 button, #sinolo8 button, #sinolo9 button, #sinolo10 button,
+    #sinolo11 button, #sinolo12 button, #sinolo13 button, #sinolo14 button, #sinolo15 button, 
+    #sinolo16 button, #sinolo17 button {
+        width: 25%;
+        font-size: 10px;
+        padding: 0px;
+    }
+
+
+/*.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+    width: 50%;
+}*/
+
+#inc1.btn-info, #inc2.btn-info, #inc3.btn-info, #inc4.btn-info, #inc5.btn-info,
+#inc6.btn-info, #inc7.btn-info, #inc8.btn-info, #inc9.btn-info, #inc10.btn-info,
+#inc11.btn-info, #inc12.btn-info, #inc13.btn-info, #inc14.btn-info, #inc15.btn-info,
+#inc16.btn-info, #inc17.btn-info,
+#dec1.btn-info, #dec2.btn-info, #dec3.btn-info, #dec4.btn-info, #dec5.btn-info,
+#dec6.btn-info, #dec7.btn-info, #dec8.btn-info, #dec9.btn-info, #dec10.btn-info,
+#dec11.btn-info, #dec12.btn-info, #dec13.btn-info, #dec14.btn-info, #dec15.btn-info,
+#dec16.btn-info, #dec17.btn-info {
+    background-color: #ff8332;
+    border-color: #ff8332;
+}
+
+#Save.btn-primary, #Save2.btn-primary {
+    background-color: #ff8332;
+    border-color: #ff8332;
+}
+
+
+
+#B2, #B3 {
+    display: none;
+}
+

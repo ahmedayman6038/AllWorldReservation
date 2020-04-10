@@ -13,6 +13,7 @@ namespace AllWorldReservation.BL.Models
         public HotelModel()
         {
             this.CreatedDate = DateTime.Now;
+            this.Rooms = new List<RoomModel>();
         }
 
         public int Id { get; set; }

@@ -1,0 +1,92 @@
+﻿@model AllWorldReservation.BL.Models.UserModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Edit User
+                </h2>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Users','_self')">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    <span>Back To List</span>
+                </button>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.LabelFor(model => model.UserName)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.UserName) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Email)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Email) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Role)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.DropDownListFor(model => model.Role, null, new { @class = "form-control show-tick" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.PhoneNumber)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.PhoneNumber) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Address)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Address) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.CountryId)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.DropDownListFor(model => model.CountryId, null, "Select Country", new { @class = "form-control show-tick" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.City)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.City) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.PostCode)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.PostCode, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.PostCode) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-primary waves-effect">
+                        <span>Save</span>
+                        <i class="material-icons">save</i>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Vertical Layout -->

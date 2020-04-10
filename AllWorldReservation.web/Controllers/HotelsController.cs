@@ -14,9 +14,10 @@ using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.web.Controllers
 {
+    [Authorize(Roles = "Admin, Employee")]
     public class HotelsController : Controller
     {
-        private DbContainer context = new DbContainer();
+        private ApplicationDbContext context = new ApplicationDbContext();
         private UnitOfWork unitOfWork;
         private string[] allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
 
@@ -124,6 +125,7 @@ namespace AllWorldReservation.web.Controllers
         {
             var hotel = new HotelModel();
             hotel.Rooms = new List<RoomModel>();
+            hotel.Rooms.Add(new RoomModel());
             var places = unitOfWork.PlaceRepository.Get();
             ViewBag.PlaceId = new SelectList(places, "Id", "Name");
             return View(hotel);

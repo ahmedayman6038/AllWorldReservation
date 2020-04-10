@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,9 +16,10 @@ namespace AllWorldReservation.web.Controllers
     /// <summary>
     /// Controller responsible to centralize the process and result methods
     /// </summary>
+    /// 
+    [Authorize]
     public class PaymentApiController : BaseController
     {
-
 
         public PaymentApiController()
         {
@@ -53,7 +55,7 @@ namespace AllWorldReservation.web.Controllers
 
             string response = GatewayApiClient.SendTransaction(gatewayApiRequest);
 
-            buildViewData(gatewayApiRequest, response);
+            buildViewData(gatewayApiRequest, response,0);
 
             return View(ViewList["ApiResponse"]);
         }
@@ -64,9 +66,13 @@ namespace AllWorldReservation.web.Controllers
         /// <param name="gatewayApiRequest">contains info on how to construct API call</param>
         /// <returns>IActionResult for api response page or error page</returns>
         [HttpPost]
-        [Route("processHostedSession")]
-        public ActionResult ProcessHostedSession(GatewayApiRequest gatewayApiRequest)
+        [Route("processHostedSession/{ReservationId}")]
+        public ActionResult ProcessHostedSession(int? ReservationId, GatewayApiRequest gatewayApiRequest)
         {
+            if(ReservationId == null)
+            {
+                return HttpNotFound();
+            }
             //  Logger.LogInformation($"PaymentApiController ProcessHostedSession action gatewayApiRequest {JsonConvert.SerializeObject(gatewayApiRequest)}");
             gatewayApiRequest.GatewayApiConfig = GatewayApiConfig;
             gatewayApiRequest.buildRequestUrl();
@@ -74,7 +80,7 @@ namespace AllWorldReservation.web.Controllers
 
             string response = GatewayApiClient.SendTransaction(gatewayApiRequest);
 
-            buildViewData(gatewayApiRequest, response);
+            buildViewData(gatewayApiRequest, response, (int)ReservationId);
 
             return View(ViewList["ApiResponse"]);
         }
@@ -142,7 +148,7 @@ namespace AllWorldReservation.web.Controllers
 
             response = GatewayApiClient.SendTransaction(gatewayGeneratePaymentRequest);
 
-            buildViewData(gatewayGeneratePaymentRequest, response);
+            buildViewData(gatewayGeneratePaymentRequest, response,0);
 
             return View(ViewList["ApiResponse"]);
         }
@@ -409,7 +415,7 @@ namespace AllWorldReservation.web.Controllers
                 response = GatewayApiClient.SendTransaction(gatewayApiRequest);
 
                 //build response view
-                this.buildViewData(gatewayApiRequest, response);
+                this.buildViewData(gatewayApiRequest, response,0);
 
 
             }

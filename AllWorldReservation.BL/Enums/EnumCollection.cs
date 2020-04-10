@@ -35,8 +35,8 @@ namespace AllWorldReservation.BL.Enums
             [Description("Hotel")]
             Hotel = 1,
 
-            [Description("Place")]
-            Place = 2,
+            [Description("Tour")]
+            Tour = 2,
 
             [Description("Post")]
             Post = 3
@@ -68,8 +68,8 @@ namespace AllWorldReservation.BL.Enums
             [Description("Sun Hotel")]
             SunHotel = 2,
 
-           [Description("Place")]
-            Place = 3
+           [Description("Tour")]
+            Tour = 3
         }
 
         public enum GuestType

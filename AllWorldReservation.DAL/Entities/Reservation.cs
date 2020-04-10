@@ -12,8 +12,6 @@ namespace AllWorldReservation.DAL.Entities
         [Key]
         public int Id { get; set; }
 
-        //public int? UserId { get; set; }
-
         public int PayType { get; set; }
 
         public int ReservationType { get; set; }
@@ -45,9 +43,7 @@ namespace AllWorldReservation.DAL.Entities
         [MaxLength(10)]
         public string PostCode { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string Country { get; set; }
+        public int? CountryId { get; set; }
 
         public bool Paied { get; set; }
 
@@ -55,12 +51,23 @@ namespace AllWorldReservation.DAL.Entities
         [MaxLength(50)]
         public string OrderId { get; set; }
 
+        [Required]
+        public float TotalAmount { get; set; }
+
+        public string UserId { get; set; }
+
+        public DateTime ReservationFrom { get; set; }
+
+        public DateTime ReservationTo { get; set; }
+
         public DateTime CreatedDate { get; set; }
 
-        //public virtual User User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<Guest> Guests { get; set; }
 
         public virtual ICollection<Room> Rooms { get; set; }
+
+        public virtual Country Country { get; set; }
     }
 }

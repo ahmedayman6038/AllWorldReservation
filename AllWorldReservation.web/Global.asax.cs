@@ -18,16 +18,11 @@ namespace AllWorldReservation.web
 
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //BundleConfig.RegisterBundle(BundleTable.Bundles);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapperConfiguration.Configure();
         }
-        //protected void Application_BeginRequest()
-        //{
-        //    if (FormsAuthentication.RequireSSL && !Request.IsSecureConnection)
-        //    {
-        //        Response.Redirect(Request.Url.AbsoluteUri.Replace("http://", "https://"));
-        //    }
-        //}
+
         public class AutoMapperConfiguration
         {
             public static void Configure()

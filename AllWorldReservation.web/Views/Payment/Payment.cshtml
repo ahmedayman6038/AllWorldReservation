@@ -1,0 +1,92 @@
+﻿@using AllWorldReservation.web.Gateway
+@using AllWorldReservation.DAL.Entities
+@model AllWorldReservation.web.Gateway.GatewayApiRequest
+@{
+    Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
+    ViewBag.Title = "Booking";
+    var reservation = (Reservation)ViewBag.Reservation;
+}
+
+<script type="text/javascript">
+    var DotNetSample = {
+        operation: function () {
+            return "PAY";
+        },
+        endpoint: function () {
+            return "/processHostedSession/@reservation.Id";
+        },
+        secureIdResponseUrl: function () {
+            return null;
+        }
+    };
+</script>
+<!-- APPLY CLICK-JACKING STYLING AND HIDE CONTENTS OF THE PAGE -->
+<style id="antiClickjack">
+    body {
+        display: none !important;
+    }
+</style>
+<!-- INCLUDE SESSION.JS JAVASCRIPT LIBRARY -->
+<script src="@ViewBag.JavascriptSessionUrl"></script>
+<div class="hero-wrap js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="/">Home</a></span> <span>Payment</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Payment</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="mb-4">
+                <h5>Order details</h5>
+                <input type="hidden" name="OrderId" id="order-id" value="@reservation.OrderId" />
+                <input type="hidden" name="OrderAmount" id="order-amount" value="@reservation.TotalAmount" />
+                <input type="hidden" name="OrderCurrency" id="order-currency" value="@Model.OrderCurrency" />
+                <input type="hidden" name="OrderDescription" id="order-description" value="@Model.OrderDescription" />
+                <input type="hidden" name="TransactionId" id="transaction-id" value="@Model.TransactionId" />
+                <div class="form-group">
+                    <h6>@reservation.TotalAmount</h6>
+                </div>
+            </div>
+
+            <div>
+                <h5>Payment details</h5>
+                <div class="form-group">
+                    <label for='card-number'>Card number:</label>
+                    <input type="text" id="card-number" class="form-control input-md" readonly="" required>
+                </div>
+                <div class="form-group">
+                    <label for='expiry-month'>Expiry month:</label>
+                    @Html.EditorFor(model => model.ExpiryMonth, new { htmlAttributes = new { @class = "form-control input-md", @id = "expiry-month", @maxlength = "2", @required = "required" } })
+                </div>
+                <div class="form-group">
+                    <label for='expiry-year'>Expiry year:</label>
+                    @Html.EditorFor(model => model.ExpiryYear, new { htmlAttributes = new { @class = "form-control input-md", @id = "expiry-year", @maxlength = "4", @required = "required" } })
+
+                </div>
+                <div class="form-group">
+                    <label for='security-code'>Security code:</label>
+                    <input type="text" id="security-code" class="form-control input-md" readonly="" required>
+                </div>
+            </div>
+            <button type="submit" class="mt-4 btn btn-primary form-control" id="payButton" style="width:100%;" onclick="pay();">Pay</button>
+        </div>
+        <div id="error-alert" class="alert alert-danger" role="alert" style="display:none;padding-top:20px">
+            <p>The following error(s) occurred:</p>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/Website/hostedSession.js"></script>
+@section scripts{
+    <script type="text/javascript">
+        $("form").submit(function () {
+            $("#payButton").html("Booking...");
+        });
+    </script>
+
+}

@@ -11,12 +11,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using static AllWorldReservation.BL.Enums.EnumCollection;
+using Microsoft.AspNet.Identity;
 
 namespace AllWorldReservation.web.Controllers
 {
+    [Authorize(Roles = "Admin, Employee")]
     public class PostsController : Controller
     {
-        private DbContainer context = new DbContainer();
+        private ApplicationDbContext context = new ApplicationDbContext();
         private UnitOfWork unitOfWork;
         private string[] allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
 
@@ -122,10 +124,9 @@ namespace AllWorldReservation.web.Controllers
 
         public ActionResult Create()
         {
-            var post = new PostModel();
             var categories = unitOfWork.CategoryRepository.Get();
             ViewBag.CategoryId = new SelectList(categories, "Id", "Name");
-            return View(post);
+            return View();
         }
 
         [HttpPost, ValidateInput(false)]
@@ -135,6 +136,7 @@ namespace AllWorldReservation.web.Controllers
             if (ModelState.IsValid)
             {
                 var post = Mapper.Map<Post>(postModel);
+                post.UserId = User.Identity.GetUserId();
                 unitOfWork.PostRepository.Insert(post);
                 unitOfWork.Save();
                 var first = true;

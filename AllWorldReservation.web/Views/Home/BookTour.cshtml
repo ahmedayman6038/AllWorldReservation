@@ -1,0 +1,280 @@
+﻿@model AllWorldReservation.BL.Models.ReservationModel
+@{
+
+    Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
+    ViewBag.Title = "Booking";
+    var guest = (Dictionary<string, int>)ViewBag.Traveller;
+    var dateFrom = (DateTime)ViewBag.DateFrom;
+    var dateTo = (DateTime)ViewBag.DateTo;
+    int Adults = 0, Teenagers = 0, Children = 0, Infants = 0;
+    guest.TryGetValue("Adults", out Adults);
+    guest.TryGetValue("Teenagers", out Teenagers);
+    guest.TryGetValue("Children", out Children);
+    guest.TryGetValue("Infants", out Infants);
+    int counter = 0;
+}
+<div class="hero-wrap js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Tour</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Booking</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            <form action="/Book/Tour" method="post" autocomplete="off">
+                <input type="hidden" name="ResultId" value="@ViewBag.ResultId" />
+                <input type="hidden" name="ReservationFrom" value="@dateFrom" />
+                <input type="hidden" name="ReservationTo" value="@dateTo" />
+                <h3 class="mb-3">Traveller Information</h3>
+                @for (int i = 0; i < Adults; i++)
+                {
+                    <h5>Guest @(counter + 1) : Adult</h5>
+                    <input type="hidden" name="Guests[@counter].Type" value="@AllWorldReservation.BL.Enums.EnumCollection.GuestType.Adult" />
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select class="form-control" name="Guests[@counter].Title" required>
+                                    <option value="">-</option>
+                                    <option value="Mr">Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Ms">Ms</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md" name="Guests[@counter].FirstName" placeholder="First Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md" name="Guests[@counter].Surname" placeholder="Surname" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" readonly required>
+                            </div>
+                        </div>
+                    </div>
+                    counter++;
+                }
+                @for (int i = 0; i < Teenagers; i++)
+                {
+                    <h5>Guest @(counter + 1) : Teenagers</h5>
+                    <input type="hidden" name="Guests[@counter].Type" value="@AllWorldReservation.BL.Enums.EnumCollection.GuestType.Teenager" />
+                    <div class="row">
+                        <div class="col-md-2">
+
+                            <div class="form-group">
+                                <select class="form-control" name="Guests[@counter].Title" required>
+                                    <option value="">-</option>
+                                    <option value="Mr">Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Ms">Ms</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md" name="Guests[@counter].FirstName" placeholder="First Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md" name="Guests[@counter].Surname" placeholder="Surname" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" readonly required>
+                            </div>
+                        </div>
+                    </div>
+                    counter++;
+                }
+
+                @for (int i = 0; i < Children; i++)
+                {
+                    <h5>Guest @(counter + 1) : Children</h5>
+                    <input type="hidden" name="Guests[@counter].Type" value="@AllWorldReservation.BL.Enums.EnumCollection.GuestType.Children" />
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select class="form-control" name="Guests[@counter].Title" required>
+                                    <option value="">-</option>
+                                    <option value="Mr">Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Ms">Ms</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md" name="Guests[@counter].FirstName" placeholder="First Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md" name="Guests[@counter].Surname" placeholder="Surname" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" readonly required>
+                            </div>
+                        </div>
+                    </div>
+                    counter++;
+                }
+
+
+                @for (int i = 0; i < Infants; i++)
+                {
+                    <h5>Guest @(counter + 1) : Infant</h5>
+                    <input type="hidden" name="Guests[@counter].Type" value="@AllWorldReservation.BL.Enums.EnumCollection.GuestType.Infant" />
+                    <div class="row">
+                        <div class="col-md-2">
+
+                            <div class="form-group">
+                                <select class="form-control" name="Guests[@counter].Title" required>
+                                    <option value="">-</option>
+                                    <option value="Mr">Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Ms">Ms</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md" name="Guests[@counter].FirstName" placeholder="First Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md" name="Guests[@counter].Surname" placeholder="Surname" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" readonly required>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <h3 class="mb-3">Contact Details</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Email:*</label>
+                            <input type="email" class="form-control input-md" name="Email" value="@Model.Email" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Daytime Tel No:*</label>
+                            <input type="tel" class="form-control input-md" name="TelNo1" value="@Model.TelNo1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Evening Tel No:</label>
+                            <input type="tel" class="form-control input-md" name="TelNo2" value="@Model.TelNo2">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Address 1:*</label>
+                            <input type="text" class="form-control input-md" name="Address1" value="@Model.Address1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Address 2:</label>
+                            <input type="text" class="form-control input-md" name="Address2" value="@Model.Address2">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>City:*</label>
+                            <input type="text" class="form-control input-md" name="City" value="@Model.City" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Post Code:*</label>
+                            <input type="text" class="form-control input-md" name="PostCode" maxlength="10" value="@Model.PostCode" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Country:*</label>
+                            @Html.DropDownList("CountryId", (IEnumerable<SelectListItem>)ViewBag.Countries, "- Select -", new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                </div>
+                <h3 class="mb-3">Payment</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Payment Method</h5>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <select class="form-control" name="PayType" required>
+                                <option value="1" selected>Pay Online</option>
+                                <option value="2">Pay Offline</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="mb-3">Booking Details</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Date From</h5>
+                    </div>
+                    <div class="col-md-8">
+                        <h5>@dateFrom.ToString("dd-MM-yyyy")</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Date To</h5>
+                    </div>
+                    <div class="col-md-8">
+                        <h5>@dateTo.ToString("dd-MM-yyyy")</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Total Traveller</h5>
+                    </div>
+                    <div class="col-md-8">
+                        <h5>@counter</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Total amount</h5>
+                    </div>
+                    <div class="col-md-8">
+                        <h5>@ViewBag.TotalCost $</h5>
+                        <input type="hidden" name="TotalAmount" value="@ViewBag.TotalCost" />
+                    </div>
+                </div>
+                <button type="submit" class="mt-4 btn btn-primary form-control" style="width:100%;" id="payButton">Book</button>
+            </form>
+        </div>
+        <br />
+    </div>
+</section>

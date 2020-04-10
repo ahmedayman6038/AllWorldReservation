@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,29 +15,20 @@ namespace AllWorldReservation.DAL.Entities
 
         [Required]
         [MaxLength(50)]
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public int Code { get; set; }
-
-        [Required]
-        public float Price { get; set; }
+        [Index(IsUnique = true)]
+        public string Code { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string Country { get; set; }
+        public string Name { get; set; }
 
-        [Required]
-        public int Duration { get; set; }
+        public int? CountryId { get; set; }
 
-        public DateTime CreatedDate { get; set; }
-
-        public int? PhotoId { get; set; }
-
-        public virtual Photo Photo { get; set; }
+        public virtual Country Country { get; set; }
 
         public virtual ICollection<Hotel> Hotels { get; set; }
+
+        public virtual ICollection<Tour> Tours { get; set; }
 
     }
 }

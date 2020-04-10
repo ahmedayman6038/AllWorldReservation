@@ -1,0 +1,173 @@
+﻿@using System.Text.RegularExpressions
+@model IEnumerable<AllWorldReservation.BL.Models.TourModel>
+@{
+    Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
+    ViewBag.Title = "Places";
+    var dateTo = (DateTime)ViewBag.DateFrom;
+}
+
+
+
+<div class="hero-wrap js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Tours</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Tours</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 sidebar order-md-last ftco-animate">
+                <div class="sidebar-wrap ftco-animate">
+                    <h3 class="heading mb-4">Find Place</h3>
+                    <form action="/Tour" method="get">
+                        <div class="fields">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="tour" name="tour" value="@ViewBag.Tour" placeholder="Enter Tour Name">
+                            </div>
+                            <div class="form-group">
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    @Html.DropDownList("Place", null, "Select Place", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="days" id="days" class="form-control" placeholder="Number Of Days">
+                                        <option value="">Select Star</option>
+                                        <option value="1" @(ViewBag.Days == 1 ? "selected" : "")>1</option>
+                                        <option value="2" @(ViewBag.Days == 2 ? "selected" : "")>2</option>
+                                        <option value="3" @(ViewBag.Days == 3 ? "selected" : "")>3</option>
+                                        <option value="4" @(ViewBag.Days == 4 ? "selected" : "")>4</option>
+                                        <option value="5" @(ViewBag.Days == 5 ? "selected" : "")>5</option>
+                                        <option value="6" @(ViewBag.Days == 6 ? "selected" : "")>6</option>
+                                        <option value="7" @(ViewBag.Days == 7 ? "selected" : "")>7</option>
+                                        <option value="8" @(ViewBag.Days == 8 ? "selected" : "")>8</option>
+                                        <option value="9" @(ViewBag.Days == 9 ? "selected" : "")>9</option>
+                                        <option value="10" @(ViewBag.Days == 10 ? "selected" : "")>10</option>
+                                        <option value="11" @(ViewBag.Days == 11 ? "selected" : "")>11</option>
+                                        <option value="12" @(ViewBag.Days == 12 ? "selected" : "")>12</option>
+                                        <option value="13" @(ViewBag.Days == 13 ? "selected" : "")>13</option>
+                                        <option value="14" @(ViewBag.Days == 14 ? "selected" : "")>14</option>
+                                        <option value="15" @(ViewBag.Days == 15 ? "selected" : "")>15</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="range-slider">
+                                    <span>
+                                        From
+                                        <input type="number" name="fromPrice" id="fromPrice" value="@ViewBag.FromPrice" min="0" max="120000" />	-
+                                        To
+                                        <input type="number" name="toPrice" id="toPrice" value="@ViewBag.ToPrice" min="0" max="120000" />
+                                    </span>
+                                    @*<input value="1000" min="0" max="120000" step="500" type="range" />
+                <input value="50000" min="0" max="120000" step="500" type="range" />*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- END-->
+            <div class="col-lg-9">
+                <div class="row">
+                    @if (Model.Count() == 0)
+                    {
+                        <h2 class="text-center">No Result to show</h2>
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-sm col-md-6 col-lg-4 ftco-animate">
+                            <div class="destination">
+                                <a class="img img-2 d-flex justify-content-center align-items-center dynamic" id="@item.Id" name="@item.Name" style="background-image: url(@(item.Photo != null ? "../../Uploads/" + item.Photo.Name : "../../images/blank.png"));">
+                                    <div class="icon d-flex justify-content-center align-items-center">
+                                        <span class="icon-image"></span>
+                                    </div>
+                                </a>
+                                <div class="text p-3">
+                                    <div class="d-flex">
+                                        <div class="one">
+                                            <h3><a href="#">@item.Name</a></h3>
+                                        </div>
+                                        <div class="two">
+                                            <span class="price per-price"><small>Price From </small><br>@item.Price $</span>
+                                        </div>
+                                    </div>
+                                    <p>@Regex.Replace(item.Description ?? "", "<(.|\\n)*?>", string.Empty)</p>
+                                    <p class="days"><span>@item.Duration days</span></p>
+                                    <hr>
+                                    <p class="bottom-area d-flex">
+                                        <span><i class="icon-map-o"></i> @item.Place.Name</span>
+                                        <span class="ml-auto"><a href="/Check/Tour?destination=@item.PlaceId&dateFrom=@ViewBag.DateFrom&dateTo=@dateTo.AddDays(item.Duration-1)&itemId=@item.Id">More</a></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            @if (Model.Count() != 0)
+                            {
+                                <ul>
+                                    <li class="@(ViewBag.currentPage == 1 ? "disabled" : "")"><a href="/Place?page=1&tour=@ViewBag.Tour&place=@ViewBag.SelectedPlace&fromPrice=@ViewBag.FromPrice&toPrice=@ViewBag.ToPrice">&lt;</a></li>
+                                    @for (int i = 1; i <= ViewBag.totalPage; i++)
+                                    {
+                                        <li class="@(ViewBag.currentPage == i ? "active" : "")"><a href="/Place?page=@i&tour=@ViewBag.Tour&place=@ViewBag.SelectedPlace&fromPrice=@ViewBag.FromPrice&toPrice=@ViewBag.ToPrice">@i</a></li>
+
+                                    }
+                                    <li class="@(ViewBag.currentPage == ViewBag.totalPage ? "disabled" : "")"><a href="/Place?page=@ViewBag.totalPage&tour=@ViewBag.Tour&place=@ViewBag.SelectedPlace&fromPrice=@ViewBag.FromPrice&toPrice=@ViewBag.ToPrice">&gt;</a></li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+</section> <!-- .section -->
+@section scripts{
+<script>
+        $('.dynamic').on('click', function () {
+            debugger;
+            var itemId = $(this).attr("id");
+            var itemName = $(this).attr("name");
+            $.ajax({
+                method: "GET",
+                url: "/Galleries/Get/" + itemId + "?type=" + @((int)AllWorldReservation.BL.Enums.EnumCollection.PhotoType.Tour),
+                dataType: "json",
+                success: function (data, status, xhr) {
+                    debugger;
+                    var elements = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var element = {
+                            "src": data[i],
+                            "thumb": data[i],
+                            "subHtml": '<p>' + itemName + '</p>'
+                        }
+                        elements.push(element);
+                    }
+                    $(this).lightGallery({
+                        dynamic: true,
+                        dynamicEl: elements
+                    })
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    debugger;
+                    console.log(errorMessage);
+                }
+            });
+        });
+</script>
+}

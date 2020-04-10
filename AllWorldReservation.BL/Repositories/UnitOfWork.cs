@@ -1,6 +1,7 @@
 ﻿using AllWorldReservation.BL.Interfaces;
 using AllWorldReservation.DAL.Context;
 using AllWorldReservation.DAL.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace AllWorldReservation.BL.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbContainer _context;
+        private readonly ApplicationDbContext _context;
 
-        public UnitOfWork(DbContainer context)
+        public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -145,6 +146,32 @@ namespace AllWorldReservation.BL.Repositories
                     this.reservationRepository = new GenericRepository<Reservation>(_context);
                 }
                 return reservationRepository;
+            }
+        }
+
+        private GenericRepository<Tour> tourRepository;
+        public IGenericRepository<Tour> TourRepository
+        {
+            get
+            {
+                if (this.tourRepository == null)
+                {
+                    this.tourRepository = new GenericRepository<Tour>(_context);
+                }
+                return tourRepository;
+            }
+        }
+
+        private GenericRepository<Country> countryRepository;
+        public IGenericRepository<Country> CountryRepository
+        {
+            get
+            {
+                if (this.countryRepository == null)
+                {
+                    this.countryRepository = new GenericRepository<Country>(_context);
+                }
+                return countryRepository;
             }
         }
 

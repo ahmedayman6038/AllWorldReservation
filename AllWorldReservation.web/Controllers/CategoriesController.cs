@@ -12,9 +12,10 @@ using System.Web.Mvc;
 
 namespace AllWorldReservation.web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : Controller
     {
-        private DbContainer context = new DbContainer();
+        private ApplicationDbContext context = new ApplicationDbContext();
         private UnitOfWork unitOfWork;
 
         public CategoriesController()
@@ -102,6 +103,11 @@ namespace AllWorldReservation.web.Controllers
             if (category == null)
             {
                 return HttpNotFound();
+            }
+            var posts = unitOfWork.PostRepository.Get(p => p.CategoryId == category.Id);
+            foreach (var post in posts)
+            {
+                unitOfWork.PostRepository.Delete(post);
             }
             unitOfWork.CategoryRepository.Delete(category);
             unitOfWork.Save();

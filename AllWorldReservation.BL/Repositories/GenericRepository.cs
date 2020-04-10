@@ -12,10 +12,10 @@ namespace AllWorldReservation.BL.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        internal DbContainer context;
+        internal ApplicationDbContext context;
         internal DbSet<TEntity> dbSet;
 
-        public GenericRepository(DbContainer context)
+        public GenericRepository(ApplicationDbContext context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();

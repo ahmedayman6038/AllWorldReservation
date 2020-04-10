@@ -44,13 +44,6 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                     </div>
-                    @*@Html.LabelFor(model => model.Price)
-                    <div class="form-group">
-                        <div class="form-line">
-                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Price) } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-                    </div>*@
                     @Html.LabelFor(model => model.AvalibleFrom)
                     <div class="form-group">
                         <div class="form-line">
@@ -88,62 +81,56 @@
                     </div>
                     <fieldset id="rooms">
                         <legend>Rooms</legend>
-                        @for (int i = 0; i < Model.Rooms.Count; i++)
-                        {
-                            if (!Model.Rooms.ElementAt(i).Deleted)
+                            @for (int i = 0; i < Model.Rooms.Count; i++)
                             {
-                                <div class="row clearfix">
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Room Name</label>
-                                                <input type="text" name="Rooms[@i].Name" id="Rooms_@(i)_Name" value="@Model.Rooms.ElementAt(i).Name" class="form-control" placeholder="Enter Name" required>
+                                if (!Model.Rooms.ElementAt(i).Deleted)
+                                {
+                                    <div class="room row clearfix" show="true">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Room Name</label>
+                                                    <input type="text" name="Rooms[@i].Name" id="Rooms_@(i)_Name" value="@Model.Rooms.ElementAt(i).Name" class="form-control" placeholder="Enter Name" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Enter Description</label>
+                                                    <input type="text" name="Rooms[@i].Description" id="Rooms_@(i)_Description" value="@Model.Rooms.ElementAt(i).Description" class="form-control" placeholder="Enter Description">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Total Amount</label>
+                                                    <input type="number" name="Rooms[@i].TotalAmount" id="Rooms_@(i)_TotalAmount" value="@Model.Rooms.ElementAt(i).TotalAmount" min="0" class="form-control" placeholder="Total Amount" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>No Of Guests</label>
+                                                    <input type="number" name="Rooms[@i].Guests" id="Rooms_@(i)_Guests" value="@Model.Rooms.ElementAt(i).Guests" class="form-control" min="1" max="10" placeholder="No Of Guests" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <input type="hidden" name="Rooms[@i].Deleted" value="@(Model.Rooms.ElementAt(i).Deleted?"true":"false")">
+                                                <button type="button" class="btn btn-danger waves-effect" onclick="RemoveRoom(this)">
+                                                    <i class="material-icons">delete</i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Enter Description</label>
-                                                <input type="text" name="Rooms[@i].Description" id="Rooms_@(i)_Description" value="@Model.Rooms.ElementAt(i).Description" class="form-control" placeholder="Enter Description">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Total Amount</label>
-                                                <input type="number" name="Rooms[@i].TotalAmount" id="Rooms_@(i)_TotalAmount" value="@Model.Rooms.ElementAt(i).TotalAmount" class="form-control" placeholder="Total Amount" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>No Of Guests</label>
-                                                <input type="number" name="Rooms[@i].Guests" id="Rooms_@(i)_Guests" value="@Model.Rooms.ElementAt(i).Guests" class="form-control" placeholder="No Of Guests" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <div class="form-group">
-                                            <input type="hidden" name="Rooms[@i].Deleted" value="@(Model.Rooms.ElementAt(i).Deleted?"true":"false")">
-                                            <button type="button" class="btn btn-danger waves-effect" onclick="RemoveRoom(this)">
-                                                <i class="material-icons">delete</i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                currentRoom++;
+                                    currentRoom++;
+                                }
                             }
-                        }
                     </fieldset>
-                    @*<div class="form-group">
-                <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#largeModal">
-                    <i class="material-icons">hotel</i>
-                    <span>Add Rooms</span>
-                </button>
-            </div>*@
                     <div class="form-group">
                         <button type="button" class="btn btn-default waves-effect" onclick="AddRoom()">
                             <i class="material-icons">hotel</i>
@@ -159,36 +146,6 @@
         </div>
     </div>
 </div>
-<!-- Large Size -->
-@*<div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="largeModalLabel">@Html.DisplayNameFor(model => model.PhotoId)</h4>
-            </div>
-            <div class="modal-body" id="rooms">
-               
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link waves-effect" onclick="AddRoom()">Add New Room</button>
-                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Ok</button>
-            </div>
-        </div>
-    </div>
-</div>*@
-<!-- Loading -->
-@*<div class="loading" id="loading" style="display: none;">
-    <div class="preloader loading-circle">
-        <div class="spinner-layer pl-light-blue">
-            <div class="circle-clipper left">
-                <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-        </div>
-    </div>
-</div>*@
 <!-- #END# Vertical Layout -->
 @section scripts {
     <script>
@@ -221,7 +178,7 @@
             }
         });
         function AddRoom() {
-            var html = '<div class="row clearfix">'+
+            var html = '<div class="room row clearfix" show="true">'+
                 '<div class="col-sm-3" >'+
                    ' <div class="form-group">'+
                        ' <div class="form-line">'+
@@ -250,7 +207,7 @@
                                 '<div class="form-group">'+
                 '<div class="form-line">' +
                 '<label>No Of Guests</label>' +
-                '<input type="number" name="Rooms[' + currentRoom + '].Guests" id="Rooms_' + currentRoom +'_Guests" class="form-control" min="0" value="0" placeholder="No Of Guests" required>'+
+                '<input type="number" name="Rooms[' + currentRoom + '].Guests" id="Rooms_' + currentRoom +'_Guests" class="form-control" min="1" max="10" value="1" placeholder="No Of Guests" required>'+
                                     '</div>'+
                                     '</div>'+
                                 '</div>'+
@@ -269,10 +226,14 @@
 
         function RemoveRoom(ctr) {
             debugger;
-            var row = $(ctr).closest('div[class^="row"]');
-            var deleted = $(ctr).parent().find('input[name$="Deleted"]');
-            $(deleted).val("true");
-            $(row).hide();
+            var rooms = $('div[show="true"]');
+            if (rooms.length > 1) {
+                var row = $(ctr).closest('div[class^="room"]');
+                var deleted = $(ctr).parent().find('input[name$="Deleted"]');
+                $(deleted).val("true");
+                $(row).attr("show", "false");
+                $(row).hide();
+            }
         }
     </script>
 }

@@ -27,12 +27,12 @@ namespace AllWorldReservation.DAL.Entities
         [Required]
         public string Message { get; set; }
 
-        //public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         public int MailType { get; set; }
 
         public DateTime Date { get; set; }
 
-        //public virtual User User { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

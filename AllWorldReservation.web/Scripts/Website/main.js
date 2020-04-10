@@ -331,14 +331,14 @@
     $("#inc2").click(function () {
         $("#Input2").attr('value', ++y1);
         if (x == 1) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
         }
         if (x == 2) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
         }
         if (x == 3) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
         }
     });
@@ -346,14 +346,14 @@
         if ($("#Input2").val() != 1) {
             $("#Input2").attr('value', --y1);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
         }
@@ -366,14 +366,14 @@
     $("#inc3").click(function () {
         $("#Input3").attr('value', ++z1);
         if (x == 1) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
         }
         if (x == 2) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
         }
         if (x == 3) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
         }
     });
@@ -381,14 +381,14 @@
         if ($("#Input3").val() != 0) {
             $("#Input3").attr('value', --z1);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
         }
@@ -402,50 +402,50 @@
         if (w1 != 6) {
             $("#Input4").attr('value', ++w1);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
 
             if (w1 == 1) {
                 $('#ChildContainer1').append('<div class="row" id="C1"></div><br>');
                 $('#C1').append('<div class="col-lg-6 font-weight-bold">Child <span id="a1"> ' + w1 + '</span> Age </div>');
-                $('#C1').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C1').append('<div class="col-lg-6"><select class="form-control" name="rooms[0].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
             }
             if (w1 == 2) {
                 $('#ChildContainer1').append('<div class="row" id="C2"></div><br>');
                 $('#C2').append('<div class="col-lg-6 font-weight-bold">Child <span id="a2"> ' + w1 + ' </span> Age </div>');
-                $('#C2').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C2').append('<div class="col-lg-6"><select class="form-control" name="rooms[0].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w1 == 3) {
                 $('#ChildContainer1').append('<div class="row" id="C3"></div><br>');
                 $('#C3').append('<div class="col-lg-6 font-weight-bold">Child <span id="a3"> ' + w1 + '</span> Age </div>');
-                $('#C3').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C3').append('<div class="col-lg-6"><select class="form-control" name="rooms[0].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w1 == 4) {
                 $('#ChildContainer1').append('<div class="row" id="C4"></div><br>');
                 $('#C4').append('<div class="col-lg-6 font-weight-bold">Child <span id="a4"> ' + w1 + ' </span> Age </div>');
-                $('#C4').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C4').append('<div class="col-lg-6"><select class="form-control" name="rooms[0].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w1 == 5) {
                 $('#ChildContainer1').append('<div class="row" id="C5"></div><br>');
                 $('#C5').append('<div class="col-lg-6 font-weight-bold">Child <span id="a5">' + w1 + '</span> Age </div>');
-                $('#C5').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C5').append('<div class="col-lg-6"><select class="form-control" name="rooms[0].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w1 == 6) {
                 $('#ChildContainer1').append('<div class="row" id="C6"></div><br>');
                 $('#C6').append('<div class="col-lg-6 font-weight-bold">Child <span id="a6">' + w1 + '</span> Age </div>');
-                $('#C6').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C6').append('<div class="col-lg-6"><select class="form-control" name="rooms[0].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
 
@@ -455,14 +455,14 @@
         if ($("#Input4").val() != 0) {
             $("#Input4").attr('value', --w1);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
             if (w1 == 0) {
@@ -495,14 +495,14 @@
     $("#inc5").click(function () {
         $("#Input5").attr('value', ++f1);
         if (x == 1) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
         }
         if (x == 2) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
         }
         if (x == 3) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
         }
     });
@@ -510,14 +510,14 @@
         if ($("#Input5").val() != 0) {
             $("#Input5").attr('value', --f1);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
         }
@@ -532,14 +532,14 @@
     $("#inc6").click(function () {
         $("#Input6").attr('value', ++y2);
         if (x == 1) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
         }
         if (x == 2) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
         }
         if (x == 3) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
         }
     });
@@ -547,14 +547,14 @@
         if ($("#Input6").val() != 1) {
             $("#Input6").attr('value', --y2);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
         }
@@ -567,14 +567,14 @@
     $("#inc7").click(function () {
         $("#Input7").attr('value', ++z2);
         if (x == 1) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
         }
         if (x == 2) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
         }
         if (x == 3) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
         }
     });
@@ -582,14 +582,14 @@
         if ($("#Input7").val() != 0) {
             $("#Input7").attr('value', --z2);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
         }
@@ -603,50 +603,50 @@
         if (w2 != 6) {
             $("#Input8").attr('value', ++w2);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
 
             if (w2 == 1) {
                 $('#ChildContainer2').append('<div class="row" id="C7"></div><br>');
                 $('#C7').append('<div class="col-lg-6 font-weight-bold">Child <span id="a7"> ' + w2 + '</span> Age </div>');
-                $('#C7').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C7').append('<div class="col-lg-6"><select class="form-control" name="rooms[1].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
             }
             if (w2 == 2) {
                 $('#ChildContainer2').append('<div class="row" id="C8"></div><br>');
                 $('#C8').append('<div class="col-lg-6 font-weight-bold">Child <span id="a8"> ' + w2 + ' </span> Age </div>');
-                $('#C8').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C8').append('<div class="col-lg-6"><select class="form-control" name="rooms[1].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w2 == 3) {
                 $('#ChildContainer2').append('<div class="row" id="C9"></div><br>');
                 $('#C9').append('<div class="col-lg-6 font-weight-bold">Child <span id="a9"> ' + w2 + '</span> Age </div>');
-                $('#C9').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C9').append('<div class="col-lg-6"><select class="form-control" name="rooms[1].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w2 == 4) {
                 $('#ChildContainer2').append('<div class="row" id="C10"></div><br>');
                 $('#C10').append('<div class="col-lg-6 font-weight-bold">Child <span id="a10"> ' + w2 + ' </span> Age </div>');
-                $('#C10').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C10').append('<div class="col-lg-6"><select class="form-control" name="rooms[1].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w2 == 5) {
                 $('#ChildContainer2').append('<div class="row" id="C11"></div><br>');
                 $('#C11').append('<div class="col-lg-6 font-weight-bold">Child <span id="a11">' + w2 + '</span> Age </div>');
-                $('#C11').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C11').append('<div class="col-lg-6"><select class="form-control" name="rooms[1].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w2 == 6) {
                 $('#ChildContainer2').append('<div class="row" id="C12"></div><br>');
                 $('#C12').append('<div class="col-lg-6 font-weight-bold">Child <span id="a12">' + w2 + '</span> Age </div>');
-                $('#C12').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C12').append('<div class="col-lg-6"><select class="form-control" name="rooms[1].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
         }
@@ -656,14 +656,14 @@
         if ($("#Input8").val() != 0) {
             $("#Input8").attr('value', --w2);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
             if (w2 == 0) {
@@ -696,14 +696,14 @@
     $("#inc9").click(function () {
         $("#Input9").attr('value', ++f2);
         if (x == 1) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
         }
         if (x == 2) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
         }
         if (x == 3) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
         }
     });
@@ -711,14 +711,14 @@
         if ($("#Input9").val() != 0) {
             $("#Input9").attr('value', --f2);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
         }
@@ -734,14 +734,14 @@
     $("#inc10").click(function () {
         $("#Input10").attr('value', ++y3);
         if (x == 1) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
         }
         if (x == 2) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
         }
         if (x == 3) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
         }
     });
@@ -749,14 +749,14 @@
         if ($("#Input10").val() != 1) {
             $("#Input10").attr('value', --y3);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
         }
@@ -769,14 +769,14 @@
     $("#inc11").click(function () {
         $("#Input11").attr('value', ++z3);
         if (x == 1) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
         }
         if (x == 2) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
         }
         if (x == 3) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
         }
     });
@@ -784,14 +784,14 @@
         if ($("#Input11").val() != 0) {
             $("#Input11").attr('value', --z3);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
         }
@@ -805,49 +805,49 @@
         if (w3 != 6) {
             $("#Input12").attr('value', ++w3);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
             if (w3 == 1) {
                 $('#ChildContainer3').append('<div class="row" id="C13"></div><br>');
                 $('#C13').append('<div class="col-lg-6 font-weight-bold">Child <span id="a13"> ' + w3 + '</span> Age </div>');
-                $('#C13').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C13').append('<div class="col-lg-6"><select class="form-control" name="rooms[2].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
             }
             if (w3 == 2) {
                 $('#ChildContainer3').append('<div class="row" id="C14"></div><br>');
                 $('#C14').append('<div class="col-lg-6 font-weight-bold">Child <span id="a14"> ' + w3 + ' </span> Age </div>');
-                $('#C14').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C14').append('<div class="col-lg-6"><select class="form-control" name="rooms[2].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w3 == 3) {
                 $('#ChildContainer3').append('<div class="row" id="C15"></div><br>');
                 $('#C15').append('<div class="col-lg-6 font-weight-bold">Child <span id="a15"> ' + w3 + '</span> Age </div>');
-                $('#C15').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C15').append('<div class="col-lg-6"><select class="form-control" name="rooms[2].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w3 == 4) {
                 $('#ChildContainer3').append('<div class="row" id="C16"></div><br>');
                 $('#C16').append('<div class="col-lg-6 font-weight-bold">Child <span id="a16"> ' + w3 + ' </span> Age </div>');
-                $('#C16').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C16').append('<div class="col-lg-6"><select class="form-control" name="rooms[2].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w3 == 5) {
                 $('#ChildContainer3').append('<div class="row" id="C17"></div><br>');
                 $('#C17').append('<div class="col-lg-6 font-weight-bold">Child <span id="a17">' + w3 + '</span> Age </div>');
-                $('#C17').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C17').append('<div class="col-lg-6"><select class="form-control" name="rooms[2].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
             if (w3 == 6) {
                 $('#ChildContainer3').append('<div class="row" id="C18"></div><br>');
                 $('#C18').append('<div class="col-lg-6 font-weight-bold">Child <span id="a18">' + w3 + '</span> Age </div>');
-                $('#C18').append('<div class="col-lg-6"><select class="form-control"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+                $('#C18').append('<div class="col-lg-6"><select class="form-control" name="rooms[2].ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
 
             }
         }
@@ -857,14 +857,14 @@
         if ($("#Input12").val() != 0) {
             $("#Input12").attr('value', --w3);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
             if (w3 == 0) {
@@ -897,14 +897,14 @@
     $("#inc13").click(function () {
         $("#Input13").attr('value', ++f3);
         if (x == 1) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
         }
         if (x == 2) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
         }
         if (x == 3) {
-            $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+            $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
         }
     });
@@ -912,14 +912,14 @@
         if ($("#Input13").val() != 0) {
             $("#Input13").attr('value', --f3);
             if (x == 1) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
             }
             if (x == 2) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
 
             }
             if (x == 3) {
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
 
             }
         }
@@ -939,12 +939,13 @@
             $("#Input1").attr('value', ++x);
             if (x == 2) {
                 $('#B2').css('display', 'block');
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
-
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#InputD2').attr('value', 'false');
             }
             if (x == 3) {
                 $('#B3').css('display', 'block');
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Guests - ' + x + ' Rooms');
+                $('#InputD3').attr('value', 'false');
             }
         }
 
@@ -955,18 +956,234 @@
             $("#Input1").attr('value', --x);
             if (x == 1) {
                 $('#B2').css('display', 'none');
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1) + ' Guests - ' + x + ' Rooms');
+                $('#InputD2').attr('value', 'true');
             }
             if (x == 2) {
                 $('#B3').css('display', 'none');
-                $('#txt').attr('placeholder', ' ' + (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#txt').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Guests - ' + x + ' Rooms');
+                $('#InputD3').attr('value', 'true');
             }
         }
 
     });
 
 
-    $('#txt').attr('placeholder', ' ' + y1 + ' Guests - ' + x + ' Rooms');
+    $('#txt').attr('value', y1 + ' Guests - ' + x + ' Rooms');
+
+
+
+
+    // Travller popup
+
+
+    // Part 4  // Adults : 16+ years
+    var y4 = 2;
+    $("#sinolo14 #Input14").attr('value', y4);
+    $("#inc14").click(function () {
+        $("#Input14").attr('value', ++y4);
+        $('#txt2').attr('value', (y4 + z4 + w4 + f4) + ' Traveller');
+        /*if (x == 1) {
+            $('#txt2').attr('value', (y1 + z1 + w1 + f1) + ' Traveller');
+        }
+        if (x == 2) {
+            $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Traveller');
+
+        }
+        if (x == 3) {
+            $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Traveller');
+
+        }*/
+    });
+    $("#dec14").click(function () {
+        if ($("#Input14").val() != 1) {
+            $("#Input14").attr('value', --y4);
+            $('#txt2').attr('value', (y4 + z4 + w4 + f4) + ' Traveller');
+            /*if (x == 1) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1) + ' Traveller');
+            }
+            if (x == 2) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Traveller');
+
+            }
+            if (x == 3) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Traveller');
+
+            }*/
+        }
+    });
+
+
+    // Part 4  // Teenagers : 12-15 y1ears
+    var z4 = 0;
+    $("#sinolo15 #Input15").attr('value', z4);
+    $("#inc15").click(function () {
+        $("#Input15").attr('value', ++z4);
+        $('#txt2').attr('value', (y4 + z4 + w4 + f4) + ' Traveller ');
+        /*if (x == 1) {
+            $('#txt2').attr('value', (y1 + z1 + w1 + f1) + ' Traveller ');
+        }
+        if (x == 2) {
+            $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Traveller ');
+
+        }
+        if (x == 3) {
+            $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Traveller ');
+
+        }*/
+    });
+    $("#dec15").click(function () {
+        if ($("#Input15").val() != 0) {
+            $("#Input15").attr('value', --z4);
+            $('#txt2').attr('value', (y4 + z4 + w4 + f4) + ' Traveller ');
+           /* if (x == 1) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1) + ' Traveller ');
+            }
+            if (x == 2) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Traveller ');
+
+            }
+            if (x == 3) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Traveller ');
+
+            }*/
+        }
+    });
+
+
+    // Part 4 // Children : 2-11 y1ears
+    var w4 = 0;
+    $("#sinolo16 #Input16").attr('value', w4);
+    $("#inc16").click(function () {
+        if (w1 != 6) {
+            $("#Input16").attr('value', ++w4);
+            $('#txt2').attr('value', (y4 + z4 + w4 + f4) + ' Traveller ');
+           /* if (x == 1) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1) + ' Traveller ');
+            }
+            if (x == 2) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Traveller ');
+
+            }
+            if (x == 3) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Traveller ');
+
+            }*/
+
+            if (w4 == 1) {
+                $('#ChildContainer4').append('<div class="row" id="C19"></div><br>');
+                $('#C19').append('<div class="col-lg-6 font-weight-bold">Child <span id="a19"> ' + w4 + '</span> Age </div>');
+                $('#C19').append('<div class="col-lg-6"><select class="form-control" name="traveller.ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+            }
+            if (w4 == 2) {
+                $('#ChildContainer4').append('<div class="row" id="C20"></div><br>');
+                $('#C20').append('<div class="col-lg-6 font-weight-bold">Child <span id="a20"> ' + w4 + ' </span> Age </div>');
+                $('#C20').append('<div class="col-lg-6"><select class="form-control" name="traveller.ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+
+            }
+            if (w4 == 3) {
+                $('#ChildContainer4').append('<div class="row" id="C21"></div><br>');
+                $('#C21').append('<div class="col-lg-6 font-weight-bold">Child <span id="a21"> ' + w4 + '</span> Age </div>');
+                $('#C21').append('<div class="col-lg-6"><select class="form-control" name="traveller.ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+
+            }
+            if (w4 == 4) {
+                $('#ChildContainer4').append('<div class="row" id="C22"></div><br>');
+                $('#C22').append('<div class="col-lg-6 font-weight-bold">Child <span id="a22"> ' + w4 + ' </span> Age </div>');
+                $('#C22').append('<div class="col-lg-6"><select class="form-control" name="traveller.ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+
+            }
+            if (w4 == 5) {
+                $('#ChildContainer4').append('<div class="row" id="C23"></div><br>');
+                $('#C23').append('<div class="col-lg-6 font-weight-bold">Child <span id="a23">' + w4 + '</span> Age </div>');
+                $('#C23').append('<div class="col-lg-6"><select class="form-control" name="traveller.ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+
+            }
+            if (w4 == 6) {
+                $('#ChildContainer4').append('<div class="row" id="C24"></div><br>');
+                $('#C24').append('<div class="col-lg-6 font-weight-bold">Child <span id="a24">' + w4 + '</span> Age </div>');
+                $('#C24').append('<div class="col-lg-6"><select class="form-control" name="traveller.ChildAges"><option>Choose</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>');
+
+            }
+
+        }
+    });
+    $("#dec16").click(function () {
+        if ($("#Input16").val() != 0) {
+            $("#Input16").attr('value', --w4);
+            $('#txt2').attr('value', (y4 + z4 + w4 + f4) + ' Traveller');
+            /*if (x == 1) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1) + ' Travller');
+            }
+            if (x == 2) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Travller');
+
+            }
+            if (x == 3) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Travller');
+
+            }*/
+            if (w4 == 0) {
+                $('#C19').remove();
+                $('#ChildContainer4').empty();
+            }
+            if (w4 == 1) {
+                $('#C20').remove();
+            }
+            if (w4 == 2) {
+                $('#C21').remove();
+            }
+            if (w4 == 3) {
+                $('#C22').remove();
+            }
+            if (w4 == 4) {
+                $('#C23').remove();
+            }
+            if (w4 == 5) {
+                $('#C24').remove();
+            }
+        }
+    });
+
+
+
+    // Part 4  // Inf1ants : 0-23 months
+    var f4 = 0;
+    $("#sinolo17 #Input17").attr('value', f4);
+    $("#inc17").click(function () {
+        $("#Input17").attr('value', ++f4);
+        $('#txt2').attr('value', (y4 + z4 + w4 + f4) + ' Traveller ');
+        /*if (x == 1) {
+            $('#txt2').attr('value', (y1 + z1 + w1 + f1) + ' Travller ');
+        }
+        if (x == 2) {
+            $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Travller ');
+
+        }
+        if (x == 3) {
+            $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Travller ');
+
+        }*/
+    });
+    $("#dec17").click(function () {
+        if ($("#Input17").val() != 0) {
+            $("#Input17").attr('value', --f4);
+            $('#txt2').attr('value', (y4 + z4 + w4 + f4) + ' Traveller');
+            /*if (x == 1) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1) + ' Travller');
+            }
+            if (x == 2) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2) + ' Travller');
+
+            }
+            if (x == 3) {
+                $('#txt2').attr('value', (y1 + z1 + w1 + f1 + y2 + z2 + w2 + f2 + y3 + z3 + w3 + f3) + ' Travller');
+
+            }*/
+        }
+    });
+
+    $('#txt2').attr('value', y4 + ' Traveller');
 
 })(jQuery);
 

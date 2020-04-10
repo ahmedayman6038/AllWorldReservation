@@ -1,4 +1,5 @@
 ﻿using AllWorldReservation.BL.Models;
+using AllWorldReservation.web.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,7 +25,7 @@ namespace AllWorldReservation.web.Gateway
             AuthCode = ConfigurationManager.AppSettings["SUN_API_AUTHCODE"];
         }
 
-        public async Task<IEnumerable<HotelModel>> SearchHotelAsync(int destination, DateTime checkIn, DateTime checkOut, List<RoomSearch> roomsSearch)
+        public async Task<IEnumerable<HotelModel>> SearchHotelAsync(string code, DateTime checkIn, DateTime checkOut, List<SearchViewModel> roomsSearch)
         {
             using (var client = new HttpClient())
             {
@@ -34,7 +35,7 @@ namespace AllWorldReservation.web.Gateway
                 client.DefaultRequestHeaders.Add("Action", "Search");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
                 string data = "<SearchRequest>" +
-                                    "<LocationID>" + destination + "</LocationID>" +
+                                    "<LocationID>" + code + "</LocationID>" +
                                     "<CheckIn>" + checkIn.ToString("yyyy-MM-dd") + "</CheckIn>" +
                                     "<CheckOut>" + checkOut.ToString("yyyy-MM-dd") + "</CheckOut>" +
                                     "<RoomAllocations>";
@@ -43,14 +44,17 @@ namespace AllWorldReservation.web.Gateway
                                         data += "<RoomAllocation>" +
                                               "<Adults>" + room.Adults + "</Adults>" +
                                               "<Children>" + room.Children + "</Children>" +
-                                              "<Infants>" + room.Infants + "</Infants>" +
-                                              "<ChildAges>";
-                                            foreach (var age in room.ChildAges)
+                                              "<Infants>" + room.Infants + "</Infants>";
+                                            if(room.ChildAges != null)
                                             {
-                                                data += "<int>" + age + "</int>";
-                                            }
-                                          data+= "</ChildAges>"+
-                                            "</RoomAllocation>";
+                                                data += "<ChildAges>";
+                                                foreach (var age in room.ChildAges)
+                                                {
+                                                    data += "<int>" + age + "</int>";
+                                                }
+                                                data += "</ChildAges>";
+                                            }                                                                                                                             
+                                            data += "</RoomAllocation>";
                                     }
                                   
                                    data += "</RoomAllocations>" +
@@ -112,7 +116,7 @@ namespace AllWorldReservation.web.Gateway
             }
         }
 
-        public async Task<HotelModel> GetHotelAsync(int destination, DateTime checkIn, DateTime checkOut, List<RoomSearch> roomsSearch, string itemId)
+        public async Task<HotelModel> GetHotelAsync(string code, DateTime checkIn, DateTime checkOut, List<SearchViewModel> roomsSearch, string itemId)
         {
             using (var client = new HttpClient())
             {
@@ -122,7 +126,7 @@ namespace AllWorldReservation.web.Gateway
                 client.DefaultRequestHeaders.Add("Action", "Search");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
                 string data = "<SearchRequest>" +
-                                    "<LocationID>" + destination + "</LocationID>" +
+                                    "<LocationID>" + code + "</LocationID>" +
                                     "<CheckIn>" + checkIn.ToString("yyyy-MM-dd") + "</CheckIn>" +
                                     "<CheckOut>" + checkOut.ToString("yyyy-MM-dd") + "</CheckOut>" +
                                       "<RoomAllocations>";
@@ -131,14 +135,17 @@ namespace AllWorldReservation.web.Gateway
                                                 data += "<RoomAllocation>" +
                                                       "<Adults>" + room.Adults + "</Adults>" +
                                                       "<Children>" + room.Children + "</Children>" +
-                                                      "<Infants>" + room.Infants + "</Infants>" +
-                                                      "<ChildAges>";
-                                                foreach (var age in room.ChildAges)
+                                                      "<Infants>" + room.Infants + "</Infants>";
+                                                if (room.ChildAges != null)
                                                 {
-                                                    data += "<int>" + age + "</int>";
+                                                    data += "<ChildAges>";
+                                                    foreach (var age in room.ChildAges)
+                                                    {
+                                                        data += "<int>" + age + "</int>";
+                                                    }
+                                                    data += "</ChildAges>";
                                                 }
-                                                data += "</ChildAges>" +
-                                                  "</RoomAllocation>";
+                                                data += "</RoomAllocation>";
                                             }
                                             data += "</RoomAllocations>" +
                                          "</SearchRequest>";
@@ -213,6 +220,67 @@ namespace AllWorldReservation.web.Gateway
             }
         }
 
+        public async Task<string> BookHotelAsync(string GUID, string ResultId, ReservationModel reservationModel)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("AuthCode", AuthCode);
+                client.DefaultRequestHeaders.Add("Action", "Book");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+                string data = "<BookRequest>" +
+                                    "<GUID>" + GUID + "</GUID>" +
+                                    "<ResultID>" + ResultId + "</ResultID>" +
+                                    "<Passengers>";
+                foreach (var guest in reservationModel.Guests)
+                {
+                    data += "<Passenger>" +
+                                "<Title>" + guest.Title + "</Title>" +
+                                "<Firstname>" + guest.FirstName + "</Firstname>" +
+                                "<Surname>" + guest.Surname + "</Surname>" +
+                                "<Type>Adult</Type>" +
+                                "<DOB>" + guest.DateOfBirth.ToString("yyyy-MM-dd") + "</DOB>" +
+                           "</Passenger>";
+                }
+                data += "</Passengers>" +
+                        "<Reference>" + reservationModel.OrderId + "</Reference>" +
+                        "<CustomerTitle>Mr</CustomerTitle>" +
+                        "<CustomerFName>Ahmed</CustomerFName>" +
+                        "<CustomerSName>Ayman</CustomerSName>" +
+                        "<CustomerAddress1>" + reservationModel.Address1 + "</CustomerAddress1>" +
+                        "<CustomerAddress2>" + reservationModel.Address2 + "</CustomerAddress2>" +
+                        "<CustomerCity>" + reservationModel.City + "</CustomerCity>" +
+                        "<CustomerPostCode>" + reservationModel.PostCode + "</CustomerPostCode>" +
+                        "<CustomerCountryCode>" + reservationModel.CountryCode + "</CustomerCountryCode>" +
+                        "<CustomerTelDay>" + reservationModel.TelNo1 + "</CustomerTelDay>" +
+                        "<CustomerTelEve>" + reservationModel.TelNo2 + "</CustomerTelEve>" +
+                        "<CustomerEmail>" + reservationModel.Email + "</CustomerEmail>" +
+                        "</BookRequest>";
+                var content = new StringContent(data, Encoding.UTF8, "application/xml");
+                HttpResponseMessage Res = await client.PostAsync("", content);
+                if (Res.IsSuccessStatusCode)
+                {
+                    var result = Res.Content.ReadAsStringAsync().Result;
+                    var xmlResult = XDocument.Parse(result);
+                    var isSuccess = xmlResult.Root.Element("IsSuccess");
+                    var isComplete = xmlResult.Root.Element("IsComplete");
+                    if (isComplete.Value == "true" && isSuccess.Value == "true")
+                    {
+                        var bookRef = xmlResult.Root.Element("BookingRef");
+                        return bookRef.Value;
+                    }
+                    else
+                    {
+                        return String.Empty;
+                    }
+                }
+                else
+                {
+                    return String.Empty;
+                }
+            }
+        }
 
     }
 }

@@ -10,12 +10,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.web.Controllers
 {
+    [Authorize(Roles = "Admin, Employee")]
     public class GalleriesController : Controller
     {
-        private DbContainer context = new DbContainer();
+        private ApplicationDbContext context = new ApplicationDbContext();
         private UnitOfWork unitOfWork;
 
         public GalleriesController()
@@ -44,6 +46,7 @@ namespace AllWorldReservation.web.Controllers
             return View(Mapper.Map<IEnumerable<PhotoModel>>(pagePhotos));
         }
 
+        [AllowAnonymous]
         public ActionResult Get(int? id, int type)
         {
             var data = unitOfWork.PhotoRepository.Get(p => p.Type == type && p.ItemId == id).Select(p => "/Uploads/" + p.Name).ToList();
@@ -93,9 +96,12 @@ namespace AllWorldReservation.web.Controllers
             {
                 System.IO.File.Delete(PhotoPath);
             }
-            unitOfWork.PostRepository.Get(x => x.PhotoId == photo.Id).ToList().ForEach(x => x.PhotoId = null);
-            unitOfWork.HotelRepository.Get(x => x.PhotoId == photo.Id).ToList().ForEach(x => x.PhotoId = null);
-            unitOfWork.PlaceRepository.Get(x => x.PhotoId == photo.Id).ToList().ForEach(x => x.PhotoId = null);
+            if(photo.Type == (int)PhotoType.Post)
+                unitOfWork.PostRepository.Get(x => x.PhotoId == photo.Id).ToList().ForEach(x => x.PhotoId = null);
+            else if (photo.Type == (int)PhotoType.Hotel)
+                unitOfWork.HotelRepository.Get(x => x.PhotoId == photo.Id).ToList().ForEach(x => x.PhotoId = null);
+            else if (photo.Type == (int)PhotoType.Tour)
+                unitOfWork.TourRepository.Get(x => x.PhotoId == photo.Id).ToList().ForEach(x => x.PhotoId = null);
             unitOfWork.PhotoRepository.Delete(photo);
             unitOfWork.Save();
             return new HttpStatusCodeResult(HttpStatusCode.OK);

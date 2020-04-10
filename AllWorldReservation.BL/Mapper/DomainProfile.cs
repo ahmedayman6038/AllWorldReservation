@@ -29,22 +29,48 @@ namespace AllWorldReservation.BL.Mapper
             CreateMap<Setting, SettingModel>();
             CreateMap<SettingModel, Setting>();
 
-            CreateMap<Hotel, HotelModel>().ForMember(x => x.GUID, opt => opt.Ignore())
-                                        .ForMember(x => x.ResultId, opt => opt.Ignore())
-                                        .ForMember(x => x.Type, opt => opt.Ignore());
+            CreateMap<Hotel, HotelModel>()
+                .ForMember(x => x.GUID, opt => opt.Ignore())
+                .ForMember(x => x.ResultId, opt => opt.Ignore())
+                .ForMember(x => x.Type, opt => opt.Ignore());
             CreateMap<HotelModel, Hotel>();
 
             CreateMap<Place, PlaceModel>();
             CreateMap<PlaceModel, Place>();
 
-            CreateMap<Room, RoomModel>().ForMember(x => x.Deleted, opt => opt.Ignore());
+            CreateMap<Room, RoomModel>()
+                .ForMember(x => x.Deleted, opt => opt.Ignore());
             CreateMap<RoomModel, Room>();
 
             CreateMap<Guest, GuestModel>();
             CreateMap<GuestModel, Guest>();
 
-            CreateMap<Reservation, ReservationModel>();
+            CreateMap<Reservation, ReservationModel>()
+                .ForMember(x => x.CountryCode, opt => opt.Ignore())
+                .ForMember(x => x.ReservedItem, opt => opt.Ignore());
             CreateMap<ReservationModel, Reservation>();
+
+            CreateMap<Country, CountryModel>();
+            CreateMap<CountryModel, Country>();
+
+            CreateMap<Tour, TourModel>();
+            CreateMap<TourModel, Tour>();
+
+            CreateMap<ApplicationUser, UserModel>()
+                .ForMember(x => x.Password, opt => opt.Ignore())
+                .ForMember(x => x.Role, opt => opt.Ignore());
+            CreateMap<UserModel, ApplicationUser>()
+                .ForMember(x => x.AccessFailedCount, opt => opt.Ignore())
+                .ForMember(x => x.Claims, opt => opt.Ignore())
+                .ForMember(x => x.EmailConfirmed, opt => opt.Ignore())
+                .ForMember(x => x.LockoutEnabled, opt => opt.Ignore())
+                .ForMember(x => x.LockoutEndDateUtc, opt => opt.Ignore())
+                .ForMember(x => x.Logins, opt => opt.Ignore())
+                .ForMember(x => x.PasswordHash, opt => opt.Ignore())
+                .ForMember(x => x.PhoneNumberConfirmed, opt => opt.Ignore())
+                .ForMember(x => x.SecurityStamp, opt => opt.Ignore())
+                .ForMember(x => x.TwoFactorEnabled, opt => opt.Ignore())
+                .ForMember(x => x.Roles, opt => opt.Ignore());
         }
 
     }

@@ -46,6 +46,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
@@ -68,6 +74,7 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Mapper\DomainProfile.cs" />
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\GuestModel.cs" />
     <Compile Include="Models\HotelModel.cs" />
     <Compile Include="Models\MailModel.cs" />
@@ -76,8 +83,9 @@
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\ReservationModel.cs" />
     <Compile Include="Models\RoomModel.cs" />
-    <Compile Include="Models\RoomSearch.cs" />
     <Compile Include="Models\SettingModel.cs" />
+    <Compile Include="Models\TourModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
@@ -92,9 +100,6 @@
       <Project>{68784c4f-e533-4523-9fa4-ba9633fae6de}</Project>
       <Name>AllWorldReservation.DAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helper\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
