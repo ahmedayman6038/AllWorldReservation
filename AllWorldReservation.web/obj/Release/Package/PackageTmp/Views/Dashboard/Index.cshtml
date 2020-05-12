@@ -4,57 +4,106 @@
     ViewBag.Title = "Dashboard";
 }
 
- 
-            <div class="block-header">
-                <h2>DASHBOARD</h2>
-            </div>
-            <!-- Widgets -->
-            <div class="row clearfix">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-pink hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">NEW TASKS</div>
-                            <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
-                        </div>
-                    </div>
+
+<div class="block-header">
+    <h2>DASHBOARD</h2>
+</div>
+<!-- Widgets -->
+@if (ViewBag.Role == "Customer")
+{
+    <div class="row clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-pink hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">contacts</i>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-cyan hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">help</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">NEW TICKETS</div>
-                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-light-green hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">forum</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">NEW COMMENTS</div>
-                            <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-orange hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">person_add</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">NEW VISITORS</div>
-                            <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
-                        </div>
-                    </div>
+                <div class="content">
+                    <div class="text">Total Booking</div>
+                    <div class="number count-to" data-from="0" data-to="@ViewBag.UserBooking" data-speed="1000" data-fresh-interval="20"></div>
                 </div>
             </div>
-            <!-- #END# Widgets -->
-         
-   
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-cyan hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">local_hotel</i>
+                </div>
+                <div class="content">
+                    <div class="text">Booking Hotel</div>
+                    <div class="number count-to" data-from="0" data-to="@ViewBag.BookingHotels" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-orange hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">card_travel</i>
+                </div>
+                <div class="content">
+                    <div class="text">Booking Tour</div>
+                    <div class="number count-to" data-from="0" data-to="@ViewBag.BookingTours" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-pink hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">local_hotel</i>
+                </div>
+                <div class="content">
+                    <div class="text">Hotel</div>
+                    <div class="number count-to" data-from="0" data-to="@ViewBag.Hotels" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-cyan hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">card_travel</i>
+                </div>
+                <div class="content">
+                    <div class="text">Tour</div>
+                    <div class="number count-to" data-from="0" data-to="@ViewBag.Tours" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-light-green hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">contacts</i>
+                </div>
+                <div class="content">
+                    <div class="text">Booking</div>
+                    <div class="number count-to" data-from="0" data-to="@ViewBag.Booking" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-orange hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">person_add</i>
+                </div>
+                <div class="content">
+                    <div class="text">Customer</div>
+                    <div class="number count-to" data-from="0" data-to="@ViewBag.Customers" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<!-- #END# Widgets -->
+
+
+@section scripts {
+    <script>
+        $(function () {
+            //Widgets count
+            $('.count-to').countTo();
+        });
+    </script>
+}

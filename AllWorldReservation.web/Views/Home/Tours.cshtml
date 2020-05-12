@@ -2,8 +2,9 @@
 @model IEnumerable<AllWorldReservation.BL.Models.TourModel>
 @{
     Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
-    ViewBag.Title = "Places";
+    ViewBag.Title = "Tours";
     var dateTo = (DateTime)ViewBag.DateFrom;
+    var currency = (AllWorldReservation.BL.Enums.EnumCollection.Currency)ViewBag.Currency;
 }
 
 
@@ -25,7 +26,7 @@
         <div class="row">
             <div class="col-lg-3 sidebar order-md-last ftco-animate">
                 <div class="sidebar-wrap ftco-animate">
-                    <h3 class="heading mb-4">Find Place</h3>
+                    <h3 class="heading mb-4">Find Tour</h3>
                     <form action="/Tour" method="get">
                         <div class="fields">
                             <div class="form-group">
@@ -60,17 +61,23 @@
                                     </select>
                                 </div>
                             </div>
+                            @*<div class="form-group">
+                        <div class="range-slider">
+                            <span>
+                                From
+                                <input type="number" name="fromPrice" id="fromPrice" value="@ViewBag.FromPrice" min="0" max="120000" />	-
+                                To
+                                <input type="number" name="toPrice" id="toPrice" value="@ViewBag.ToPrice" min="0" max="120000" />
+                            </span>
+                            <input value="1000" min="0" max="120000" step="500" type="range" />
+        <input value="50000" min="0" max="120000" step="500" type="range" />
+                        </div>
+                    </div>*@
                             <div class="form-group">
-                                <div class="range-slider">
-                                    <span>
-                                        From
-                                        <input type="number" name="fromPrice" id="fromPrice" value="@ViewBag.FromPrice" min="0" max="120000" />	-
-                                        To
-                                        <input type="number" name="toPrice" id="toPrice" value="@ViewBag.ToPrice" min="0" max="120000" />
-                                    </span>
-                                    @*<input value="1000" min="0" max="120000" step="500" type="range" />
-                <input value="50000" min="0" max="120000" step="500" type="range" />*@
-                                </div>
+                                <input type="number" name="fromPrice" id="fromPrice" class="form-control" placeholder="Enter Price From" value="@ViewBag.FromPrice" min="0" max="120000" />
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="toPrice" id="toPrice" class="form-control" placeholder="Enter Price To" value="@ViewBag.ToPrice" min="0" max="120000" />
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
@@ -100,7 +107,14 @@
                                             <h3><a href="#">@item.Name</a></h3>
                                         </div>
                                         <div class="two">
-                                            <span class="price per-price"><small>Price From </small><br>@item.Price $</span>
+                                            @if (currency == AllWorldReservation.BL.Enums.EnumCollection.Currency.EGP)
+                                            {
+                                                <span class="price per-price"><small>Price From </small><br>@item.PriceEGP EGP</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="price per-price"><small>Price From </small><br>@item.PriceUSD $</span>
+                                            }
                                         </div>
                                     </div>
                                     <p>@Regex.Replace(item.Description ?? "", "<(.|\\n)*?>", string.Empty)</p>
@@ -108,7 +122,7 @@
                                     <hr>
                                     <p class="bottom-area d-flex">
                                         <span><i class="icon-map-o"></i> @item.Place.Name</span>
-                                        <span class="ml-auto"><a href="/Check/Tour?destination=@item.PlaceId&dateFrom=@ViewBag.DateFrom&dateTo=@dateTo.AddDays(item.Duration-1)&itemId=@item.Id">More</a></span>
+                                        <span class="ml-auto"><a href="/Check/Tour?dateFrom=@ViewBag.DateFrom&dateTo=@dateTo.AddDays(item.Duration-1)&itemId=@item.Id">More</a></span>
                                     </p>
                                 </div>
                             </div>
@@ -121,13 +135,13 @@
                             @if (Model.Count() != 0)
                             {
                                 <ul>
-                                    <li class="@(ViewBag.currentPage == 1 ? "disabled" : "")"><a href="/Place?page=1&tour=@ViewBag.Tour&place=@ViewBag.SelectedPlace&fromPrice=@ViewBag.FromPrice&toPrice=@ViewBag.ToPrice">&lt;</a></li>
+                                    <li class="@(ViewBag.currentPage == 1 ? "disabled" : "")"><a href="/Tour?page=1&tour=@ViewBag.Tour&place=@ViewBag.SelectedPlace&fromPrice=@ViewBag.FromPrice&toPrice=@ViewBag.ToPrice&days=@ViewBag.Days">&lt;</a></li>
                                     @for (int i = 1; i <= ViewBag.totalPage; i++)
                                     {
-                                        <li class="@(ViewBag.currentPage == i ? "active" : "")"><a href="/Place?page=@i&tour=@ViewBag.Tour&place=@ViewBag.SelectedPlace&fromPrice=@ViewBag.FromPrice&toPrice=@ViewBag.ToPrice">@i</a></li>
+                                        <li class="@(ViewBag.currentPage == i ? "active" : "")"><a href="/Tour?page=@i&tour=@ViewBag.Tour&place=@ViewBag.SelectedPlace&fromPrice=@ViewBag.FromPrice&toPrice=@ViewBag.ToPrice&days=@ViewBag.Days">@i</a></li>
 
                                     }
-                                    <li class="@(ViewBag.currentPage == ViewBag.totalPage ? "disabled" : "")"><a href="/Place?page=@ViewBag.totalPage&tour=@ViewBag.Tour&place=@ViewBag.SelectedPlace&fromPrice=@ViewBag.FromPrice&toPrice=@ViewBag.ToPrice">&gt;</a></li>
+                                    <li class="@(ViewBag.currentPage == ViewBag.totalPage ? "disabled" : "")"><a href="/Tour?page=@ViewBag.totalPage&tour=@ViewBag.Tour&place=@ViewBag.SelectedPlace&fromPrice=@ViewBag.FromPrice&toPrice=@ViewBag.ToPrice&days=@ViewBag.Days">&gt;</a></li>
                                 </ul>
                             }
                         </div>

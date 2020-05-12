@@ -317,11 +317,15 @@
   });
 
 
-  $('.checkin_date, .checkout_date, .DOB').datepicker({
+    $('.checkin_date, .checkout_date, .book_date').datepicker({
 	  'format': 'm/d/yyyy',
-	  'autoclose': true
+       'autoclose': true,
+        'startDate': new Date()
 	});
-
+    $('.DOB').datepicker({
+        'format': 'm/d/yyyy',
+        'autoclose': true,
+    });
 
     // rooms popup
 

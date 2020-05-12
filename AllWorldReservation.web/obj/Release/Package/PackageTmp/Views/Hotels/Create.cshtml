@@ -81,14 +81,12 @@
                     </div>
                     <fieldset id="rooms">
                         <legend>Rooms</legend>
-                        @if (Model.Rooms != null)
-                        {
-                            for (int i = 0; i < Model.Rooms.Count; i++)
+                            @for (int i = 0; i < Model.Rooms.Count; i++)
                             {
                                 if (!Model.Rooms.ElementAt(i).Deleted)
                                 {
-                                    <div class="row clearfix">
-                                        <div class="col-sm-3">
+                                    <div class="room row clearfix" show="true">
+                                        <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Room Name</label>
@@ -96,7 +94,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Enter Description</label>
@@ -107,8 +105,16 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label>Total Amount</label>
-                                                    <input type="number" name="Rooms[@i].TotalAmount" id="Rooms_@(i)_TotalAmount" value="@Model.Rooms.ElementAt(i).TotalAmount" class="form-control" placeholder="Total Amount" required>
+                                                    <label>USD Price</label>
+                                                    <input type="number" name="Rooms[@i].PriceUSD" id="Rooms_@(i)_PriceUSD" value="@Model.Rooms.ElementAt(i).PriceUSD" min="0" class="form-control" placeholder="USD Price" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>EGP Price</label>
+                                                    <input type="number" name="Rooms[@i].PriceEGP" id="Rooms_@(i)_PriceEGP" value="@Model.Rooms.ElementAt(i).PriceEGP" min="0" class="form-control" placeholder="EGP Price">
                                                 </div>
                                             </div>
                                         </div>
@@ -116,7 +122,7 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>No Of Guests</label>
-                                                    <input type="number" name="Rooms[@i].Guests" id="Rooms_@(i)_Guests" value="@Model.Rooms.ElementAt(i).Guests" class="form-control" placeholder="No Of Guests" required>
+                                                    <input type="number" name="Rooms[@i].Guests" id="Rooms_@(i)_Guests" value="@Model.Rooms.ElementAt(i).Guests" class="form-control" min="1" max="10" placeholder="No Of Guests" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,7 +138,6 @@
                                     currentRoom++;
                                 }
                             }
-                        }
                     </fieldset>
                     <div class="form-group">
                         <button type="button" class="btn btn-default waves-effect" onclick="AddRoom()">
@@ -181,8 +186,8 @@
             }
         });
         function AddRoom() {
-            var html = '<div class="row clearfix">'+
-                '<div class="col-sm-3" >'+
+            var html = '<div class="room row clearfix" show="true">'+
+                '<div class="col-sm-2" >'+
                    ' <div class="form-group">'+
                        ' <div class="form-line">'+
                 '<label>Room Name</label>'+
@@ -190,7 +195,7 @@
                         '</div>'+
                         '</div>'+
                     '</div>'+
-                    '<div class="col-sm-4">'+
+                    '<div class="col-sm-3">'+
                         '<div class="form-group">'+
                 '<div class="form-line">' +
                 '<label>Room Description</label>' +
@@ -201,8 +206,16 @@
                         '<div class="col-sm-2">'+
                             '<div class="form-group">'+
                 '<div class="form-line">' +
-                '<label>Total Amount</label>' +
-                '<input type="number" name="Rooms[' + currentRoom + '].TotalAmount" id="Rooms_' + currentRoom +'_TotalAmount" class="form-control" min="0" value="0" placeholder="Total Amount" required>'+
+                '<label>USD Price</label>' +
+                '<input type="number" name="Rooms[' + currentRoom + '].PriceUSD" id="Rooms_' + currentRoom +'_PriceUSD" class="form-control" min="0" value="0" placeholder="USD Price" required>'+
+                                    '</div>'+
+                                '</div>'+
+                '</div>' +
+                 '<div class="col-sm-2">'+
+                    '<div class="form-group">'+
+                        '<div class="form-line">' +
+                '<label>EGP Price</label>' +
+                '<input type="number" name="Rooms[' + currentRoom + '].PriceEGP" id="Rooms_' + currentRoom +'_PriceEGP" class="form-control" min="0" value="0" placeholder="EGP Price">'+
                                     '</div>'+
                                 '</div>'+
                             '</div>'+
@@ -210,7 +223,7 @@
                                 '<div class="form-group">'+
                 '<div class="form-line">' +
                 '<label>No Of Guests</label>' +
-                '<input type="number" name="Rooms[' + currentRoom + '].Guests" id="Rooms_' + currentRoom +'_Guests" class="form-control" min="0" value="0" placeholder="No Of Guests" required>'+
+                '<input type="number" name="Rooms[' + currentRoom + '].Guests" id="Rooms_' + currentRoom +'_Guests" class="form-control" min="1" max="10" value="1" placeholder="No Of Guests" required>'+
                                     '</div>'+
                                     '</div>'+
                                 '</div>'+
@@ -229,10 +242,14 @@
 
         function RemoveRoom(ctr) {
             debugger;
-            var row = $(ctr).closest('div[class^="row"]');
-            var deleted = $(ctr).parent().find('input[name$="Deleted"]');
-            $(deleted).val("true");
-            $(row).hide();
+            var rooms = $('div[show="true"]');
+            if (rooms.length > 1) {
+                var row = $(ctr).closest('div[class^="room"]');
+                var deleted = $(ctr).parent().find('input[name$="Deleted"]');
+                $(deleted).val("true");
+                $(row).attr("show", "false");
+                $(row).hide();
+            }
         }
     </script>
 }

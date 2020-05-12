@@ -66,9 +66,9 @@ E:\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\EntityFramework.SqlServ
 E:\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 E:\AllWorldReservation\AllWorldReservation.DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csprojAssemblyReference.cache
-E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.Migrations.InitialCreation.resources
-E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.GenerateResource.cache
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.CoreCompileInputs.cache
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.CopyComplete
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.dll
 E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.pdb
+E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.Migrations.Property.resources
+E:\AllWorldReservation\AllWorldReservation.DAL\obj\Debug\AllWorldReservation.DAL.csproj.GenerateResource.cache

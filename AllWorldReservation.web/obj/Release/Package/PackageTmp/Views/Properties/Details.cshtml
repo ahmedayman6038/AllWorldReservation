@@ -1,0 +1,148 @@
+﻿@model AllWorldReservation.BL.Models.PropertyModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+    string photoName = "";
+    if (Model.Photo != null)
+    {
+        photoName = Model.Photo.Name;
+    }
+    var share = false;
+    if (Request.QueryString["type"] != null && Request.QueryString["type"].ToLower() == "share")
+    {
+        share = true;
+    }
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Property Details
+                </h2>
+                @if (share)
+                {
+                    <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Properties/Index?type=share','_self')">
+                        <i class="material-icons">keyboard_arrow_left</i>
+                        <span>Back To List</span>
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Properties','_self')">
+                        <i class="material-icons">keyboard_arrow_left</i>
+                        <span>Back To List</span>
+                    </button>
+                }
+            </div>
+            <div class="body">
+                @Html.AntiForgeryToken()
+                @Html.DisplayNameFor(model => model.Name)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Name)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Place)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Place.Name)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Address)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Address)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Type)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.Type)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.PriceUSD)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Model.PriceUSD
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.PriceEGP)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Model.PriceEGP
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.AvalibleFrom)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.AvalibleFrom)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.AvalibleTo)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.AvalibleTo)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.DisplayFor(model => model.CreatedDate)
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.Description)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Html.Raw(Model.Description)
+                    </div>
+                </div>
+                @if (photoName != "")
+                {
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#defaultModal">
+                            <i class="material-icons">add_photo_alternate</i>
+                            <span>@Html.DisplayNameFor(model => model.PhotoId)</span>
+                        </button>
+                    </div>
+                }
+                @if (share)
+                {
+                    <form method="post" action="/Properties/Approve/@Model.Id" style="display:inline-block">
+                        <button type="submit" class="btn btn-success waves-effect">
+                            <i class="material-icons">check_box</i>
+                            <span>Approve</span>
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary waves-effect" onclick="window.open('/Properties/Edit/@Model.Id','_self')">
+                        <i class="material-icons">edit</i>
+                        <span>Edit</span>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Vertical Layout -->
+<!-- Default Size -->
+<div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">@Html.DisplayNameFor(model => model.Photo)</h4>
+            </div>
+            <div class="modal-body">
+                <img src="@Url.Content("~/Uploads/" + photoName)" class="img-responsive">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

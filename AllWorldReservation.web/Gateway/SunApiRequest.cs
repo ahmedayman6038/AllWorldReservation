@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
+using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.web.Gateway
 {
@@ -25,7 +26,7 @@ namespace AllWorldReservation.web.Gateway
             AuthCode = ConfigurationManager.AppSettings["SUN_API_AUTHCODE"];
         }
 
-        public async Task<IEnumerable<HotelModel>> SearchHotelAsync(string code, DateTime checkIn, DateTime checkOut, List<SearchViewModel> roomsSearch)
+        public async Task<IEnumerable<HotelModel>> SearchHotelAsync(string code, DateTime checkIn, DateTime checkOut, List<GuestsViewModel> roomsSearch)
         {
             using (var client = new HttpClient())
             {
@@ -89,24 +90,34 @@ namespace AllWorldReservation.web.Gateway
                                 hotel.Address = item.Element("Address").Value;
                                 hotel.Place = new PlaceModel() { Name = item.Element("Location").Value };
                                 hotel.Description = item.Element("Description").Value.Substring(0, 150) + "...";
-                                var rooms = item.Element("RoomAllocations").Element("RoomAllocation").Element("Rooms").Elements();
-                                var prices = new List<float>();
-                                foreach (var room in rooms)
+                                var roomAllocations = item.Element("RoomAllocations").Elements();
+                                var minPrice = float.MaxValue;
+                                foreach (var roomAllocation in roomAllocations)
                                 {
-                                    prices.Add(float.Parse(room.Element("TotalAmount").Value));
+                                    var rooms = roomAllocation.Element("Rooms").Elements();
+                                    foreach (var room in rooms)
+                                    {
+                                        var totalAmount = float.Parse(room.Element("TotalAmount").Value);
+                                        if (totalAmount < minPrice)
+                                        {
+                                            minPrice = totalAmount;
+                                        }
+                                    }
                                 }
-                                hotel.Price = prices.Min();
+                                hotel.PriceFromUSD = minPrice;
                                 hotel.Stars = int.Parse(item.Element("ClassCode").Value.Replace("*", string.Empty));
-                                hotel.Type = BL.Enums.EnumCollection.ReservationType.SunHotel;
+                                hotel.Type = ReservationType.SunHotel;
                                 hotels.Add(hotel);
                             }
                             return hotels;
                         }
-                        var guid = xmlResult.Root.Element("GUID");
-                        var xmlRequest = XDocument.Parse(data);
-                        xmlRequest.Root.Add(guid);
-                        content = new StringContent(xmlRequest.ToString(), Encoding.UTF8, "application/xml");
-                        Thread.Sleep(1000);
+                        else
+                        {
+                            var guid = xmlResult.Root.Element("GUID");
+                            var xmlRequest = XDocument.Parse(data);
+                            xmlRequest.Root.Add(guid);
+                            content = new StringContent(xmlRequest.ToString(), Encoding.UTF8, "application/xml");
+                        }
                     }
                     else
                     {
@@ -116,7 +127,7 @@ namespace AllWorldReservation.web.Gateway
             }
         }
 
-        public async Task<HotelModel> GetHotelAsync(string code, DateTime checkIn, DateTime checkOut, List<SearchViewModel> roomsSearch, string itemId)
+        public async Task<HotelViewModel> GetHotelAsync(string code, DateTime checkIn, DateTime checkOut, List<GuestsViewModel> roomsSearch, string itemId)
         {
             using (var client = new HttpClient())
             {
@@ -172,45 +183,59 @@ namespace AllWorldReservation.web.Gateway
                                 var resultId = item.Element("ID").Value;
                                 if (resultId == itemId)
                                 {
-                                    var hotel = new HotelModel();
+                                    var hotel = new HotelViewModel();
                                     hotel.Id = int.Parse(resultId.Replace(".", string.Empty));
                                     hotel.ResultId = resultId;
                                     hotel.GUID = GUID;
                                     hotel.Name = item.Element("Name").Value;
                                     hotel.Address = item.Element("Address").Value;
-                                    hotel.Place = new PlaceModel() { Name = item.Element("Location").Value };
+                                    hotel.Place = item.Element("Location").Value;
                                     hotel.Description = item.Element("Description").Value;
-                                    var roomsElments = item.Element("RoomAllocations").Element("RoomAllocation").Element("Rooms").Elements();
-                                    var rooms = new List<RoomModel>();
+                                    var allocaionElements = item.Element("RoomAllocations").Elements();
+                                    var roomAllocations = new List<RoomAllocation>();
                                     var minPrice = float.MaxValue;
-                                    foreach (var element in roomsElments)
+                                    foreach (var allocaionElement in allocaionElements)
                                     {
-                                        var room = new RoomModel();
-                                        room.Id = int.Parse(element.Element("RoomID").Value);
-                                        //room.RateId = int.Parse(element.Element("RoomRateID").Value);
-                                        room.Name = element.Element("Name").Value;
-                                        room.Description = element.Element("Description").Value;
-                                        //room.BoardBasis = element.Element("BoardBasis").Value;
-                                        room.TotalAmount = float.Parse(element.Element("TotalAmount").Value);
-                                        if (room.TotalAmount < minPrice)
+                                        var roomAllocation = new RoomAllocation();
+                                        roomAllocation.Id = int.Parse(allocaionElement.Element("Idx").Value);
+                                        roomAllocation.Adults = int.Parse(allocaionElement.Element("Adults").Value);
+                                        roomAllocation.Children = int.Parse(allocaionElement.Element("Children").Value);
+                                        roomAllocation.Infants = int.Parse(allocaionElement.Element("Infants").Value);
+                                        var roomElements = allocaionElement.Element("Rooms").Elements();
+                                        var rooms = new List<RoomModel>();
+                                        foreach (var roomElement in roomElements)
                                         {
-                                            minPrice = room.TotalAmount;
+                                            var room = new RoomModel();
+                                            room.Id = int.Parse(roomElement.Element("RoomID").Value);
+                                            room.RateId = int.Parse(roomElement.Element("RoomRateID").Value);
+                                            room.Name = roomElement.Element("Name").Value;
+                                            room.Description = roomElement.Element("Description").Value;
+                                            room.PriceUSD = float.Parse(roomElement.Element("TotalAmount").Value);
+                                            if (room.PriceUSD < minPrice)
+                                            {
+                                                minPrice = room.PriceUSD;
+                                            }
+                                            rooms.Add(room);
                                         }
-                                        rooms.Add(room);
+                                        roomAllocation.Rooms = rooms;
+                                        roomAllocations.Add(roomAllocation);
                                     }
-                                    hotel.Price = minPrice;
+                                    hotel.PriceFromUSD = minPrice;
                                     hotel.Stars = int.Parse(item.Element("ClassCode").Value.Replace("*", string.Empty));
-                                    hotel.Rooms = rooms;
+                                    hotel.RoomAllocations = roomAllocations;
+                                    hotel.Type = ReservationType.SunHotel;
                                     return hotel;
                                 }
                             }
                             return null;
                         }
-                        var guid = xmlResult.Root.Element("GUID");
-                        var xmlRequest = XDocument.Parse(data);
-                        xmlRequest.Root.Add(guid);
-                        content = new StringContent(xmlRequest.ToString(), Encoding.UTF8, "application/xml");
-                        Thread.Sleep(1000);
+                        else
+                        {
+                            var guid = xmlResult.Root.Element("GUID");
+                            var xmlRequest = XDocument.Parse(data);
+                            xmlRequest.Root.Add(guid);
+                            content = new StringContent(xmlRequest.ToString(), Encoding.UTF8, "application/xml");
+                        }
                     }
                     else
                     {
@@ -272,15 +297,90 @@ namespace AllWorldReservation.web.Gateway
                     }
                     else
                     {
-                        return String.Empty;
+                        return string.Empty;
                     }
                 }
                 else
                 {
-                    return String.Empty;
+                    return string.Empty;
                 }
             }
         }
+
+        public async Task<bool> CheckAvailabilityAsync(string Guid, string ResultId, List<RoomAllocation> roomsAllocation)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("AuthCode", AuthCode);
+                client.DefaultRequestHeaders.Add("Action", "Availability");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+                string data = "<AvailabilityRequest>" +
+                                    "<GUID>" + Guid + "</GUID>" +
+                                    "<Stage>Start</Stage>" +
+                                    "<ResultID>" + ResultId + "</ResultID>" +
+                                    "<RoomAllocations>";
+                                    foreach (var room in roomsAllocation)
+                                    {
+                                        data += "<RoomAllocation>" +
+                                                    "<Adults>" + room.Adults + "</Adults>" +
+                                                    "<Children>" + room.Children + "</Children>" +
+                                                    "<Infants>" + room.Infants + "</Infants>";
+                                                    if (room.ChildAges != null)
+                                                    {
+                                                        data += "<ChildAges>";
+                                                        foreach (var age in room.ChildAges)
+                                                        {
+                                                            data += "<int>" + age + "</int>";
+                                                        }
+                                                        data += "</ChildAges>";
+                                                    }
+                                           data += "<RoomID>" + room.Rooms.First().Id + "</RoomID>" +
+                                                   "<RoomRateID>" + room.Rooms.First().RateId + "</RoomRateID>" +
+                                             "</RoomAllocation>";
+                                    }                           
+                            data += "</RoomAllocations>" +
+                           "</AvailabilityRequest>";
+                var content = new StringContent(data, Encoding.UTF8, "application/xml");
+                var available = false;
+                while (true)
+                {
+                    HttpResponseMessage Res = await client.PostAsync("", content);
+                    if (Res.IsSuccessStatusCode)
+                    {
+                        var result = Res.Content.ReadAsStringAsync().Result;
+                        var xmlResult = XDocument.Parse(result);
+                        var isSuccess = xmlResult.Root.Element("IsSuccess");
+                        var isComplete = xmlResult.Root.Element("IsComplete");
+                        if (isSuccess.Value == "false")
+                        {
+                            return available;
+                        }
+                        else if (isComplete.Value == "true" && isSuccess.Value == "true")
+                        {
+                            var element = xmlResult.Root.Element("Results").Element("AccommodationResult").Element("IsAvailable");
+                            if(element.Value == "true")
+                            {
+                                available = true;
+                            }
+                            return available;
+                        }
+                        else
+                        {
+                            var xmlRequest = XDocument.Parse(data);
+                            xmlRequest.Root.Element("Stage").Value = "Ping";
+                            content = new StringContent(xmlRequest.ToString(), Encoding.UTF8, "application/xml");
+                        }
+                    }
+                    else
+                    {
+                        return available;
+                    }
+                }
+            }
+        }
+
 
     }
 }

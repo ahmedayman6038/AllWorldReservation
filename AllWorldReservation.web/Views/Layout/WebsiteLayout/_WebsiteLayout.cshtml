@@ -3,6 +3,7 @@
 @{
     ApplicationDbContext context = new ApplicationDbContext();
     var user = context.Users.Find(User.Identity.GetUserId());
+    var settings = context.Settings.First();
 }
 <!DOCTYPE html>
 
@@ -45,12 +46,13 @@
                     var action = ViewContext.RouteData.Values["Action"].ToString().ToLower();
                 }
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item @(action == "index" ? "active" : "")"><a href="/home" id="NLink" class="nav-link">Home</a></li>
-                    <li class="nav-item @(action == "about" ? "active" : "")"><a href="/about" id="NLink" class="nav-link">About</a></li>
-                    <li class="nav-item @(action == "tours" ? "active" : "")"><a href="/tour" id="NLink" class="nav-link">Tours</a></li>
-                    <li class="nav-item @(action == "hotels" ? "active" : "")"><a href="/hotel" id="NLink" class="nav-link">Hotels</a></li>
-                    <li class="nav-item @(action == "blog" ? "active" : "")"><a href="/blog" id="NLink" class="nav-link">Blog</a></li>
-                    <li class="nav-item @(action == "contact" ? "active" : "")"><a href="/contact" id="NLink" class="nav-link">Contact</a></li>
+                    <li class="nav-item @(action == "index" ? "active" : "")"><a href="/Home" id="NLink" class="nav-link">Home</a></li>
+                    <li class="nav-item @(action == "about" ? "active" : "")"><a href="/About" id="NLink" class="nav-link">About</a></li>
+                    <li class="nav-item @(action == "tours" ? "active" : "")"><a href="/Tour" id="NLink" class="nav-link">Tours</a></li>
+                    <li class="nav-item @(action == "hotels" ? "active" : "")"><a href="/Hotel" id="NLink" class="nav-link">Hotels</a></li>
+                    <li class="nav-item @(action == "properties" ? "active" : "")"><a href="/Property" id="NLink" class="nav-link">Properties</a></li>
+                    <li class="nav-item @(action == "blog" ? "active" : "")"><a href="/Blog" id="NLink" class="nav-link">Blog</a></li>
+                    <li class="nav-item @(action == "contact" ? "active" : "")"><a href="/Contact" id="NLink" class="nav-link">Contact</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item"><a href="#" class="nav-link btn btn-outline-warning mr-2">Welcome @user.UserName</a></li>
@@ -68,44 +70,22 @@
     <div>
         @RenderBody()
     </div>
-    @*<section class="ftco-section-parallax">
-            <div class="parallax-img d-flex align-items-center">
-                <div class="container">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                            <h2>Subcribe to our Newsletter</h2>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
-                            <div class="row d-flex justify-content-center mt-5">
-                                <div class="col-md-8">
-                                    <form action="#" class="subscribe-form">
-                                        <div class="form-group d-flex">
-                                            <input type="text" class="form-control" placeholder="Enter email address">
-                                            <input type="submit" value="Subscribe" class="submit px-3">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>*@
 
-    <footer class="ftco-footer ftco-bg-dark ftco-section">
+    <footer class="ftco-footer ftco-bg-dark ftco-section text-center">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-md">
                     <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Adventure</h2>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
-                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                        <h2 class="ftco-heading-2">About Us</h2>
+                        <p>@settings.AboutCompany</p>
+                        <ul class="ftco-footer-social list-unstyled mt-5">
+                            <li class="ftco-animate"><a href="@settings.TwitterUrl"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="@settings.FacebookUrl"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="@settings.InstagramUrl"><span class="icon-instagram"></span></a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md">
+                @*<div class="col-md">
                     <div class="ftco-footer-widget mb-4 ml-md-4">
                         <h2 class="ftco-heading-2">Information</h2>
                         <ul class="list-unstyled">
@@ -118,17 +98,16 @@
                             <li><a href="#" class="py-2 d-block">Refund policy</a></li>
                         </ul>
                     </div>
-                </div>
+                </div>*@
                 <div class="col-md">
                     <div class="ftco-footer-widget mb-4">
                         <h2 class="ftco-heading-2">Experience</h2>
                         <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">Beach</a></li>
-                            <li><a href="#" class="py-2 d-block">Adventure</a></li>
-                            <li><a href="#" class="py-2 d-block">Wildlife</a></li>
-                            <li><a href="#" class="py-2 d-block">Honeymoon</a></li>
-                            <li><a href="#" class="py-2 d-block">Nature</a></li>
-                            <li><a href="#" class="py-2 d-block">Party</a></li>
+                            <li><a href="/hotel" class="py-2 d-block">Hotels</a></li>
+                            <li><a href="/tour" class="py-2 d-block">Tours</a></li>
+                            <li><a href="/about" class="py-2 d-block">About</a></li>
+                            <li><a href="/blog" class="py-2 d-block">Blog</a></li>
+                            <li><a href="/contact" class="py-2 d-block">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -137,9 +116,11 @@
                         <h2 class="ftco-heading-2">Have a Questions?</h2>
                         <div class="block-23 mb-3">
                             <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                                <li><span class="icon icon-map-marker"></span><span class="text">@settings.CompanyAddress</span></li>
+                                <li><a href="#"><span class="icon icon-mobile"></span><span class="text">@settings.CompanyPhone</span></a></li>
+                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">@settings.CompanyTelephone</span></a></li>
+                                <li><a href="#"><span class="icon icon-fax"></span><span class="text">@settings.CompanyFax</span></a></li>
+                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">@settings.CompanyEmail</span></a></li>
                             </ul>
                         </div>
                     </div>

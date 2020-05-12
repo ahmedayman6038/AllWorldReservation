@@ -18,10 +18,10 @@ namespace AllWorldReservation.DAL.Entities
 
         public string Description { get; set; }
 
-        [Required]
-        public float Price { get; set; }
+        public float PriceUSD { get; set; }
 
-        [Required]
+        public float PriceEGP { get; set; }
+
         public int Duration { get; set; }
 
         public DateTime? AvalibleFrom { get; set; }

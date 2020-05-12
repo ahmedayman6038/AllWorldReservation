@@ -51,10 +51,13 @@ namespace AllWorldReservation.DAL.Entities
         [MaxLength(50)]
         public string OrderId { get; set; }
 
-        [Required]
         public float TotalAmount { get; set; }
 
+        public int Currency { get; set; }
+
         public string UserId { get; set; }
+
+        public bool Approved { get; set; }
 
         public DateTime ReservationFrom { get; set; }
 

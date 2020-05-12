@@ -161,22 +161,21 @@ namespace AllWorldReservation.web.Controllers
                 return HttpNotFound();
             }
             var role = UserManager.GetRoles(user.Id).First();
-            if(role == "Customer")
-            {
-                var reservations = context.Reservations.Where(r => r.UserId == user.Id).ToList();
-                foreach (var reservation in reservations)
-                {
-                    var guests = context.Guests.Where(g => g.ReservationId == reservation.Id);
-                    context.Guests.RemoveRange(guests);
-                    context.Reservations.Remove(reservation);
-                }
-            }
-            else
+            // Delete Admin & Employees Posts & Mails
+            if(role != "Customer")
             {
                 var posts = context.Posts.Where(p => p.UserId == user.Id);
                 context.Posts.RemoveRange(posts);
                 var mails = context.Mails.Where(m => m.UserId == user.Id);
                 context.Mails.RemoveRange(mails);
+            }
+            // Delete User Reservations
+            var reservations = context.Reservations.Where(r => r.UserId == user.Id).ToList();
+            foreach (var reservation in reservations)
+            {
+                var guests = context.Guests.Where(g => g.ReservationId == reservation.Id);
+                context.Guests.RemoveRange(guests);
+                context.Reservations.Remove(reservation);
             }
             context.Users.Remove(user);
             context.SaveChanges();

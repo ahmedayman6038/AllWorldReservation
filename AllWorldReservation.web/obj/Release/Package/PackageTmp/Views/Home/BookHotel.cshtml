@@ -3,15 +3,10 @@
 
     Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
     ViewBag.Title = "Booking";
-    var guest = (Dictionary<string, int>)ViewBag.Guests;
-    var resType = (AllWorldReservation.BL.Enums.EnumCollection.ReservationType)ViewBag.ResType;
-    var checkIn = (DateTime)ViewBag.CheckIn;
-    var checkOut = (DateTime)ViewBag.CheckOut;
-    int Adults = 0, Teenagers = 0, Children = 0, Infants = 0;
-    guest.TryGetValue("Adults", out Adults);
-    guest.TryGetValue("Teenagers", out Teenagers);
-    guest.TryGetValue("Children", out Children);
-    guest.TryGetValue("Infants", out Infants);
+    int Adults = (int)ViewBag.Adults;
+    int Teenagers = (int)ViewBag.Teenagers;
+    int Children = (int)ViewBag.Children;
+    int Infants = (int)ViewBag.Infants;
     int counter = 0;
 }
 <div class="hero-wrap js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
@@ -31,9 +26,9 @@
             <form action="/Book/Hotel" method="post" autocomplete="off">
                 <input type="hidden" name="GUID" value="@ViewBag.GUID" />
                 <input type="hidden" name="ResultId" value="@ViewBag.ResultId" />
-                <input type="hidden" name="ReservationFrom" value="@checkIn" />
-                <input type="hidden" name="ReservationTo" value="@checkOut" />
-                <input type="hidden" name="ReservationType" value="@resType" />
+                <input type="hidden" name="ReservationFrom" value="@Model.ReservationFrom" />
+                <input type="hidden" name="ReservationTo" value="@Model.ReservationTo" />
+                <input type="hidden" name="ReservationType" value="@Model.ReservationType" />
                 <h3 class="mb-3">Guests Information</h3>
 
                 @for (int i = 0; i < Adults; i++)
@@ -64,7 +59,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" readonly required>
+                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" required>
                             </div>
                         </div>
                     </div>
@@ -99,7 +94,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" readonly required>
+                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" required>
                             </div>
                         </div>
                     </div>
@@ -134,7 +129,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" readonly required>
+                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" required>
                             </div>
                         </div>
                     </div>
@@ -171,7 +166,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" readonly required>
+                                <input type="text" class="form-control input-md DOB" name="Guests[@counter].DateOfBirth" placeholder="Date Of Birth" required>
                             </div>
                         </div>
                     </div>
@@ -233,10 +228,10 @@
                     <div class="col-md-4">
                         <h5>Payment Method</h5>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <select class="form-control" name="PayType" required>
-                                @if (resType == AllWorldReservation.BL.Enums.EnumCollection.ReservationType.SunHotel)
+                                @if (Model.ReservationType == AllWorldReservation.BL.Enums.EnumCollection.ReservationType.SunHotel)
                                 {
                                     <option value="2" selected>Pay Offline</option>
                                 }
@@ -256,7 +251,7 @@
                         <h5>Check In</h5>
                     </div>
                     <div class="col-md-8">
-                        <h5>@checkIn.ToString("dd-MM-yyyy")</h5>
+                        <h5>@Model.ReservationFrom.ToString("dd-MM-yyyy")</h5>
                     </div>
                 </div>
                 <div class="row">
@@ -264,7 +259,7 @@
                         <h5>Check Out</h5>
                     </div>
                     <div class="col-md-8">
-                        <h5>@checkOut.ToString("dd-MM-yyyy")</h5>
+                        <h5>@Model.ReservationTo.ToString("dd-MM-yyyy")</h5>
                     </div>
                 </div>
                 <div class="row">
@@ -280,8 +275,9 @@
                         <h5>Total amount</h5>
                     </div>
                     <div class="col-md-8">
-                        <h5>@ViewBag.TotalCost $</h5>
-                        <input type="hidden" name="TotalAmount" value="@ViewBag.TotalCost" />
+                        <h5>@Model.TotalAmount @(Model.Currency == AllWorldReservation.BL.Enums.EnumCollection.Currency.EGP ? "EGP" : "$")</h5>
+                        <input type="hidden" name="TotalAmount" value="@Model.TotalAmount" />
+                        <input type="hidden" name="Currency" value="@Model.Currency" />
                     </div>
                 </div>
                 <button type="submit" class="mt-4 btn btn-primary form-control" style="width:100%;" id="payButton">Book</button>

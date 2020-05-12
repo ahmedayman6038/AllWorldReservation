@@ -10,28 +10,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AllWorldReservation.BL.dll">
-      <publishTime>04/05/2020 22:14:26</publishTime>
+      <publishTime>05/09/2020 21:08:27</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.BL.dll.config">
       <publishTime>03/30/2020 15:38:10</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.BL.pdb">
-      <publishTime>04/05/2020 22:14:26</publishTime>
+      <publishTime>05/09/2020 21:08:27</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.DAL.dll">
-      <publishTime>04/05/2020 22:14:25</publishTime>
+      <publishTime>05/09/2020 21:08:26</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.DAL.dll.config">
       <publishTime>01/04/2020 14:01:22</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.DAL.pdb">
-      <publishTime>04/05/2020 22:14:25</publishTime>
+      <publishTime>05/09/2020 21:08:26</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.web.dll">
-      <publishTime>04/05/2020 22:51:58</publishTime>
+      <publishTime>05/09/2020 21:08:28</publishTime>
     </File>
     <File Include="bin/AllWorldReservation.web.pdb">
-      <publishTime>04/05/2020 22:51:58</publishTime>
+      <publishTime>05/09/2020 21:08:28</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>11/17/2018 10:14:56</publishTime>
@@ -841,7 +841,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/2020 10:37:08</publishTime>
     </File>
     <File Include="Content/WebSite/WebSiteStyle.css">
-      <publishTime>03/29/2020 13:48:45</publishTime>
+      <publishTime>04/18/2020 20:10:10</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>01/01/2020 13:45:04</publishTime>
@@ -857,6 +857,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Images/animation-bg.jpg">
       <publishTime>01/01/2020 13:38:40</publishTime>
+    </File>
+    <File Include="Images/bg-login.jpg">
+      <publishTime>01/01/2020 13:38:38</publishTime>
     </File>
     <File Include="Images/bg_1.jpg">
       <publishTime>01/01/2020 09:54:56</publishTime>
@@ -12682,7 +12685,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2018 12:27:56</publishTime>
     </File>
     <File Include="Scripts/Website/main.js">
-      <publishTime>03/29/2020 13:24:57</publishTime>
+      <publishTime>05/07/2020 19:55:58</publishTime>
     </File>
     <File Include="Scripts/Website/owl.carousel.min.js">
       <publishTime>11/03/2018 12:27:56</publishTime>
@@ -12703,7 +12706,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/05/2020 18:41:33</publishTime>
     </File>
     <File Include="Views/Account/Bookings.cshtml">
-      <publishTime>04/05/2020 18:42:40</publishTime>
+      <publishTime>05/09/2020 15:26:29</publishTime>
     </File>
     <File Include="Views/Account/ForgotPassword.cshtml">
       <publishTime>04/04/2020 18:41:44</publishTime>
@@ -12717,8 +12720,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Account/Login.cshtml">
       <publishTime>04/04/2020 18:40:26</publishTime>
     </File>
+    <File Include="Views/Account/Properties.cshtml">
+      <publishTime>05/09/2020 15:38:12</publishTime>
+    </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>04/04/2020 17:28:14</publishTime>
+      <publishTime>04/07/2020 19:54:23</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>04/04/2020 17:40:21</publishTime>
@@ -12739,34 +12745,40 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2020 16:56:48</publishTime>
     </File>
     <File Include="Views/Dashboard/Index.cshtml">
-      <publishTime>01/04/2020 16:46:58</publishTime>
+      <publishTime>04/10/2020 21:59:17</publishTime>
     </File>
     <File Include="Views/Galleries/Index.cshtml">
       <publishTime>01/04/2020 17:10:32</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>04/05/2020 19:06:48</publishTime>
+      <publishTime>04/17/2020 22:23:05</publishTime>
     </File>
     <File Include="Views/Home/Blog.cshtml">
-      <publishTime>02/15/2020 17:59:01</publishTime>
+      <publishTime>04/10/2020 22:14:34</publishTime>
     </File>
     <File Include="Views/Home/BookHotel.cshtml">
-      <publishTime>04/05/2020 21:17:50</publishTime>
+      <publishTime>05/09/2020 15:06:24</publishTime>
+    </File>
+    <File Include="Views/Home/BookProperty.cshtml">
+      <publishTime>05/09/2020 15:04:50</publishTime>
     </File>
     <File Include="Views/Home/BookResult.cshtml">
       <publishTime>03/22/2020 19:13:07</publishTime>
     </File>
     <File Include="Views/Home/BookTour.cshtml">
-      <publishTime>04/05/2020 20:06:23</publishTime>
+      <publishTime>05/09/2020 15:06:43</publishTime>
     </File>
     <File Include="Views/Home/CheckHotel.cshtml">
-      <publishTime>04/05/2020 19:41:49</publishTime>
+      <publishTime>05/07/2020 16:54:50</publishTime>
+    </File>
+    <File Include="Views/Home/CheckProperty.cshtml">
+      <publishTime>05/07/2020 18:24:13</publishTime>
     </File>
     <File Include="Views/Home/CheckTour.cshtml">
-      <publishTime>04/05/2020 19:44:44</publishTime>
+      <publishTime>05/07/2020 16:55:37</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
-      <publishTime>02/15/2020 17:59:01</publishTime>
+      <publishTime>04/18/2020 13:33:22</publishTime>
     </File>
     <File Include="Views/Home/Details.cshtml">
       <publishTime>01/28/2020 20:24:41</publishTime>
@@ -12775,49 +12787,52 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2020 21:01:44</publishTime>
     </File>
     <File Include="Views/Home/Hotels.cshtml">
-      <publishTime>04/05/2020 19:21:02</publishTime>
+      <publishTime>05/07/2020 16:06:26</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>04/05/2020 19:05:06</publishTime>
+      <publishTime>05/09/2020 21:07:53</publishTime>
     </File>
     <File Include="Views/Home/Places.cshtml">
       <publishTime>02/20/2020 19:55:28</publishTime>
     </File>
+    <File Include="Views/Home/Properties.cshtml">
+      <publishTime>05/07/2020 16:53:26</publishTime>
+    </File>
     <File Include="Views/Home/SearchHotel.cshtml">
-      <publishTime>03/29/2020 18:53:52</publishTime>
+      <publishTime>05/07/2020 17:00:31</publishTime>
     </File>
     <File Include="Views/Home/SearchTour.cshtml">
-      <publishTime>03/29/2020 18:58:46</publishTime>
+      <publishTime>05/07/2020 17:00:22</publishTime>
     </File>
     <File Include="Views/Home/Tours.cshtml">
-      <publishTime>04/05/2020 21:24:51</publishTime>
+      <publishTime>05/07/2020 16:59:30</publishTime>
     </File>
     <File Include="Views/Hotels/Create.cshtml">
-      <publishTime>04/05/2020 15:37:40</publishTime>
+      <publishTime>05/06/2020 18:24:03</publishTime>
     </File>
     <File Include="Views/Hotels/Details.cshtml">
-      <publishTime>03/16/2020 22:57:34</publishTime>
+      <publishTime>04/19/2020 16:01:45</publishTime>
     </File>
     <File Include="Views/Hotels/Edit.cshtml">
-      <publishTime>03/28/2020 16:31:40</publishTime>
+      <publishTime>04/19/2020 18:32:38</publishTime>
     </File>
     <File Include="Views/Hotels/Index.cshtml">
-      <publishTime>03/07/2020 22:49:51</publishTime>
+      <publishTime>04/19/2020 15:48:20</publishTime>
     </File>
     <File Include="Views/Hotels/Photos.cshtml">
-      <publishTime>02/13/2020 19:36:44</publishTime>
+      <publishTime>05/09/2020 20:58:33</publishTime>
     </File>
     <File Include="Views/Hotels/_Photos.cshtml">
       <publishTime>01/04/2020 16:54:32</publishTime>
     </File>
     <File Include="Views/Layout/DashboardLayout/_AccountLayout.cshtml">
-      <publishTime>04/04/2020 17:15:44</publishTime>
+      <publishTime>04/12/2020 21:53:16</publishTime>
     </File>
     <File Include="Views/Layout/DashboardLayout/_DashboardLayout.cshtml">
-      <publishTime>04/05/2020 19:52:32</publishTime>
+      <publishTime>05/09/2020 16:13:23</publishTime>
     </File>
     <File Include="Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml">
-      <publishTime>04/04/2020 16:18:27</publishTime>
+      <publishTime>05/07/2020 16:37:06</publishTime>
     </File>
     <File Include="Views/Mails/Create.cshtml">
       <publishTime>04/04/2020 16:49:30</publishTime>
@@ -12829,7 +12844,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/04/2020 16:49:30</publishTime>
     </File>
     <File Include="Views/Mails/Sender.cshtml">
-      <publishTime>04/04/2020 16:49:30</publishTime>
+      <publishTime>04/10/2020 20:16:04</publishTime>
     </File>
     <File Include="Views/Manage/ChangePassword.cshtml">
       <publishTime>04/05/2020 15:43:44</publishTime>
@@ -12853,7 +12868,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2020 22:17:19</publishTime>
     </File>
     <File Include="Views/Payment/Payment.cshtml">
-      <publishTime>04/05/2020 18:50:14</publishTime>
+      <publishTime>05/01/2020 18:24:50</publishTime>
     </File>
     <File Include="Views/Payment/PayPlace.cshtml">
       <publishTime>01/28/2020 22:22:41</publishTime>
@@ -12919,25 +12934,43 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/04/2020 17:26:18</publishTime>
     </File>
     <File Include="Views/Posts/Edit.cshtml">
-      <publishTime>02/15/2020 20:11:03</publishTime>
+      <publishTime>04/10/2020 20:10:03</publishTime>
     </File>
     <File Include="Views/Posts/Index.cshtml">
-      <publishTime>02/13/2020 21:08:21</publishTime>
+      <publishTime>04/10/2020 20:16:10</publishTime>
     </File>
     <File Include="Views/Posts/Photos.cshtml">
-      <publishTime>02/13/2020 21:12:50</publishTime>
+      <publishTime>05/09/2020 20:59:08</publishTime>
     </File>
     <File Include="Views/Posts/_Photos.cshtml">
       <publishTime>01/04/2020 16:54:32</publishTime>
     </File>
+    <File Include="Views/Properties/Create.cshtml">
+      <publishTime>05/07/2020 09:57:36</publishTime>
+    </File>
+    <File Include="Views/Properties/Details.cshtml">
+      <publishTime>05/09/2020 19:48:58</publishTime>
+    </File>
+    <File Include="Views/Properties/Edit.cshtml">
+      <publishTime>05/09/2020 19:55:56</publishTime>
+    </File>
+    <File Include="Views/Properties/Index.cshtml">
+      <publishTime>05/09/2020 20:35:46</publishTime>
+    </File>
+    <File Include="Views/Properties/Photos.cshtml">
+      <publishTime>05/09/2020 20:13:54</publishTime>
+    </File>
+    <File Include="Views/Properties/_Photos.cshtml">
+      <publishTime>05/06/2020 20:26:11</publishTime>
+    </File>
     <File Include="Views/Reservations/Details.cshtml">
-      <publishTime>04/05/2020 18:41:13</publishTime>
+      <publishTime>05/02/2020 16:02:38</publishTime>
     </File>
     <File Include="Views/Reservations/Index.cshtml">
-      <publishTime>04/05/2020 17:58:23</publishTime>
+      <publishTime>05/01/2020 18:47:09</publishTime>
     </File>
     <File Include="Views/Settings/Index.cshtml">
-      <publishTime>01/04/2020 17:36:56</publishTime>
+      <publishTime>05/01/2020 14:27:06</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>02/06/2018 10:20:06</publishTime>
@@ -12949,19 +12982,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/09/2018 11:39:18</publishTime>
     </File>
     <File Include="Views/Tours/Create.cshtml">
-      <publishTime>03/28/2020 16:28:53</publishTime>
+      <publishTime>04/19/2020 17:16:07</publishTime>
     </File>
     <File Include="Views/Tours/Details.cshtml">
-      <publishTime>03/28/2020 16:15:47</publishTime>
+      <publishTime>05/01/2020 18:46:09</publishTime>
     </File>
     <File Include="Views/Tours/Edit.cshtml">
-      <publishTime>03/28/2020 16:48:17</publishTime>
+      <publishTime>04/19/2020 17:33:09</publishTime>
     </File>
     <File Include="Views/Tours/Index.cshtml">
-      <publishTime>03/28/2020 16:11:22</publishTime>
+      <publishTime>05/01/2020 18:44:50</publishTime>
     </File>
     <File Include="Views/Tours/Photos.cshtml">
-      <publishTime>03/28/2020 16:20:43</publishTime>
+      <publishTime>05/09/2020 20:59:38</publishTime>
     </File>
     <File Include="Views/Tours/_Photos.cshtml">
       <publishTime>03/28/2020 16:16:11</publishTime>
@@ -12976,7 +13009,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/03/2020 15:10:55</publishTime>
     </File>
     <File Include="Views/Users/Index.cshtml">
-      <publishTime>04/05/2020 15:31:42</publishTime>
+      <publishTime>04/18/2020 19:25:16</publishTime>
     </File>
     <File Include="Views/Users/ResetPassword.cshtml">
       <publishTime>04/03/2020 16:56:04</publishTime>
@@ -12988,7 +13021,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/03/2020 16:50:34</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/05/2020 22:14:29</publishTime>
+      <publishTime>05/09/2020 21:08:30</publishTime>
     </File>
   </ItemGroup>
 </Project>

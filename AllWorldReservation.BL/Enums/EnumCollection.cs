@@ -39,7 +39,10 @@ namespace AllWorldReservation.BL.Enums
             Tour = 2,
 
             [Description("Post")]
-            Post = 3
+            Post = 3,
+
+            [Description("Property")]
+            Property = 4
         }
 
         public enum MailType
@@ -68,8 +71,11 @@ namespace AllWorldReservation.BL.Enums
             [Description("Sun Hotel")]
             SunHotel = 2,
 
-           [Description("Tour")]
-            Tour = 3
+            [Description("Tour")]
+            Tour = 3,
+
+            [Description("Property")]
+            Property = 4
         }
 
         public enum GuestType
@@ -85,6 +91,24 @@ namespace AllWorldReservation.BL.Enums
 
             [Description("Infant")]
             Infant = 4
+        }
+
+        public enum Currency
+        {
+            [Description("United State Dollar")]
+            USD = 1,
+
+            [Description("Egyptian Pound")]
+            EGP = 2
+        }
+
+        public enum PropertyType
+        {
+            [Description("Sell")]
+            Sell = 1,
+
+            [Description("Rent")]
+            Rent = 2
         }
     }
 }

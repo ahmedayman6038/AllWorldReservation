@@ -86,7 +86,7 @@
                                 if (!Model.Rooms.ElementAt(i).Deleted)
                                 {
                                     <div class="room row clearfix" show="true">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Room Name</label>
@@ -94,7 +94,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Enter Description</label>
@@ -105,8 +105,16 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label>Total Amount</label>
-                                                    <input type="number" name="Rooms[@i].TotalAmount" id="Rooms_@(i)_TotalAmount" value="@Model.Rooms.ElementAt(i).TotalAmount" min="0" class="form-control" placeholder="Total Amount" required>
+                                                    <label>USD Price</label>
+                                                    <input type="number" name="Rooms[@i].PriceUSD" id="Rooms_@(i)_PriceUSD" value="@Model.Rooms.ElementAt(i).PriceUSD" min="0" class="form-control" placeholder="USD Price" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>EGP Price</label>
+                                                    <input type="number" name="Rooms[@i].PriceEGP" id="Rooms_@(i)_PriceEGP" value="@Model.Rooms.ElementAt(i).PriceEGP" min="0" class="form-control" placeholder="EGP Price">
                                                 </div>
                                             </div>
                                         </div>
@@ -179,7 +187,7 @@
         });
         function AddRoom() {
             var html = '<div class="room row clearfix" show="true">'+
-                '<div class="col-sm-3" >'+
+                '<div class="col-sm-2" >'+
                    ' <div class="form-group">'+
                        ' <div class="form-line">'+
                 '<label>Room Name</label>'+
@@ -187,7 +195,7 @@
                         '</div>'+
                         '</div>'+
                     '</div>'+
-                    '<div class="col-sm-4">'+
+                    '<div class="col-sm-3">'+
                         '<div class="form-group">'+
                 '<div class="form-line">' +
                 '<label>Room Description</label>' +
@@ -198,8 +206,16 @@
                         '<div class="col-sm-2">'+
                             '<div class="form-group">'+
                 '<div class="form-line">' +
-                '<label>Total Amount</label>' +
-                '<input type="number" name="Rooms[' + currentRoom + '].TotalAmount" id="Rooms_' + currentRoom +'_TotalAmount" class="form-control" min="0" value="0" placeholder="Total Amount" required>'+
+                '<label>USD Price</label>' +
+                '<input type="number" name="Rooms[' + currentRoom + '].PriceUSD" id="Rooms_' + currentRoom +'_PriceUSD" class="form-control" min="0" value="0" placeholder="USD Price" required>'+
+                                    '</div>'+
+                                '</div>'+
+                '</div>' +
+                 '<div class="col-sm-2">'+
+                    '<div class="form-group">'+
+                        '<div class="form-line">' +
+                '<label>EGP Price</label>' +
+                '<input type="number" name="Rooms[' + currentRoom + '].PriceEGP" id="Rooms_' + currentRoom +'_PriceEGP" class="form-control" min="0" value="0" placeholder="EGP Price">'+
                                     '</div>'+
                                 '</div>'+
                             '</div>'+

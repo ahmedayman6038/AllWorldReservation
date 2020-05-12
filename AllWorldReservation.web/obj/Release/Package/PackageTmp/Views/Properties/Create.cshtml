@@ -1,0 +1,135 @@
+﻿@model AllWorldReservation.BL.Models.PropertyModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Layout/DashboardLayout/_DashboardLayout.cshtml";
+}
+
+<!-- Vertical Layout -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Add Property
+                </h2>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Properties','_self')">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    <span>Back To List</span>
+                </button>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm("Create", "Properties", FormMethod.Post, new { encType = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(model => model.Name)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Name) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.PlaceId)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.DropDownListFor(model => model.PlaceId, null, new { @class = "form-control show-tick" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PlaceId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Address)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Address) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Type)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EnumDropDownListFor(model => model.Type, new { @class = "form-control show-tick" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.PriceUSD)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.PriceUSD, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.PriceUSD) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PriceUSD, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.PriceEGP)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.PriceEGP, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.PriceEGP) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PriceEGP, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.AvalibleFrom)
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" name="AvalibleFrom" id="AvalibleFrom" class="datepicker form-control" placeholder="Please choose a date...">
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AvalibleFrom, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.AvalibleTo)
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" name="AvalibleTo" id="AvalibleTo" class="datepicker form-control" placeholder="Please choose a date...">
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AvalibleTo, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Description)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Photo)
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="file" accept=".png, .jpg, .jpeg" multiple="multiple" name="files" id="files" />
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-primary waves-effect">
+                        <span>Save</span>
+                        <i class="material-icons">save</i>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+    var currentId = null;
+    $(function () {
+        CKEDITOR.replace('Description');
+         $('#AvalibleFrom').bootstrapMaterialDatePicker({
+                format: 'YYYY-MM-DD',
+                clearButton: true,
+                weekStart: 1,
+                time: false
+            }).on('change', function (e, date) {
+                $('#AvalibleTo').bootstrapMaterialDatePicker('setMinDate', date);
+            });
+            $('#AvalibleTo').bootstrapMaterialDatePicker({
+                format: 'YYYY-MM-DD',
+                clearButton: true,
+                weekStart: 1,
+                time: false
+            });
+            @if(Model.AvalibleFrom != null)
+            {
+               @:$('#AvalibleFrom').val('@Model.AvalibleFrom.Value.ToString("yyyy-MM-dd")');
+               @:$('#AvalibleTo').bootstrapMaterialDatePicker('setMinDate', '@Model.AvalibleFrom.Value.ToString("yyyy-MM-dd")');
+            }
+            @if(Model.AvalibleTo != null)
+            {
+               @:$('#AvalibleTo').val('@Model.AvalibleTo.Value.ToString("yyyy-MM-dd")');
+            }
+    });
+    </script>
+}

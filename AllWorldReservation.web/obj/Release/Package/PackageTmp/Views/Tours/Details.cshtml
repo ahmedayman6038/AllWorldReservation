@@ -37,10 +37,16 @@
                         @Html.DisplayFor(model => model.Place.Name)
                     </div>
                 </div>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.PriceUSD)
                 <div class="form-group">
                     <div class="form-line">
-                        @Html.DisplayFor(model => model.Price)
+                        @Model.PriceUSD
+                    </div>
+                </div>
+                @Html.DisplayNameFor(model => model.PriceEGP)
+                <div class="form-group">
+                    <div class="form-line">
+                        @Model.PriceEGP
                     </div>
                 </div>
                 @Html.DisplayNameFor(model => model.Duration)

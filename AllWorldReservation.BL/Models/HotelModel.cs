@@ -22,33 +22,37 @@ namespace AllWorldReservation.BL.Models
 
         public string GUID { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "Name Required")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Display(Name = "Price")]
         [DataType(DataType.Currency)]
-        public float Price { get; set; }
+        [Display(Name = "Price From In USD")]
+        public float PriceFromUSD { get; set; }
+
+        [DataType(DataType.Currency)]
+        [Display(Name = "Price From In EGP")]
+        public float PriceFromEGP { get; set; }
 
         [Display(Name = "Stars")]
         public int Stars { get; set; }
 
+        [Required]
+        [MaxLength(150)]
         [Display(Name = "Address")]
-        [Required(ErrorMessage = "Address Required")]
-        [MaxLength(150, ErrorMessage = "Max Lenght 150 Character")]
         public string Address { get; set; }
 
-        [Display(Name = "Avalible From")]
         [DataType(DataType.Date)]
+        [Display(Name = "Avalible From")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? AvalibleFrom { get; set; }
 
-        [Display(Name = "Avalible To")]
         [DataType(DataType.Date)]
+        [Display(Name = "Avalible To")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? AvalibleTo { get; set; }
 
@@ -56,7 +60,6 @@ namespace AllWorldReservation.BL.Models
         public int? PhotoId { get; set; }
 
         [Display(Name = "Place")]
-        [Required(ErrorMessage = "Place Required")]
         public int? PlaceId { get; set; }
 
         [Display(Name = "Created Date")]
@@ -71,6 +74,7 @@ namespace AllWorldReservation.BL.Models
         [Display(Name = "Place")]
         public PlaceModel Place { get; set; }
 
+        [Display(Name = "Rooms Numbers")]
         public ICollection<RoomModel> Rooms { get; set; }
     }
 }

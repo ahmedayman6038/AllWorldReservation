@@ -16,16 +16,15 @@ namespace AllWorldReservation.BL.Models
 
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         [Display(Name = "Title")]
-        [Required(ErrorMessage = "Title Required")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string Title { get; set; }
 
         [Display(Name = "Content")]
         public string Content { get; set; }
 
         [Display(Name = "Category")]
-        [Required(ErrorMessage = "Category Required")]
         public int? CategoryId { get; set; }
 
         [Display(Name = "Photo")]

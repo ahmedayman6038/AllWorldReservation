@@ -13,7 +13,6 @@ namespace AllWorldReservation.BL.Mapper
     {
         public DomainProfile()
         {
-
             CreateMap<Category, CategoryModel>();
             CreateMap<CategoryModel, Category>();
 
@@ -26,7 +25,8 @@ namespace AllWorldReservation.BL.Mapper
             CreateMap<Post, PostModel>();
             CreateMap<PostModel, Post>();
 
-            CreateMap<Setting, SettingModel>();
+            CreateMap<Setting, SettingModel>()
+                .ForMember(x => x.Currency, opt => opt.Ignore());
             CreateMap<SettingModel, Setting>();
 
             CreateMap<Hotel, HotelModel>()
@@ -39,7 +39,8 @@ namespace AllWorldReservation.BL.Mapper
             CreateMap<PlaceModel, Place>();
 
             CreateMap<Room, RoomModel>()
-                .ForMember(x => x.Deleted, opt => opt.Ignore());
+                .ForMember(x => x.Deleted, opt => opt.Ignore())
+                .ForMember(x => x.RateId, opt => opt.Ignore());
             CreateMap<RoomModel, Room>();
 
             CreateMap<Guest, GuestModel>();
@@ -71,7 +72,9 @@ namespace AllWorldReservation.BL.Mapper
                 .ForMember(x => x.SecurityStamp, opt => opt.Ignore())
                 .ForMember(x => x.TwoFactorEnabled, opt => opt.Ignore())
                 .ForMember(x => x.Roles, opt => opt.Ignore());
-        }
 
+            CreateMap<Property, PropertyModel>();
+            CreateMap<PropertyModel, Property>();
+        }
     }
 }

@@ -36,12 +36,19 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.PlaceId, "", new { @class = "text-danger" })
                     </div>
-                    @Html.LabelFor(model => model.Price)
+                    @Html.LabelFor(model => model.PriceUSD)
                     <div class="form-group">
                         <div class="form-line">
-                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.Price) } })
+                            @Html.EditorFor(model => model.PriceUSD, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.PriceUSD) } })
                         </div>
-                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.PriceUSD, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.PriceEGP)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.PriceEGP, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter " + Html.DisplayNameFor(model => model.PriceEGP) } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PriceEGP, "", new { @class = "text-danger" })
                     </div>
                     @Html.LabelFor(model => model.Duration)
                     <div class="form-group">

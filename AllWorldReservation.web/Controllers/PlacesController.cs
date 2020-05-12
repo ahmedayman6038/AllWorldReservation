@@ -99,11 +99,13 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
+            // Delete Place In Hotels
             var hotels = unitOfWork.HotelRepository.Get(h => h.PlaceId == place.Id);
             foreach (var hotel in hotels)
             {
                 unitOfWork.HotelRepository.Delete(hotel);
             }
+            // Delete Place In Tours
             var tours = unitOfWork.TourRepository.Get(h => h.PlaceId == place.Id);
             foreach (var tour in tours)
             {

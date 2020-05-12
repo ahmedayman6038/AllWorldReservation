@@ -226,6 +226,7 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
+            // Delete Post Photos
             var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Post && p.ItemId == post.Id);
             foreach (var photo in photos)
             {

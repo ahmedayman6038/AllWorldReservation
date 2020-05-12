@@ -11,16 +11,16 @@ namespace AllWorldReservation.BL.Models
     {
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "Name Required")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        [Display(Name = "Post Numbers")]
+        [Display(Name = "Posts Numbers")]
         public ICollection<PostModel> Posts { get; set; }
     }
 }

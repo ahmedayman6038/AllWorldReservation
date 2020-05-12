@@ -107,7 +107,7 @@ namespace AllWorldReservation.web.Controllers
                     reservation.Paied = true;
                     unitOfWork.ReservationRepository.Update(reservation);
                     unitOfWork.Save();
-                    ViewBag.PaymentResult = "<h3>Success</h3><h5>Your Payment Received Successfuly</h5><h5>Your Transaction: " + transId + " </h5>";
+                    ViewBag.PaymentResult = "<h3>Success</h3><h5>Your Payment Received Successfuly</h5><h5>Your Booking Order : " + orderId + " </h5>";
                     NotificationHelper.NotifySuccessPayment(reservation);
                     return;
                 }

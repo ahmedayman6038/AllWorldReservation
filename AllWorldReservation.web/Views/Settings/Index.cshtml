@@ -89,6 +89,13 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.InstagramUrl, "", new { @class = "text-danger" })
                     </div>
+                    @Html.LabelFor(model => model.Currency)
+                    <div class="form-group">
+                        <div class="form-line">
+                            @Html.EnumDropDownListFor(model => model.Currency, new { @class = "form-control show-tick" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                    </div>
                     <button type="submit" class="btn btn-primary waves-effect">
                         <i class="material-icons">save</i>
                         <span>Save</span>

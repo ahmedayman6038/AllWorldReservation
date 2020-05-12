@@ -24,7 +24,7 @@
                             <tr>
                                 <th>@Html.DisplayNameFor(model => model.Title)</th>
                                 <th>@Html.DisplayNameFor(model => model.Category)</th>
-                                @*<th>@Html.DisplayNameFor(model => model.User)</th>*@
+                                <th>@Html.DisplayNameFor(model => model.User)</th>
                                 <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
                                 <th>Options</th>
                             </tr>
@@ -35,7 +35,7 @@
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
-                                    @*<td>@Html.DisplayFor(modelItem => item.User.Name)</td>*@
+                                    <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
                                     <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
                                     <td>
                                         <button type="button" class="btn btn-secondary waves-effect" onclick="window.open('/Posts/Photos/@item.Id','_self')">

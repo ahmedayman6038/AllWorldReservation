@@ -16,6 +16,10 @@
                 <form method="post" id="fileSubmit" action="/Posts/Photos/@post.Id" enctype="multipart/form-data">
                     <input type="file" accept=".png, .jpg, .jpeg" onchange="uploadFile()" name="files" id="files" multiple="multiple" style="display:none;" />
                 </form>
+                <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="window.open('/Posts','_self')">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    <span>Back To List</span>
+                </button>
                 <button type="button" class="btn btn-primary waves-effect m-t-15" onclick="selectFile()">
                     <span>Add</span>
                     <i class="material-icons">add</i>

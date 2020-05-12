@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using AllWorldReservation.BL.Mapper;
-
+using System.Web.Security;
 
 namespace AllWorldReservation.web
 {
@@ -21,6 +21,14 @@ namespace AllWorldReservation.web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapperConfiguration.Configure();
+        }
+
+        protected void Application_BeginRequest()
+        {
+            if (FormsAuthentication.RequireSSL && !Request.IsSecureConnection)
+            {
+                Response.Redirect(Request.Url.AbsoluteUri.Replace("http://", "https://"));
+            }
         }
 
         public class AutoMapperConfiguration

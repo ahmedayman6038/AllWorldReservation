@@ -5,9 +5,12 @@ using AllWorldReservation.DAL.Entities;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
+using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.web.Controllers
 {
@@ -30,12 +33,21 @@ namespace AllWorldReservation.web.Controllers
             {
                 settingModel = Mapper.Map<SettingModel>(setting);
             }
+            var currency = ConfigurationManager.AppSettings["GATEWAY_CURRENCY"];
+            if(currency == "EGP")
+            {
+                settingModel.Currency = Currency.EGP;
+            }
+            else
+            {
+                settingModel.Currency = Currency.USD;
+            }
             return View(settingModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "Id,CompanyName,CompanyEmail,CompanyAddress,CompanyPhone,CompanyTelephone,CompanyFax,AboutCompany,FacebookUrl,TwitterUrl,InstagramUrl")] SettingModel settingModel)
+        public ActionResult Index([Bind(Include = "Id,CompanyName,CompanyEmail,CompanyAddress,CompanyPhone,CompanyTelephone,CompanyFax,AboutCompany,FacebookUrl,TwitterUrl,InstagramUrl,Currency")] SettingModel settingModel)
         {
             if (ModelState.IsValid)
             {
@@ -50,6 +62,16 @@ namespace AllWorldReservation.web.Controllers
                     unitOfWork.SettingRepository.Insert(setting);
                 }
                 unitOfWork.Save();
+                Configuration webConfigApp = WebConfigurationManager.OpenWebConfiguration("~");
+                if (settingModel.Currency == Currency.EGP)
+                {
+                    webConfigApp.AppSettings.Settings["GATEWAY_CURRENCY"].Value = "EGP";
+                }
+                else
+                {
+                    webConfigApp.AppSettings.Settings["GATEWAY_CURRENCY"].Value = "USD";
+                }
+                webConfigApp.Save();
             }
             return View(settingModel);
         }

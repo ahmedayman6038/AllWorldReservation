@@ -3,6 +3,7 @@ using AllWorldReservation.BL.Utils;
 using AllWorldReservation.DAL.Context;
 using AllWorldReservation.web.Gateway;
 using AllWorldReservation.web.Models;
+using AllWorldReservation.web.Helper;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -14,15 +15,16 @@ using System.Web.Mvc;
 
 namespace AllWorldReservation.web.Controllers
 {
-    [Authorize]
     public class PaymentController : BaseController
     {
         private ApplicationDbContext context = new ApplicationDbContext();
         private UnitOfWork unitOfWork;
+        private SystemHelper systemHelper;
 
         public PaymentController()
         {
             unitOfWork = new UnitOfWork(context);
+            systemHelper = new SystemHelper(context);
         }
         /// <summary>
         /// Display Index Page.
@@ -70,6 +72,7 @@ namespace AllWorldReservation.web.Controllers
             ViewBag.JavascriptSessionUrl = getSessionJsUrl(GatewayApiConfig);
             ViewBag.TestAndGoLiveUrl = getTestAndGoLiveDocumentationURL();
             ViewBag.Reservation = reservation;
+            ViewBag.Currency = systemHelper.Currency;
             return View("Payment", gatewayApiRequest);
         }
 

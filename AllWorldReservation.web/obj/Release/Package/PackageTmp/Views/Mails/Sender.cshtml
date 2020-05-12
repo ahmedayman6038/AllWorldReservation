@@ -22,7 +22,7 @@
                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
-                                @*<th>@Html.DisplayNameFor(model => model.User)</th>*@
+                                <th>@Html.DisplayNameFor(model => model.User)</th>
                                 <th>@Html.DisplayNameFor(model => model.Email)</th>
                                 <th>@Html.DisplayNameFor(model => model.Subject)</th>
                                 <th>@Html.DisplayNameFor(model => model.Date)</th>
@@ -33,7 +33,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    @*<td>@Html.DisplayFor(modelItem => item.User.Name)</td>*@
+                                    <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Subject)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Date)</td>

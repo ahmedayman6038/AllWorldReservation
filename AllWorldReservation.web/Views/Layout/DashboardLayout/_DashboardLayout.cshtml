@@ -316,14 +316,20 @@
                     {
                         <li class="@((controller == "account" && action == "index") || (controller == "manage" && action == "changepassword") ? "active" : "")">
                             <a href="/Account">
-                                <i class="material-icons">local_hotel</i>
+                                <i class="material-icons">person</i>
                                 <span>My Account</span>
                             </a>
                         </li>
                         <li class="@(controller == "account" && (action == "bookings" || action == "bookingdetails") ? "active" : "")">
                             <a href="/Account/Bookings">
-                                <i class="material-icons">card_travel</i>
+                                <i class="material-icons">contacts</i>
                                 <span>My Bookings</span>
+                            </a>
+                        </li>
+                        <li class="@(controller == "properties" ? "active" : "")">
+                            <a href="/Properties">
+                                <i class="material-icons">apartment</i>
+                                <span>My Properties</span>
                             </a>
                         </li>
                     }
@@ -331,7 +337,7 @@
                     {
                         <li class="@((controller == "account" && action == "index") || (controller == "manage" && action == "changepassword") ? "active" : "")" style="display:none;">
                             <a href="/Account">
-                                <i class="material-icons">local_hotel</i>
+                                <i class="material-icons">person</i>
                                 <span>My Account</span>
                             </a>
                         </li>
@@ -345,6 +351,12 @@
                             <a href="/Tours">
                                 <i class="material-icons">card_travel</i>
                                 <span>Tours</span>
+                            </a>
+                        </li>
+                        <li class="@(controller == "properties" ? "active" : "")">
+                            <a href="/Properties">
+                                <i class="material-icons">apartment</i>
+                                <span>Properties</span>
                             </a>
                         </li>
                     }
@@ -363,15 +375,6 @@
                             <a href="/Posts">
                                 <i class="material-icons">post_add</i>
                                 <span>Posts</span>
-                            </a>
-                        </li>
-                    }
-                    @if (userRole == "Admin")
-                    {
-                        <li class="@(controller == "categories" ? "active" : "")">
-                            <a href="/Categories">
-                                <i class="material-icons">category</i>
-                                <span>Categories</span>
                             </a>
                         </li>
                     }
@@ -590,8 +593,17 @@
     <script src="~/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
     <!-- Waves Effect Plugin Js -->
     <script src="~/plugins/node-waves/waves.js"></script>
+    <!-- Jquery Datatable -->
     <script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
     <script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
     <script src="~/plugins/ckeditor/ckeditor.js"></script>
     <script src="~/plugins/light-gallery/js/lightgallery-all.js"></script>
     <script src="~/plugins/light-gallery/js/lg-deletebutton.js"></script>

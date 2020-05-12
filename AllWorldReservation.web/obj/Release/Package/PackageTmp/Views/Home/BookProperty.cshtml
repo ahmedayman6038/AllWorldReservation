@@ -1,0 +1,121 @@
+﻿@model AllWorldReservation.BL.Models.ReservationModel
+@{
+    Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
+    ViewBag.Title = "Booking";
+}
+<div class="hero-wrap js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Properties</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Booking</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            <form action="/Book/Property" method="post" autocomplete="off">
+                <input type="hidden" name="ItemId" value="@Model.ItemId" />
+                <h3 class="mb-3">Rent Information</h3>
+                @if (ViewBag.PropertyType == (int)AllWorldReservation.BL.Enums.EnumCollection.PropertyType.Rent)
+                {
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Date of arrival</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md book_date" name="ReservationFrom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Date of leave</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control input-md book_date" name="ReservationTo" required>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <h3 class="mb-3">Contact Details</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Email:*</label>
+                            <input type="email" class="form-control input-md" name="Email" value="@Model.Email" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Daytime Tel No:*</label>
+                            <input type="tel" class="form-control input-md" name="TelNo1" value="@Model.TelNo1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Evening Tel No:</label>
+                            <input type="tel" class="form-control input-md" name="TelNo2" value="@Model.TelNo2">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Address 1:*</label>
+                            <input type="text" class="form-control input-md" name="Address1" value="@Model.Address1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Address 2:</label>
+                            <input type="text" class="form-control input-md" name="Address2" value="@Model.Address2">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>City:*</label>
+                            <input type="text" class="form-control input-md" name="City" value="@Model.City" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Post Code:*</label>
+                            <input type="text" class="form-control input-md" name="PostCode" maxlength="10" value="@Model.PostCode" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Country:*</label>
+                            @Html.DropDownList("CountryId", (IEnumerable<SelectListItem>)ViewBag.Countries, "- Select -", new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                </div>
+                <h3 class="mb-3">Payment</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Payment Method</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <select class="form-control" name="PayType" required>
+                                <option value="1" selected>Pay Online</option>
+                                <option value="2">Pay Offline</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="mb-3">Booking Details</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Total amount</h5>
+                    </div>
+                    <div class="col-md-8">
+                        <h5>@Model.TotalAmount @(Model.Currency == AllWorldReservation.BL.Enums.EnumCollection.Currency.EGP ? "EGP" : "$")</h5>
+                        <input type="hidden" name="TotalAmount" value="@Model.TotalAmount" />
+                        <input type="hidden" name="Currency" value="@Model.Currency" />
+                    </div>
+                </div>
+                <button type="submit" class="mt-4 btn btn-primary form-control" style="width:100%;" id="payButton">Book</button>
+            </form>
+        </div>
+        <br />
+    </div>
+</section>

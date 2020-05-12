@@ -17,9 +17,9 @@ namespace AllWorldReservation.BL.Models
 
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(100)]
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "Name Required")]
-        [MaxLength(100, ErrorMessage = "Max Lenght 100 Character")]
         public string Name { get; set; }
 
         [Display(Name = "Upload Date")]

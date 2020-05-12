@@ -1,66 +1,125 @@
-﻿
+﻿@model AllWorldReservation.BL.Models.SettingModel
 @{
     Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
     ViewBag.Title = "Contact";
 }
 
 
-    <div class="hero-wrap js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
-                <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-                    <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Blog</span></p>
-                    <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Contact</h1>
-                </div>
+<div class="hero-wrap js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Contact</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Contact</h1>
             </div>
         </div>
     </div>
-    <section class="ftco-section contact-section ftco-degree-bg">
-        <div class="container">
-            <div class="row d-flex mb-5 contact-info">
-                <div class="col-md-12 mb-4">
-                    <h2 class="h4">Contact Information</h2>
-                </div>
-                <div class="w-100"></div>
-                <div class="col-md-3">
-                    <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
-                </div>
-                <div class="col-md-3">
-                    <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
-                </div>
-                <div class="col-md-3">
-                    <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
-                </div>
-                <div class="col-md-3">
-                    <p><span>Website</span> <a href="#">yoursite.com</a></p>
-                </div>
+</div>
+<section class="ftco-section contact-section ftco-degree-bg">
+    <div class="container">
+        <div class="row d-flex mb-5 contact-info">
+            <div class="col-md-12 mb-4">
+                <h2 class="h4">Contact Information</h2>
             </div>
-            <div class="row block-9">
-                <div class="col-md-6 order-md-last pr-md-5">
-                    <form action="#">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Email">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Subject">
-                        </div>
-                        <div class="form-group">
-                            <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
-                        </div>
-                    </form>
-
-                </div>
-                <div class="col-md-6">
-                    <div id="map"></div>
-                </div>
+            <div class="w-100"></div>
+            <div class="col-md-3">
+                <p><span>Address:</span> @Model.CompanyAddress</p>
+            </div>
+            <div class="col-md-3">
+                <p><span>Phone:</span> <a href="tel://@Model.CompanyPhone">@Model.CompanyPhone</a></p>
+            </div>
+            <div class="col-md-3">
+                <p><span>Telephone:</span> <a href="tel://@Model.CompanyTelephone">@Model.CompanyTelephone</a></p>
+            </div>
+            <div class="col-md-3">
+                <p><span>Email:</span> <a href="mailto:@Model.CompanyEmail">@Model.CompanyEmail</a></p>
             </div>
         </div>
-    </section>
+        <div class="row block-9">
+            <div class="col-md-6 order-md-last pr-md-5">
+                <form action="/Home/SendMail" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="Name" id="Name" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="Email" id="Email" placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="Subject" id="Subject" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea cols="30" rows="7" name="Message" id="Message" class="form-control" placeholder="Message"></textarea>
+                    </div>
+                    <div class="alert alert-success style" id="success" role="alert"></div>
+                    <div class="alert alert-danger style" id="error" role="alert"></div>
+                    <div class="form-group">
+                        <input type="submit" id="submitBtn" value="Send Message" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>
 
+            </div>
+            <div class="col-md-6">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts {
+    <script>
+        $(function () {
+            $('#error').hide();
+            $('#success').hide();
+            $("form").submit(function (ev) {
+                ev.preventDefault();
+                debugger;
+                var name = $("#Name").val();
+                var email = $("#Email").val();
+                var subject = $("#Subject").val();
+                var message = $("#Message").val();
+                if (name == "" || email == "" || subject == "" || message == "") {
+                    $('#error').html('Please Enter All Fields');
+                    $('#error').show();
+                    $('#success').hide();
+                    return false;
+                }
+                if (!isEmail(email)) {
+                    $('#error').html('Please Enter Valid Email');
+                    $('#error').show();
+                    $('#success').hide();
+                    return false;
+                }
+                $('#error').hide();
+                $('#success').hide();
+                $('#submitBtn').val('Sending...');
+                $.ajax({
+                    method: "POST",
+                    url: "/Home/SendMail",
+                    dataType: "html",
+                    data: $('form').serialize(),
+                    success: function (data, status, xhr) {
+                        debugger;
+                        $('#error').hide();
+                        $('#success').html('Message Send Successfully');
+                        $('#success').show();
+                        $("#Name").val("");
+                        $("#Email").val("");
+                        $("#Subject").val("");
+                        $("#Message").val("");
+                        $('#submitBtn').val('Send Message');
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) {
+                        debugger;
+                        $('#error').html('Something Goes Wrong');
+                        $('#success').hide();
+                        $('#submitBtn').val('Send Message');
+                    }
+                });
+            });
+        });
+        function isEmail(email) {
+              var regex = @Html.Raw(@"/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/");
+              return regex.test(email);
+        }
+    </script>
+}

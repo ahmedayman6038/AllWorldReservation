@@ -16,31 +16,35 @@ namespace AllWorldReservation.BL.Models
 
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "Name Required")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Display(Name = "Price")]
-        [Required(ErrorMessage = "Price Required")]
         [DataType(DataType.Currency)]
-        public float Price { get; set; }
+        [Display(Name = "Price In USD")]
+        public float PriceUSD { get; set; }
 
+        [DataType(DataType.Currency)]
+        [Display(Name = "Price In EGP")]
+        public float PriceEGP { get; set; }
+
+        [Required]
         [Display(Name = "Days")]
-        [Required(ErrorMessage = "Days Required")]
         [DataType(DataType.Duration)]
+        [Range(minimum: 1, maximum: 30)]
         public int Duration { get; set; }
 
-        [Display(Name = "Avalible From")]
         [DataType(DataType.Date)]
+        [Display(Name = "Avalible From")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? AvalibleFrom { get; set; }
 
-        [Display(Name = "Avalible To")]
         [DataType(DataType.Date)]
+        [Display(Name = "Avalible To")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? AvalibleTo { get; set; }
 

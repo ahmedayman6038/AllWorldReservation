@@ -11,13 +11,13 @@ namespace AllWorldReservation.BL.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "Code")]
-        [Required(ErrorMessage = "Code Required")]
         public string Code { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "Name Required")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string Name { get; set; }
 
         [Display(Name = "Country")]
@@ -31,5 +31,8 @@ namespace AllWorldReservation.BL.Models
 
         [Display(Name = "Tours Numbers")]
         public ICollection<TourModel> Tours { get; set; }
+
+        [Display(Name = "Properties Numbers")]
+        public ICollection<PropertyModel> properties { get; set; }
     }
 }

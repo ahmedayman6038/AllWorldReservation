@@ -1,11 +1,11 @@
 ﻿
-#v-pills-tabContent {
+/*#v-pills-tabContent {
     margin-right: 12% !important;
-}
+}*/
 
 .tab-content.p-4.px-5#v-pills-tabContent {
-    display: block;
-    margin-bottom: 30px;
+    /*display: block;
+     margin-bottom: 30px; */
     border: 1px solid #cccccc5c;
     padding: .5rem;
     border-radius: .5rem;

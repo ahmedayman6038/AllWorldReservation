@@ -66,14 +66,15 @@
     <Compile Include="Entities\Photo.cs" />
     <Compile Include="Entities\Place.cs" />
     <Compile Include="Entities\Post.cs" />
+    <Compile Include="Entities\Property.cs" />
     <Compile Include="Entities\Reservation.cs" />
     <Compile Include="Entities\Room.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\Tour.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
-    <Compile Include="Migrations\202004052012592_InitialCreation.cs" />
-    <Compile Include="Migrations\202004052012592_InitialCreation.designer.cs">
-      <DependentUpon>202004052012592_InitialCreation.cs</DependentUpon>
+    <Compile Include="Migrations\202005091927469_Property.cs" />
+    <Compile Include="Migrations\202005091927469_Property.designer.cs">
+      <DependentUpon>202005091927469_Property.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,8 +86,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004052012592_InitialCreation.resx">
-      <DependentUpon>202004052012592_InitialCreation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005091927469_Property.resx">
+      <DependentUpon>202005091927469_Property.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

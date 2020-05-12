@@ -12,23 +12,23 @@ namespace AllWorldReservation.BL.Models
     {
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(2)]
         [Display(Name = "Code")]
-        [Required(ErrorMessage = "Code Required")]
-        [MaxLength(2, ErrorMessage = "Max Lenght 2 Character")]
         public string Code { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "Name Required")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string Name { get; set; }
 
-        [Display(Name = "Places Number")]
+        [Display(Name = "Places Numbers")]
         public ICollection<PlaceModel> Places { get; set; }
 
-        [Display(Name = "Reservations Number")]
+        [Display(Name = "Reservations Numbers")]
         public ICollection<ReservationModel> Reservations { get; set; }
 
-        [Display(Name = "Users Number")]
+        [Display(Name = "Users Numbers")]
         public ICollection<ApplicationUser> Users { get; set; }
     }
 }

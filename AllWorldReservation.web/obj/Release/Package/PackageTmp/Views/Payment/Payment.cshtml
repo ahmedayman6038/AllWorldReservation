@@ -5,6 +5,7 @@
     Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
     ViewBag.Title = "Booking";
     var reservation = (Reservation)ViewBag.Reservation;
+    var currency = (AllWorldReservation.BL.Enums.EnumCollection.Currency)ViewBag.Currency;
 }
 
 <script type="text/javascript">
@@ -50,7 +51,7 @@
                 <input type="hidden" name="OrderDescription" id="order-description" value="@Model.OrderDescription" />
                 <input type="hidden" name="TransactionId" id="transaction-id" value="@Model.TransactionId" />
                 <div class="form-group">
-                    <h6>@reservation.TotalAmount</h6>
+                    <h6>@reservation.TotalAmount @(currency == AllWorldReservation.BL.Enums.EnumCollection.Currency.USD ? "$" : "EGP")</h6>
                 </div>
             </div>
 

@@ -26,6 +26,7 @@ namespace AllWorldReservation.DAL.Context
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Tour> Tours { get; set; }
+        public DbSet<Property> Properties { get; set; }
 
         public static ApplicationDbContext Create()
         {

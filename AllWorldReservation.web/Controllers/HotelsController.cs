@@ -125,7 +125,7 @@ namespace AllWorldReservation.web.Controllers
         {
             var hotel = new HotelModel();
             hotel.Rooms = new List<RoomModel>();
-            hotel.Rooms.Add(new RoomModel());
+            hotel.Rooms.Add(new RoomModel() { Guests = 1 });
             var places = unitOfWork.PlaceRepository.Get();
             ViewBag.PlaceId = new SelectList(places, "Id", "Name");
             return View(hotel);
@@ -135,15 +135,14 @@ namespace AllWorldReservation.web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description,Stars,Address,AvalibleFrom,AvalibleTo,Rooms,PhotoId,PlaceId")] HotelModel hotelModel, List<HttpPostedFileBase> files)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && hotelModel.Rooms != null)
             {
-                if (hotelModel.Rooms != null)
+                foreach (var item in hotelModel.Rooms.ToList())
                 {
-                    foreach (var item in hotelModel.Rooms.ToList())
-                    {
-                        if (item.Deleted) hotelModel.Rooms.Remove(item);
-                    }
+                    if (item.Deleted) hotelModel.Rooms.Remove(item);
                 }
+                hotelModel.PriceFromUSD = hotelModel.Rooms.Min(r => r.PriceUSD);
+                hotelModel.PriceFromEGP = hotelModel.Rooms.Min(r => r.PriceEGP);
                 var hotel = Mapper.Map<Hotel>(hotelModel);
                 unitOfWork.HotelRepository.Insert(hotel);
                 unitOfWork.Save();
@@ -210,7 +209,7 @@ namespace AllWorldReservation.web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Stars,Address,AvalibleFrom,AvalibleTo,Rooms,PhotoId,PlaceId")] HotelModel hotelModel)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && hotelModel.Rooms != null)
             {
                 var rooms = unitOfWork.RoomRepository.Get(r => r.HotelId == hotelModel.Id);
                 foreach (var item in rooms)
@@ -219,17 +218,16 @@ namespace AllWorldReservation.web.Controllers
                 }
                 var hotel = Mapper.Map<Hotel>(hotelModel);
                 hotel.Rooms = null;
+                hotel.PriceFromUSD = hotelModel.Rooms.Min(r => r.PriceUSD);
+                hotel.PriceFromEGP = hotelModel.Rooms.Min(r => r.PriceEGP);
                 unitOfWork.HotelRepository.Update(hotel);
-                if(hotelModel.Rooms != null)
+                foreach (var item in hotelModel.Rooms.ToList())
                 {
-                    foreach (var item in hotelModel.Rooms.ToList())
+                    if (!item.Deleted)
                     {
-                        if (!item.Deleted)
-                        {
-                            var room = Mapper.Map<Room>(item);
-                            room.HotelId = hotel.Id;
-                            unitOfWork.RoomRepository.Insert(room);
-                        }
+                        var room = Mapper.Map<Room>(item);
+                        room.HotelId = hotel.Id;
+                        unitOfWork.RoomRepository.Insert(room);
                     }
                 }
                 unitOfWork.Save();
@@ -252,6 +250,7 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
+            // Delete Hotel Photos
             var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Hotel && p.ItemId == hotel.Id);
             foreach (var photo in photos)
             {
@@ -261,6 +260,18 @@ namespace AllWorldReservation.web.Controllers
                     System.IO.File.Delete(PhotoPath);
                 }
                 unitOfWork.PhotoRepository.Delete(photo);
+            }
+            // Delete Hotel Rooms
+            var rooms = unitOfWork.RoomRepository.Get(r => r.HotelId == hotel.Id);
+            foreach (var room in rooms)
+            {
+                unitOfWork.RoomRepository.Delete(room);
+            }
+            // Delete Hotel Reservations
+            var reservations = unitOfWork.ReservationRepository.Get(r => r.ReservationType == (int)ReservationType.Hotel && r.ItemId == hotel.Id);
+            foreach (var reservation in reservations)
+            {
+                unitOfWork.ReservationRepository.Delete(reservation);
             }
             unitOfWork.HotelRepository.Delete(hotel);
             unitOfWork.Save();

@@ -17,7 +17,6 @@ namespace AllWorldReservation.web.Controllers
     /// Controller responsible to centralize the process and result methods
     /// </summary>
     /// 
-    [Authorize]
     public class PaymentApiController : BaseController
     {
 

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AllWorldReservation.BL.Enums.EnumCollection;
 
 namespace AllWorldReservation.BL.Models
 {
@@ -11,47 +12,50 @@ namespace AllWorldReservation.BL.Models
     {
         public int Id { get; set; }
 
+        [MaxLength(50)]
         [Display(Name = "Company Name")]
-        [Required(ErrorMessage = "Company Name Required")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string CompanyName { get; set; }
 
+        [EmailAddress]
+        [MaxLength(50)]
         [Display(Name = "Company Email")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
-        [EmailAddress(ErrorMessage = "Company Email Required")]
         public string CompanyEmail { get; set; }
 
+        [MaxLength(100)]
         [Display(Name = "Company Address")]
-        [MaxLength(100, ErrorMessage = "Max Lenght 100 Character")]
         public string CompanyAddress { get; set; }
 
+        [MaxLength(50)]
         [Display(Name = "Company Phone")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string CompanyPhone { get; set; }
 
+        [MaxLength(50)]
         [Display(Name = "Company Telephone")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string CompanyTelephone { get; set; }
 
+        [MaxLength(50)]
         [Display(Name = "Company Fax")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string CompanyFax { get; set; }
 
+        [MaxLength(300)]
         [Display(Name = "About Company")]
         [DataType(DataType.MultilineText)]
-        [MaxLength(300, ErrorMessage = "Max Lenght 300 Character")]
         public string AboutCompany { get; set; }
 
+        [MaxLength(200)]
         [Display(Name = "Facebook Url")]
-        [MaxLength(200, ErrorMessage = "Max Lenght 200 Character")]
         public string FacebookUrl { get; set; }
 
+        [MaxLength(200)]
         [Display(Name = "Twitter Url")]
-        [MaxLength(200, ErrorMessage = "Max Lenght 200 Character")]
         public string TwitterUrl { get; set; }
 
+        [MaxLength(200)]
         [Display(Name = "Instagram Url")]
-        [MaxLength(200, ErrorMessage = "Max Lenght 200 Character")]
         public string InstagramUrl { get; set; }
+
+        [Required]
+        [Display(Name = "Currency")]
+        public Currency Currency { get; set; }
     }
 }

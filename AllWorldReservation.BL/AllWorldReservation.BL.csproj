@@ -81,6 +81,7 @@
     <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Models\PlaceModel.cs" />
     <Compile Include="Models\PostModel.cs" />
+    <Compile Include="Models\PropertyModel.cs" />
     <Compile Include="Models\ReservationModel.cs" />
     <Compile Include="Models\RoomModel.cs" />
     <Compile Include="Models\SettingModel.cs" />

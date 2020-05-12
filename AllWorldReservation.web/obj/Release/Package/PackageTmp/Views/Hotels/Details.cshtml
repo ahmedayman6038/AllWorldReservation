@@ -85,7 +85,7 @@
                     if (!Model.Rooms.ElementAt(i).Deleted)
                     {
                         <div class="row clearfix">
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 Room Name
                                 <div class="form-group">
                                     <div class="form-line">
@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-sm-4">
                                 Room Description
                                 <div class="form-group">
                                     <div class="form-line">
@@ -102,10 +102,18 @@
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                Total Amount
+                                USD Price
                                 <div class="form-group">
                                     <div class="form-line">
-                                        @Model.Rooms.ElementAt(i).TotalAmount
+                                        @Model.Rooms.ElementAt(i).PriceUSD
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                EGP Price
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        @Model.Rooms.ElementAt(i).PriceEGP
                                     </div>
                                 </div>
                             </div>

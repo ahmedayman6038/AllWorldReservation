@@ -30,5 +30,6 @@ namespace AllWorldReservation.DAL.Entities
 
         public virtual ICollection<Tour> Tours { get; set; }
 
+        public virtual ICollection<Property> Properties { get; set; }
     }
 }

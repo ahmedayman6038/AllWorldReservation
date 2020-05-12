@@ -18,8 +18,9 @@ namespace AllWorldReservation.DAL.Entities
 
         public string Description { get; set; }
 
-        [Required]
-        public float Price { get; set; }
+        public float PriceFromUSD { get; set; }
+
+        public float PriceFromEGP { get; set; }
 
         public int Stars { get; set; }
 

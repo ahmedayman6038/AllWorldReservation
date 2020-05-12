@@ -30,4 +30,6 @@ E:\AllWorldReservation\AllWorldReservation.DAL\bin\Release\Microsoft.AspNet.Iden
 E:\AllWorldReservation\AllWorldReservation.DAL\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
 E:\AllWorldReservation\AllWorldReservation.DAL\bin\Release\Microsoft.AspNet.Identity.Core.xml
 E:\AllWorldReservation\AllWorldReservation.DAL\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
-E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.InitialCreation.resources
+E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.Property.resources
+E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.Property2.resources
+E:\AllWorldReservation\AllWorldReservation.DAL\obj\Release\AllWorldReservation.DAL.Migrations.Property3.resources

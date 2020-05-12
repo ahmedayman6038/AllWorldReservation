@@ -23,19 +23,21 @@
                 @foreach (var item in Model)
                 {
                     <div class="col-md-4 d-flex ftco-animate">
-                        <div class="blog-entry align-self-stretch">
-                            <a href="/Blog/@item.Id" class="block-20" style="background-image: url(@(item.Photo != null ? "../../Uploads/" + item.Photo.Name : "../../images/blank.png"));">
-                            </a>
-                            <div class="text">
-                                <h3 class="heading mt-3"><a href="/Blog/@item.Id">@item.Title</a></h3>
-                                <div class="meta mb-3">
-                                    <div><a href="#">@item.CreatedDate.ToString("MMMM") @item.CreatedDate.Day, @item.CreatedDate.Year</a></div>
-                                    <div><a href="#">Admin</a></div>
+                        <div class="destination">
+                            <div class="blog-entry align-self-stretch">
+                                <a href="/Blog/@item.Id" class="block-20" style="background-image: url(@(item.Photo != null ? "../../Uploads/" + item.Photo.Name : "../../images/blank.png"));">
+                                </a>
+                                <div class="text">
+                                    <h3 class="heading mt-3"><a href="/Blog/@item.Id">@item.Title</a></h3>
+                                    <div class="meta mb-3">
+                                        <div><a href="#">@item.CreatedDate.ToString("MMMM") @item.CreatedDate.Day, @item.CreatedDate.Year</a></div>
+                                        <div><a href="#">@item.User.UserName</a></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
+                    }
                 </div>
             <div class="row mt-5">
                 <div class="col text-center">

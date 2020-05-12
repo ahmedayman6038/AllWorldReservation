@@ -12,26 +12,23 @@ namespace AllWorldReservation.web.Helper
     public static class NotificationHelper
     {
   
-        public static void NotifySuccessBooking(Reservation reservation)
+        public static void NotifySuccessBooking(Reservation reservation, List<string> emails)
         {
             Task.Run(async () =>
             {
-                ApplicationDbContext context = new ApplicationDbContext();
                 EmailService emailService = new EmailService();
                 IdentityMessage message = new IdentityMessage();
 
                 // Send Notification To Customer
                 message.Destination = reservation.Email;
-                message.Subject = "Success Booking";
-                message.Body = "<h3>Your Booking Received Successfully With Order ID : "+reservation.OrderId+"<h3>";
+                message.Subject = "Booking Request";
+                message.Body = "<h3>Your Booking Request Received Successfully With Order ID : "+reservation.OrderId+"<h3>";
                 await emailService.SendAsync(message);
 
-                // Send Notification to Admins with Booking
-                var roleId = context.Roles.Where(r => r.Name == "Admin").First().Id;
-                var admins = context.Users.Where(u => u.Roles.First().RoleId == roleId).ToList();
-                foreach (var admin in admins)
+                // Send Notification to Admins And Emps with Booking
+                foreach (var email in emails)
                 {
-                    message.Destination = admin.Email;
+                    message.Destination = email;
                     message.Subject = "Booking Request";
                     message.Body = "<h3>There is a booking request With Order ID : " + reservation.OrderId + "<h3>";
                     await emailService.SendAsync(message);
@@ -52,6 +49,19 @@ namespace AllWorldReservation.web.Helper
             });
         }
 
+        public static void NotifyApproveBooking(Reservation reservation)
+        {
+            Task.Run(async () =>
+            {
+                EmailService emailService = new EmailService();
+                IdentityMessage message = new IdentityMessage();
+                message.Destination = reservation.Email;
+                message.Subject = "Approved Booking";
+                message.Body = "<h3>Your Booking Approved With Order ID : " + reservation.OrderId + "<h3>";
+                await emailService.SendAsync(message);
+            });
+        }
+
         public static void NotifyUserByMail(string To, string Subject, string Message)
         {
             Task.Run(async () =>
@@ -62,6 +72,22 @@ namespace AllWorldReservation.web.Helper
                 message.Subject = Subject;
                 message.Body = Message;
                 await emailService.SendAsync(message);
+            });
+        }
+
+        public static void NotifyUsersByMail(List<string> To, string Subject, string Message)
+        {
+            Task.Run(async () =>
+            {
+                foreach (var mail in To)
+                {
+                    EmailService emailService = new EmailService();
+                    IdentityMessage message = new IdentityMessage();
+                    message.Destination = mail;
+                    message.Subject = Subject;
+                    message.Body = Message;
+                    await emailService.SendAsync(message);
+                }
             });
         }
     }

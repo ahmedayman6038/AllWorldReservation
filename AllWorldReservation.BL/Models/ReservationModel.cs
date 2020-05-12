@@ -30,60 +30,65 @@ namespace AllWorldReservation.BL.Models
         public string ReservedItem { get; set; }
 
         [Required]
+        [EmailAddress]
+        [MaxLength(50)]
         [Display(Name = "Email")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
-        [EmailAddress(ErrorMessage = "Not Valid Email Address")]
         public string Email { get; set; }
 
         [Required]
+        [MaxLength(50)]
         [Display(Name = "Telelphone No 1")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string TelNo1 { get; set; }
 
-        [Display(Name = "Telelphone No 1")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
+        [MaxLength(50)]
+        [Display(Name = "Telelphone No 2")]
         public string TelNo2 { get; set; }
 
         [Required]
+        [MaxLength(150)]
         [Display(Name = "Address 1")]
-        [MaxLength(150, ErrorMessage = "Max Lenght 50 Character")]
         public string Address1 { get; set; }
 
+        [MaxLength(150)]
         [Display(Name = "Address 2")]
-        [MaxLength(150, ErrorMessage = "Max Lenght 50 Character")]
         public string Address2 { get; set; }
 
         [Required]
+        [MaxLength(50)]
         [Display(Name = "City")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string City { get; set; }
 
         [Required]
+        [MaxLength(10)]
         [Display(Name = "Post Code")]
-        [MaxLength(10, ErrorMessage = "Max Lenght 50 Character")]
         public string PostCode { get; set; }
 
         [Display(Name = "Country Code")]
         public string CountryCode { get; set; }
 
-        [Required]
         [Display(Name = "Country")]
         public int? CountryId { get; set; }
 
         [Display(Name = "Paid")]
         public bool Paied { get; set; }
 
+        [MaxLength(50)]
         [Display(Name = "Order ID")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string OrderId { get; set; }
 
-        [Required]
         [DataType(DataType.Currency)]
         [Display(Name = "Total Amount")]
         public float TotalAmount { get; set; }
 
+        [Required]
+        [Display(Name = "Currency")]
+        public Currency Currency { get; set; }
+
         [Display(Name = "Reservation By")]
         public string UserId { get; set; }
+
+        [Display(Name = "Approved")]
+        public bool Approved { get; set; }
 
         [Required]
         [Display(Name = "Reservation From")]

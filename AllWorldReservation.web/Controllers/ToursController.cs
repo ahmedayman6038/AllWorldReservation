@@ -130,7 +130,7 @@ namespace AllWorldReservation.web.Controllers
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,Duration,AvalibleFrom,AvalibleTo,PlaceId,PhotoId")] TourModel tourModel, List<HttpPostedFileBase> files)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,PriceUSD,PriceEGP,Duration,AvalibleFrom,AvalibleTo,PlaceId,PhotoId")] TourModel tourModel, List<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
@@ -198,7 +198,7 @@ namespace AllWorldReservation.web.Controllers
 
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,Duration,AvalibleFrom,AvalibleTo,PlaceId,PhotoId")] TourModel tourModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,PriceUSD,PriceEGP,Duration,AvalibleFrom,AvalibleTo,PlaceId,PhotoId")] TourModel tourModel)
         {
             if (ModelState.IsValid)
             {
@@ -224,6 +224,7 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
+            // Delete Tour Photos
             var photos = unitOfWork.PhotoRepository.Get(p => p.Type == (int)PhotoType.Tour && p.ItemId == tour.Id);
             foreach (var photo in photos)
             {
@@ -233,6 +234,12 @@ namespace AllWorldReservation.web.Controllers
                     System.IO.File.Delete(PhotoPath);
                 }
                 unitOfWork.PhotoRepository.Delete(photo);
+            }
+            // Delete Tour Reservations
+            var reservations = unitOfWork.ReservationRepository.Get(r => r.ReservationType == (int)ReservationType.Tour && r.ItemId == tour.Id);
+            foreach (var reservation in reservations)
+            {
+                unitOfWork.ReservationRepository.Delete(reservation);
             }
             unitOfWork.TourRepository.Delete(tour);
             unitOfWork.Save();

@@ -18,7 +18,9 @@ namespace AllWorldReservation.DAL.Entities
 
         public string Description { get; set; }
 
-        public float TotalAmount { get; set; }
+        public float PriceUSD { get; set; }
+
+        public float PriceEGP { get; set; }
 
         public int? HotelId { get; set; }
 

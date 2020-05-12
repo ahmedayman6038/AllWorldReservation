@@ -1,11 +1,17 @@
-﻿@using AllWorldReservation.web.Models
-@model AllWorldReservation.BL.Models.HotelModel
+﻿@model AllWorldReservation.web.Models.HotelViewModel
 @{
     Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
-    ViewBag.Title = "Booking";
-    var rooms = (List<SearchViewModel>)ViewBag.Rooms;
+    ViewBag.Title = "Hotel";
     var checkIn = (DateTime)ViewBag.CheckIn;
     var checkOut = (DateTime)ViewBag.CheckOut;
+    var counter = 0;
+    var rooms = 0;
+    var currency = (AllWorldReservation.BL.Enums.EnumCollection.Currency)ViewBag.Currency;
+    var isUSD = false;
+    if(Model.Type == AllWorldReservation.BL.Enums.EnumCollection.ReservationType.SunHotel || currency == AllWorldReservation.BL.Enums.EnumCollection.Currency.USD)
+    {
+        isUSD = true;
+    }
 }
 <div class="hero-wrap js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
     <div class="overlay"></div>
@@ -13,7 +19,7 @@
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Hotel</span></p>
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">@ViewBag.Location</h1>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">@Model.Place</h1>
             </div>
         </div>
     </div>
@@ -30,7 +36,7 @@
                 @Html.Raw(Model.Description)
             </div> <!-- .col-md-8 -->
             <div class="col-md-4">
-                <img src="@(Model.Photo != null ? "/Uploads/" + Model.Photo.Name : "/images/blank.png")" class="dynamic" id="@Model.Id" name="@Model.Name" style='height: 100%; width: 100%; object-fit: contain' />
+                <img src="@(Model.Photo != null ? "/Uploads/" + Model.Photo : "/images/blank.png")" class="dynamic" id="@Model.Id" name="@Model.Name" style='height: 100%; width: 100%; object-fit: contain' />
             </div>
         </div>
         <br />
@@ -41,12 +47,10 @@
                 <input type="hidden" name="CheckIn" value="@checkIn" />
                 <input type="hidden" name="CheckOut" value="@checkOut" />
                 <input type="hidden" name="HotelType" value="@Model.Type" />
-                @{ var counter = 0;}
-                @foreach (var item in rooms)
+                @foreach (var item in Model.RoomAllocations)
                 {
-                    var totalGuests = item.Adults + item.Teenagers + item.Children + item.Infants;
+                    var totalGuests = item.Adults + item.Children + item.Infants;
                     var first = true;
-                    var hotelRooms = Model.Rooms.Where(r => r.Guests == totalGuests);
                     <table style="width:100%;text-align:center;">
                         <tr>
                             <th>Select</th>
@@ -54,20 +58,24 @@
                             <th>Description</th>
                             <th>Room Price</th>
                         </tr>
-                        @foreach (var room in hotelRooms)
+                        @foreach (var room in item.Rooms)
                         {
                             <tr>
-                                <td><input type="radio" name="rooms[@counter]" value="@room.Id" @(first ? "checked" : "") /></td>
+                                <td><input type="radio" name="rooms[@counter]" value='{"Id":"@room.Id","RateId":"@room.RateId","TotalAmount":"@(isUSD ? room.PriceUSD : room.PriceEGP)"}' @(first ? "checked" : "") /></td>
                                 <td>@room.Name</td>
                                 <td>@room.Description</td>
-                                <td>@room.TotalAmount $</td>
+                                <td>@(isUSD ? room.PriceUSD.ToString() + " $" : room.PriceEGP.ToString() + " EGP")</td>
                             </tr>
                             first = false;
+                            rooms++;
                         }
                     </table>
                     counter++;
                 }
-                <button type="submit" class="mt-4 btn btn-primary" id="payButton">Book</button>
+                @if (rooms != 0)
+                {
+                    <button type="submit" class="mt-4 btn btn-primary" id="payButton">Book</button>
+                }
             </form>
         </div>
     </div>

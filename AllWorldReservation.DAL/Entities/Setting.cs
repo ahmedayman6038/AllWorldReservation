@@ -12,7 +12,6 @@ namespace AllWorldReservation.DAL.Entities
         [Key]
         public int Id { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string CompanyName { get; set; }
 
@@ -42,6 +41,5 @@ namespace AllWorldReservation.DAL.Entities
 
         [MaxLength(200)]
         public string InstagramUrl { get; set; }
-
     }
 }

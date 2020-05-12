@@ -17,24 +17,24 @@ namespace AllWorldReservation.BL.Models
 
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "Name Required")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string Name { get; set; }
 
+        [Required]
+        [EmailAddress]
+        [MaxLength(50)]
         [Display(Name = "Email")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
-        [Required(ErrorMessage = "Email Required")]
-        [EmailAddress(ErrorMessage = "Not Valid Email Address")]
         public string Email { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         [Display(Name = "Subject")]
-        [Required(ErrorMessage = "Subject Required")]
-        [MaxLength(50, ErrorMessage = "Max Lenght 50 Character")]
         public string Subject { get; set; }
 
+        [Required]
         [Display(Name = "Message")]
-        [Required(ErrorMessage = "Message Required")]
         public string Message { get; set; }
 
         [Display(Name = "Send By")]

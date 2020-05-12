@@ -2,7 +2,8 @@
 @model IEnumerable<AllWorldReservation.BL.Models.HotelModel>
 @{
     Layout = "~/Views/Layout/WebsiteLayout/_WebsiteLayout.cshtml";
-    ViewBag.Title = "Hotel";
+    ViewBag.Title = "Hotels";
+    var currency = (AllWorldReservation.BL.Enums.EnumCollection.Currency)ViewBag.Currency;
 }
 
 <div class="hero-wrap js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
@@ -39,31 +40,37 @@
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                     <select name="star" id="star" class="form-control" placeholder="Stars">
                                         <option value="">Select Star</option>
-                                        <option value="1" @(ViewBag.Stars==1? "selected":"")>1</option>
-                                        <option value="2" @(ViewBag.Stars==2? "selected":"")>2</option>
-                                        <option value="3" @(ViewBag.Stars==3? "selected":"")>3</option>
-                                        <option value="4" @(ViewBag.Stars==4? "selected":"")>4</option>
-                                        <option value="5" @(ViewBag.Stars==5? "selected":"")>5</option>
+                                        <option value="1" @(ViewBag.Stars == 1 ? "selected" : "")>1</option>
+                                        <option value="2" @(ViewBag.Stars == 2 ? "selected" : "")>2</option>
+                                        <option value="3" @(ViewBag.Stars == 3 ? "selected" : "")>3</option>
+                                        <option value="4" @(ViewBag.Stars == 4 ? "selected" : "")>4</option>
+                                        <option value="5" @(ViewBag.Stars == 5 ? "selected" : "")>5</option>
                                     </select>
                                 </div>
                             </div>
                             @*<div class="form-group">
-                                <input type="text" id="checkin_date" class="form-control checkin_date" placeholder="Date from">
+            <input type="text" id="checkin_date" class="form-control checkin_date" placeholder="Date from">
+        </div>
+        <div class="form-group">
+            <input type="text" id="checkout_date" class="form-control checkout_date" placeholder="Date to">
+        </div>*@
+                            @*<div class="form-group">
+                        <div class="range-slider">
+                            <span>
+                                From
+                                <input type="number" name="fromPrice" id="fromPrice" value="@ViewBag.FromPrice" min="0" max="120000" />	-
+                                To
+                                <input type="number" name="toPrice" id="toPrice" value="@ViewBag.ToPrice" min="0" max="120000" />
+                            </span>
+                            <input value="1000" min="0" max="120000" step="500" type="range" />
+        <input value="50000" min="0" max="120000" step="500" type="range" />
+                        </div>
+                    </div>*@
+                            <div class="form-group">
+                                <input type="number" name="fromPrice" class="form-control" id="fromPrice" placeholder="Enter Price From" value="@ViewBag.FromPrice" min="0" max="120000" />
                             </div>
                             <div class="form-group">
-                                <input type="text" id="checkout_date" class="form-control checkout_date" placeholder="Date to">
-                            </div>*@
-                            <div class="form-group">
-                                <div class="range-slider">
-                                    <span>
-                                        From
-                                        <input type="number" name="fromPrice" id="fromPrice" value="@ViewBag.FromPrice" min="0" max="120000" />	-
-                                        To
-                                        <input type="number" name="toPrice" id="toPrice" value="@ViewBag.ToPrice" min="0" max="120000" />
-                                    </span>
-                                    @*<input value="1000" min="0" max="120000" step="500" type="range" />
-                <input value="50000" min="0" max="120000" step="500" type="range" />*@
-                                </div>
+                                <input type="number" name="toPrice" class="form-control" id="toPrice" placeholder="Enter Price To" value="@ViewBag.ToPrice" min="0" max="120000" />
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
@@ -110,14 +117,21 @@
                                             </p>
                                         </div>
                                         <div class="two">
-                                            <span class="price per-price"><small>Price From </small><br>@item.Price $</span>
+                                            @if (currency == AllWorldReservation.BL.Enums.EnumCollection.Currency.EGP)
+                                            {
+                                                <span class="price per-price"><small>Price From </small><br>@item.PriceFromEGP EGP</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="price per-price"><small>Price From </small><br>@item.PriceFromUSD $</span>
+                                            }
                                         </div>
                                     </div>
                                     <p>@Regex.Replace(item.Description ?? "", "<(.|\\n)*?>", string.Empty)</p>
                                     <hr>
                                     <p class="bottom-area d-flex">
                                         <span><i class="icon-map-o"></i> @item.Place.Name</span>
-                                        <span class="ml-auto"><a href="/Check/Hotel?destination=@item.PlaceId&checkIn=@ViewBag.CheckIn&checkOut=@ViewBag.CheckOut&itemId=@item.ResultId&Type=@item.Type">More</a></span>
+                                        <span class="ml-auto"><a href="/Check/Hotel?destination=@item.PlaceId&checkIn=@ViewBag.CheckIn&checkOut=@ViewBag.CheckOut&itemId=@item.Id&Type=@AllWorldReservation.BL.Enums.EnumCollection.ReservationType.Hotel">More</a></span>
                                     </p>
                                 </div>
                             </div>

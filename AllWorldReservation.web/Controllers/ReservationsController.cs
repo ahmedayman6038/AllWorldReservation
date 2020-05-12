@@ -1,6 +1,7 @@
 ﻿using AllWorldReservation.BL.Models;
 using AllWorldReservation.BL.Repositories;
 using AllWorldReservation.DAL.Context;
+using AllWorldReservation.web.Helper;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,11 @@ namespace AllWorldReservation.web.Controllers
                 var tour = unitOfWork.TourRepository.GetByID(reservationModel.ItemId);
                 reservationModel.ReservedItem = tour.Name;
             }
+            else if (reservationModel.ReservationType == ReservationType.Property)
+            {
+                var property = unitOfWork.PropertyRepository.GetByID(reservationModel.ItemId);
+                reservationModel.ReservedItem = property.Name;
+            }
             else if (reservationModel.ReservationType == ReservationType.SunHotel)
             {
                 reservationModel.ReservedItem = "Sun Hotel";
@@ -75,6 +81,7 @@ namespace AllWorldReservation.web.Controllers
             {
                 return HttpNotFound();
             }
+            // Delete Reservation Guests
             var guests = unitOfWork.GuestRepository.Get(g => g.ReservationId == id);
             foreach (var guest in guests)
             {
@@ -82,6 +89,25 @@ namespace AllWorldReservation.web.Controllers
             }
             unitOfWork.ReservationRepository.Delete(reservation);
             unitOfWork.Save();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Approve(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var reservation = unitOfWork.ReservationRepository.GetByID(id);
+            if (reservation == null)
+            {
+                return HttpNotFound();
+            }
+            reservation.Approved = true;
+            unitOfWork.ReservationRepository.Update(reservation);
+            unitOfWork.Save();
+            NotificationHelper.NotifyApproveBooking(reservation);
             return RedirectToAction("Index");
         }
     }

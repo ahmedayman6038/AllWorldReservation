@@ -110,6 +110,19 @@ namespace AllWorldReservation.BL.Repositories
             }
         }
 
+        private GenericRepository<Property> propertyRepository;
+        public IGenericRepository<Property> PropertyRepository
+        {
+            get
+            {
+                if (this.propertyRepository == null)
+                {
+                    this.propertyRepository = new GenericRepository<Property>(_context);
+                }
+                return propertyRepository;
+            }
+        }
+
         private GenericRepository<Room> roomRepository;
         public IGenericRepository<Room> RoomRepository
         {
